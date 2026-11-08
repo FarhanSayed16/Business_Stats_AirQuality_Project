@@ -12,12 +12,18 @@ import type {
   EvaluationDetails
 } from '../types';
 
-const API_BASE_URL =
+const rawApiBase =
   import.meta.env.VITE_API_URL ||
-  (typeof window !== 'undefined' && (window.location.port === '8000' || !window.location.port) ? '' : 'http://localhost:8000');
+  (typeof window !== 'undefined' && (window.location.port === '8000' || !window.location.port)
+    ? ''
+    : 'http://localhost:8000');
+
+/** Strip trailing slash so `/health` never becomes `//health` */
+const API_BASE_URL = String(rawApiBase).replace(/\/+$/, '');
 
 async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${path}`;
   const response = await fetch(url, options);
   if (!response.ok) {
     const errorText = await response.text();

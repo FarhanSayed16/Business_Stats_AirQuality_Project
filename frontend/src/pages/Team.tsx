@@ -87,11 +87,12 @@ export const Team: React.FC = () => {
     { name: 'Recharts', category: 'Data Visualization', desc: 'Interactive timeseries, bar charts, and scatter plots' }
   ];
 
-  const apiBase =
+  const apiBase = String(
     import.meta.env.VITE_API_URL ||
-    (typeof window !== 'undefined' && (window.location.port === '8000' || !window.location.port)
-      ? ''
-      : 'http://localhost:8000');
+      (typeof window !== 'undefined' && (window.location.port === '8000' || !window.location.port)
+        ? ''
+        : 'http://localhost:8000')
+  ).replace(/\/+$/, '');
 
   const deliverables = [
     { name: 'Formal Statistics Assessment Report (HTML)', format: 'HTML (printable)', path: `${apiBase}/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.html`, desc: 'Full college assessment report — open and Print to PDF if needed.' },
