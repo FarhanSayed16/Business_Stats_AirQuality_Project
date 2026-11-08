@@ -12,14 +12,18 @@ def get_data_rows(
     page_size: int = Query(50, ge=10, le=200),
     start_date: Optional[str] = Query(None),
     end_date: Optional[str] = Query(None),
-    hour: Optional[int] = Query(None, ge=0, le=23)
+    hour: Optional[int] = Query(None, ge=0, le=23),
+    split: Optional[str] = Query(None),
+    search: Optional[str] = Query(None)
 ):
     return data_service.get_paginated_data(
         page=page,
         page_size=page_size,
         start_date=start_date,
         end_date=end_date,
-        hour=hour
+        hour=hour,
+        split=split,
+        search=search
     )
 
 @router.get("/missingness", response_model=List[Dict[str, Any]])

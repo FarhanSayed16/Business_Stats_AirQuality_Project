@@ -12,7 +12,9 @@ import type {
   EvaluationDetails
 } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (typeof window !== 'undefined' && (window.location.port === '8000' || !window.location.port) ? '' : 'http://localhost:8000');
 
 async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -61,11 +63,21 @@ export const api = {
     return fetchJson<WeatherScatterPoint[]>('/stats/weather-scatter');
   },
 
-  async getDataRows(page: number = 1, pageSize: number = 25, startDate?: string, endDate?: string, hour?: number): Promise<PaginatedData> {
+  async getDataRows(
+    page: number = 1,
+    pageSize: number = 25,
+    startDate?: string,
+    endDate?: string,
+    hour?: number,
+    split?: string,
+    search?: string
+  ): Promise<PaginatedData> {
     const params = new URLSearchParams({ page: page.toString(), page_size: pageSize.toString() });
     if (startDate) params.append('start_date', startDate);
     if (endDate) params.append('end_date', endDate);
     if (hour !== undefined && hour !== null) params.append('hour', hour.toString());
+    if (split) params.append('split', split);
+    if (search) params.append('search', search);
     return fetchJson<PaginatedData>(`/data?${params.toString()}`);
   },
 

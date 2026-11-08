@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Download, Filter, Info, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Download, Filter, Info, CheckCircle2, ChevronLeft, ChevronRight, Search, X } from 'lucide-react';
 import { api } from '../api/client';
 import type { PaginatedData, MissingnessItem } from '../types';
 
@@ -9,6 +9,8 @@ export const Explore: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hourFilter, setHourFilter] = useState<string>('');
+  const [splitFilter, setSplitFilter] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [showDictionary, setShowDictionary] = useState(false);
 
   useEffect(() => {
@@ -18,7 +20,10 @@ export const Explore: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     const hourNum = hourFilter !== '' ? parseInt(hourFilter, 10) : undefined;
-    api.getDataRows(page, 20, undefined, undefined, hourNum)
+    const splitVal = splitFilter !== '' ? splitFilter : undefined;
+    const searchVal = searchTerm.trim() !== '' ? searchTerm.trim() : undefined;
+
+    api.getDataRows(page, 20, undefined, undefined, hourNum, splitVal, searchVal)
       .then((res) => {
         setData(res);
         setLoading(false);
@@ -27,7 +32,7 @@ export const Explore: React.FC = () => {
         console.error(err);
         setLoading(false);
       });
-  }, [page, hourFilter]);
+  }, [page, hourFilter, splitFilter, searchTerm]);
 
   const dictionary = [
     { name: 'Date / Time', meaning: 'Observation timestamp', unit: 'ISO Datetime', role: 'Time index / temporal features' },
@@ -146,24 +151,72 @@ export const Explore: React.FC = () => {
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         {/* Table Filters Toolbar */}
         <div className="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-4 bg-slate-50/50">
-          <div className="flex items-center gap-3">
-            <Filter className="w-4 h-4 text-slate-500" />
-            <span className="text-xs font-semibold text-slate-700">Filter by Hour:</span>
-            <select
-              value={hourFilter}
-              onChange={(e) => {
-                setHourFilter(e.target.value);
-                setPage(1);
-              }}
-              className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            >
-              <option value="">All Hours (0–23)</option>
-              {Array.from({ length: 24 }).map((_, i) => (
-                <option key={i} value={i}>
-                  {i < 10 ? `0${i}` : i}:00
-                </option>
-              ))}
-            </select>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-slate-500" />
+              <span className="text-xs font-semibold text-slate-700">Hour:</span>
+              <select
+                value={hourFilter}
+                onChange={(e) => {
+                  setHourFilter(e.target.value);
+                  setPage(1);
+                }}
+                className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option value="">All (0–23)</option>
+                {Array.from({ length: 24 }).map((_, i) => (
+                  <option key={i} value={i}>
+                    {i < 10 ? `0${i}` : i}:00
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-slate-700">Split:</span>
+              <select
+                value={splitFilter}
+                onChange={(e) => {
+                  setSplitFilter(e.target.value);
+                  setPage(1);
+                }}
+                className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option value="">All Splits</option>
+                <option value="train">Train Set (70%)</option>
+                <option value="val">Validation Set (15%)</option>
+                <option value="test">Holdout Test (15%)</option>
+              </select>
+            </div>
+
+            <div className="relative flex items-center">
+              <Search className="w-3.5 h-3.5 absolute left-2.5 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search datetime (e.g. 2005-02)..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setPage(1);
+                }}
+                className="text-xs bg-white border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 font-medium text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 w-52"
+              />
+            </div>
+
+            {(hourFilter !== '' || splitFilter !== '' || searchTerm !== '') && (
+              <button
+                onClick={() => {
+                  setHourFilter('');
+                  setSplitFilter('');
+                  setSearchTerm('');
+                  setPage(1);
+                }}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold hover:bg-rose-100 transition-colors"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>Reset Filters</span>
+              </button>
+            )}
           </div>
 
           <div className="text-xs text-slate-500">

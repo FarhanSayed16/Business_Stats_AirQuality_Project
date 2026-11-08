@@ -100,6 +100,22 @@ export interface PredictionResult {
   features_used: Record<string, number>;
 }
 
+export interface FeatureImportanceItem {
+  feature: string;
+  label: string;
+  importance: number;
+  importance_std: number;
+}
+
+export interface ErrorTierItem {
+  tier: string;
+  range: string;
+  count: number;
+  pct_of_test: number;
+  mae: number;
+  rmse: number;
+}
+
 export interface EvaluationDetails {
   models_comparison: Record<string, {
     val_rmse: number;
@@ -110,6 +126,8 @@ export interface EvaluationDetails {
     test_r2: number;
   }>;
   best_hyperparameters: Record<string, any>;
+  feature_importance?: FeatureImportanceItem[];
+  error_by_pollution_tier?: ErrorTierItem[];
   test_evaluation_series: {
     datetime: string;
     actual: number;

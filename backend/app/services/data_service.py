@@ -186,7 +186,16 @@ class DataService:
             })
         return records
 
-    def get_paginated_data(self, page: int = 1, page_size: int = 50, start_date: Optional[str] = None, end_date: Optional[str] = None, hour: Optional[int] = None) -> Dict[str, Any]:
+    def get_paginated_data(
+        self,
+        page: int = 1,
+        page_size: int = 50,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        hour: Optional[int] = None,
+        split: Optional[str] = None,
+        search: Optional[str] = None
+    ) -> Dict[str, Any]:
         subset = self.df
         if start_date:
             subset = subset[subset['DateTime'] >= pd.to_datetime(start_date)]
@@ -194,6 +203,10 @@ class DataService:
             subset = subset[subset['DateTime'] <= pd.to_datetime(end_date)]
         if hour is not None:
             subset = subset[subset['hour'] == hour]
+        if split and split.lower() in ['train', 'val', 'test']:
+            subset = subset[subset['split'] == split.lower()]
+        if search:
+            subset = subset[subset['DateTime'].astype(str).str.contains(search, case=False, na=False)]
 
         total_rows = len(subset)
         start_idx = (page - 1) * page_size
@@ -218,7 +231,7 @@ class DataService:
             "page": page,
             "page_size": page_size,
             "total_records": total_rows,
-            "total_pages": int(np.ceil(total_rows / page_size)),
+            "total_pages": int(np.ceil(total_rows / page_size)) if total_rows > 0 else 1,
             "data": records
         }
 
@@ -336,6 +349,8 @@ class DataService:
         return {
             "models_comparison": self.metrics.get("models_comparison", {}),
             "best_hyperparameters": self.metrics.get("best_hyperparameters", {}),
+            "feature_importance": self.metrics.get("feature_importance", []),
+            "error_by_pollution_tier": self.metrics.get("error_by_pollution_tier", []),
             "test_evaluation_series": sample_eval
         }
 

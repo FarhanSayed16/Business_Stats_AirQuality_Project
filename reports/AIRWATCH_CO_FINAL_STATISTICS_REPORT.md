@@ -126,6 +126,31 @@ Using `TimeSeriesSplit(n_splits=5)` on historical calibration data, grid search 
 | **Random Forest** | 0.6806 | 0.8181 | 0.5969 | 0.4232 | 0.7951 | +22.9% RMSE reduction |
 | **Tuned HistGradientBoosting** | **0.6621** | **0.8278** | **0.5378** | **0.3608** | **0.8337** | **+30.50% RMSE reduction** |
 
+### 6.1 Statistical Feature Attribution (Permutation Importance)
+
+Permutation tests (measuring degradation in validation RMSE when feature values are randomly shuffled across 5 repeats) confirm the relative statistical contribution of each predictive variable:
+
+| Feature Variable | Physical Description | Permutation Loss ($\Delta$ RMSE) | Std Error |
+| :--- | :--- | :---: | :---: |
+| `CO(GT)` | Current reference CO concentration | **1.3954** | $\pm 0.0161$ |
+| `hour_cos` | Cyclical diurnal rhythm (cosine encoding) | **0.1293** | $\pm 0.0072$ |
+| `hour_sin` | Cyclical diurnal rhythm (sine encoding) | **0.0895** | $\pm 0.0076$ |
+| `PT08.S1(CO)` | Metal-oxide tin oxide chemical sensor | **0.0835** | $\pm 0.0039$ |
+| `hour` | Discrete observation hour (0–23) | **0.0695** | $\pm 0.0036$ |
+| `month` | Seasonal month of year (1–12) | **0.0643** | $\pm 0.0077$ |
+| `CO_lag3` | Carbon Monoxide concentration lag (t - 3 hours) | **0.0617** | $\pm 0.0050$ |
+| `NOx(GT)` | Reference Nitrogen Oxides co-pollutant | **0.0535** | $\pm 0.0039$ |
+
+### 6.2 Error Diagnostics Across Pollution Severity Regimes
+
+Evaluating the 1,403 chronological holdout test hours across distinct operational concentration bands reveals important non-linear behavior:
+
+| Pollution Regime Band | Concentration Range | Test Observations | Share of Holdout | MAE ($\text{mg/m}^3$) | RMSE ($\text{mg/m}^3$) | Diagnostic Assessment |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **Low Pollution** | $< 2.0\text{ mg/m}^3$ | 841 | 59.9% | **0.236** | **0.340** | High precision, tight residual clustering |
+| **Moderate Exposure** | $2.0 - 4.0\text{ mg/m}^3$ | 452 | 32.2% | **0.440** | **0.578** | Reliable operational tracking |
+| **High / Extreme Spikes** | $> 4.0\text{ mg/m}^3$ | 110 | 7.8% | **0.989** | **1.197** | Under-prediction due to bounded tree leaves |
+
 ---
 
 ## 7. Operational Usefulness in Municipal Management

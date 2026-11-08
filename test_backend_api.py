@@ -113,7 +113,16 @@ def test_endpoints():
     eval_res = r.json()
     assert "models_comparison" in eval_res
     assert len(eval_res["test_evaluation_series"]) > 0
-    print("  /model/evaluation passed.")
+    assert "feature_importance" in eval_res and len(eval_res["feature_importance"]) > 0
+    assert "error_by_pollution_tier" in eval_res and len(eval_res["error_by_pollution_tier"]) > 0
+    print("  /model/evaluation passed: feature importance and error tiers verified.")
+
+    print("Testing /data with split and search filters ...")
+    r = client.get("/data?split=val&hour=12&search=2004")
+    assert r.status_code == 200
+    filter_res = r.json()
+    assert "data" in filter_res
+    print(f"  /data (filters) passed: {filter_res['total_records']} records returned.")
 
     print("\nALL BACKEND API TESTS PASSED SUCCESSFULLY! 100% HEALTHY.")
 

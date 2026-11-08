@@ -64,5 +64,105 @@
     "test_mae": 0.3608,
     "test_r2": 0.8337,
     "rmse_improvement_over_baseline_pct": 30.5
-  }
+  },
+  "feature_importance": [
+    {
+      "feature": "CO(GT)",
+      "label": "Current CO Concentration (Reference)",
+      "importance": 1.3954,
+      "importance_std": 0.0161
+    },
+    {
+      "feature": "hour_cos",
+      "label": "Diurnal Cycle (Cosine)",
+      "importance": 0.1293,
+      "importance_std": 0.0072
+    },
+    {
+      "feature": "hour_sin",
+      "label": "Diurnal Cycle (Sine)",
+      "importance": 0.0895,
+      "importance_std": 0.0076
+    },
+    {
+      "feature": "PT08.S1(CO)",
+      "label": "Tin Oxide Sensor PT08.S1(CO)",
+      "importance": 0.0835,
+      "importance_std": 0.0039
+    },
+    {
+      "feature": "hour",
+      "label": "Hour of Day (0-23)",
+      "importance": 0.0695,
+      "importance_std": 0.0036
+    },
+    {
+      "feature": "month",
+      "label": "Month of Year (1-12)",
+      "importance": 0.0643,
+      "importance_std": 0.0077
+    },
+    {
+      "feature": "CO_lag3",
+      "label": "CO Lag 3 Hours",
+      "importance": 0.0617,
+      "importance_std": 0.005
+    },
+    {
+      "feature": "NOx(GT)",
+      "label": "Nitrogen Oxides (NOx)",
+      "importance": 0.0535,
+      "importance_std": 0.0039
+    },
+    {
+      "feature": "PT08_S2_lag1",
+      "label": "NMHC Sensor Lag 1 Hour",
+      "importance": 0.0519,
+      "importance_std": 0.0014
+    },
+    {
+      "feature": "NO2(GT)",
+      "label": "Nitrogen Dioxide (NO2)",
+      "importance": 0.0443,
+      "importance_std": 0.0026
+    },
+    {
+      "feature": "PT08_S1_lag1",
+      "label": "PT08_S1_lag1",
+      "importance": 0.042,
+      "importance_std": 0.0019
+    },
+    {
+      "feature": "CO_lag1",
+      "label": "CO_lag1",
+      "importance": 0.0403,
+      "importance_std": 0.0016
+    }
+  ],
+  "error_by_pollution_tier": [
+    {
+      "tier": "Low Pollution",
+      "range": "< 2.0 mg/m\u00b3",
+      "count": 841,
+      "pct_of_test": 59.9,
+      "mae": 0.236,
+      "rmse": 0.34
+    },
+    {
+      "tier": "Moderate Pollution",
+      "range": "2.0 \u2013 4.0 mg/m\u00b3",
+      "count": 452,
+      "pct_of_test": 32.2,
+      "mae": 0.44,
+      "rmse": 0.578
+    },
+    {
+      "tier": "High / Extreme Episode",
+      "range": "> 4.0 mg/m\u00b3",
+      "count": 110,
+      "pct_of_test": 7.8,
+      "mae": 0.989,
+      "rmse": 1.197
+    }
+  ]
 }

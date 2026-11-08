@@ -354,6 +354,112 @@
 </tr>
 </tbody>
 </table>
+<h3>6.1 Statistical Feature Attribution (Permutation Importance)</h3>
+<p>Permutation tests (measuring degradation in validation RMSE when feature values are randomly shuffled across 5 repeats) confirm the relative statistical contribution of each predictive variable:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature Variable</th>
+<th style="text-align: left;">Physical Description</th>
+<th style="text-align: center;">Permutation Loss ($\Delta$ RMSE)</th>
+<th style="text-align: center;">Std Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>CO(GT)</code></td>
+<td style="text-align: left;">Current reference CO concentration</td>
+<td style="text-align: center;"><strong>1.3954</strong></td>
+<td style="text-align: center;">$\pm 0.0161$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hour_cos</code></td>
+<td style="text-align: left;">Cyclical diurnal rhythm (cosine encoding)</td>
+<td style="text-align: center;"><strong>0.1293</strong></td>
+<td style="text-align: center;">$\pm 0.0072$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hour_sin</code></td>
+<td style="text-align: left;">Cyclical diurnal rhythm (sine encoding)</td>
+<td style="text-align: center;"><strong>0.0895</strong></td>
+<td style="text-align: center;">$\pm 0.0076$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PT08.S1(CO)</code></td>
+<td style="text-align: left;">Metal-oxide tin oxide chemical sensor</td>
+<td style="text-align: center;"><strong>0.0835</strong></td>
+<td style="text-align: center;">$\pm 0.0039$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hour</code></td>
+<td style="text-align: left;">Discrete observation hour (0–23)</td>
+<td style="text-align: center;"><strong>0.0695</strong></td>
+<td style="text-align: center;">$\pm 0.0036$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>month</code></td>
+<td style="text-align: left;">Seasonal month of year (1–12)</td>
+<td style="text-align: center;"><strong>0.0643</strong></td>
+<td style="text-align: center;">$\pm 0.0077$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CO_lag3</code></td>
+<td style="text-align: left;">Carbon Monoxide concentration lag (t - 3 hours)</td>
+<td style="text-align: center;"><strong>0.0617</strong></td>
+<td style="text-align: center;">$\pm 0.0050$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NOx(GT)</code></td>
+<td style="text-align: left;">Reference Nitrogen Oxides co-pollutant</td>
+<td style="text-align: center;"><strong>0.0535</strong></td>
+<td style="text-align: center;">$\pm 0.0039$</td>
+</tr>
+</tbody>
+</table>
+<h3>6.2 Error Diagnostics Across Pollution Severity Regimes</h3>
+<p>Evaluating the 1,403 chronological holdout test hours across distinct operational concentration bands reveals important non-linear behavior:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Pollution Regime Band</th>
+<th style="text-align: center;">Concentration Range</th>
+<th style="text-align: center;">Test Observations</th>
+<th style="text-align: center;">Share of Holdout</th>
+<th style="text-align: center;">MAE ($\text{mg/m}^3$)</th>
+<th style="text-align: center;">RMSE ($\text{mg/m}^3$)</th>
+<th style="text-align: left;">Diagnostic Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Low Pollution</strong></td>
+<td style="text-align: center;">$&lt; 2.0\text{ mg/m}^3$</td>
+<td style="text-align: center;">841</td>
+<td style="text-align: center;">59.9%</td>
+<td style="text-align: center;"><strong>0.236</strong></td>
+<td style="text-align: center;"><strong>0.340</strong></td>
+<td style="text-align: left;">High precision, tight residual clustering</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Moderate Exposure</strong></td>
+<td style="text-align: center;">$2.0 - 4.0\text{ mg/m}^3$</td>
+<td style="text-align: center;">452</td>
+<td style="text-align: center;">32.2%</td>
+<td style="text-align: center;"><strong>0.440</strong></td>
+<td style="text-align: center;"><strong>0.578</strong></td>
+<td style="text-align: left;">Reliable operational tracking</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>High / Extreme Spikes</strong></td>
+<td style="text-align: center;">$&gt; 4.0\text{ mg/m}^3$</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">7.8%</td>
+<td style="text-align: center;"><strong>0.989</strong></td>
+<td style="text-align: center;"><strong>1.197</strong></td>
+<td style="text-align: left;">Under-prediction due to bounded tree leaves</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2>7. Operational Usefulness in Municipal Management</h2>
 <ol>
