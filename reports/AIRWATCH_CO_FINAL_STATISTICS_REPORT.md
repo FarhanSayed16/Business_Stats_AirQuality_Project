@@ -123,7 +123,7 @@ Using `TimeSeriesSplit(n_splits=5)` on historical calibration data, grid search 
 | **Persistence Baseline** | 0.7832 | 0.7591 | 0.7739 | 0.4996 | 0.6556 | Baseline Reference |
 | **Linear Regression** | 0.7698 | 0.7673 | 0.7556 | 0.6035 | 0.6717 | +2.4% RMSE reduction |
 | **Ridge Regression** | 0.7761 | 0.7634 | 0.7641 | 0.6156 | 0.6642 | +1.3% RMSE reduction |
-| **Random Forest** | 0.6806 | 0.8181 | 0.5969 | 0.4232 | 0.7951 | +22.9% RMSE reduction |
+| **Random Forest** | 0.6609 | 0.8285 | 0.5842 | 0.4032 | 0.8037 | +24.5% RMSE reduction |
 | **Tuned HistGradientBoosting** | **0.6621** | **0.8278** | **0.5378** | **0.3608** | **0.8337** | **+30.50% RMSE reduction** |
 
 ### 6.1 Statistical Feature Attribution (Permutation Importance)
@@ -174,15 +174,18 @@ Evaluating the 1,403 chronological holdout test hours across distinct operationa
 To bridge the gap between academic code and real-world stakeholder utility, an interactive monitoring dashboard was developed (**AirWatch CO**):
 * **FastAPI Backend:** Asynchronous Python service exposing `/stats`, `/data`, `/model/predict`, and `/model/evaluation`.
 * **React + Vite Interface:** Built with TypeScript, Tailwind CSS, and Recharts, offering 6 screens (Home, Explore Data, Insights, Predict Lab, Evaluation, Team).
-* **Live Prediction Studio:** Allows selecting historical holdout observations or testing arbitrary parameters with real-time health severity categorization.
+* **Live Prediction Studio:** Historical holdout replay (actual vs predicted) plus optional what-if simulation. Pollution tiers shown in the UI are **project-defined analytical bins** (`<2`, `2–4`, `>4` mg/m³), not a certified regulatory AQI scale.
 
 ---
 
 ## 10. Group Member Contributions
 
-* **Farhan Sayed (Data & Architecture Lead):** Cleaned dataset curation, delimiter and `-200` sentinel filtering, time-aware interpolation, chronological train/val/test masking, FastAPI REST architecture, React dashboard development, and report compilation.
-* **Group 3 Team Member (EDA & Analytics Lead):** Univariate summary metrics, diurnal rush-hour curve analysis, weekday distribution analysis, correlation heatmap calculations, and visualization styling.
-* **Group 3 Team Member (Predictive Modelling Lead):** Target definition ($CO_{next}$), baseline formulation, standardized Linear/Ridge regression, 5-fold `TimeSeriesSplit` cross-validation, and serialisation of `model.joblib` and `metrics.json`.
+* **Farhan Sayed (System Architect & Data Engineering Lead):** Cleaned dataset curation, delimiter and `-200` sentinel filtering, time-aware interpolation, chronological train/val/test masking, FastAPI REST architecture, React dashboard integration, and repository packaging.
+* **Salman Khan (Predictive Modelling Lead):** Next-hour target $CO_{next}$, persistence baseline, Linear/Ridge benchmarks, HistGradientBoosting modelling path, and Predict Lab alignment with `model.joblib`.
+* **Sahil Tambe (Statistical Analysis & EDA Lead):** Univariate summaries, diurnal and weekday pollution patterns, weather–CO coupling (T, RH, AH), and EDA narrative for notebooks/Insights.
+* **Shruti Pawar (Insights & Visualization Lead):** Publication figures, Recharts visuals on Insights/Evaluation, UI visual consistency, and metric/figure parity checks.
+* **Aayesha Kaliwala (Validation & Evaluation Lead):** TimeSeriesSplit tuning protocol, holdout RMSE/MAE/R² table, error-by-magnitude review, and Evaluation page content.
+* **Kashish Maurya (Documentation, Report & Viva Lead):** Formal report structure, usefulness & limitations write-up, viva script / Top-10 Q&A, and contribution clarity for the group.
 
 ---
 

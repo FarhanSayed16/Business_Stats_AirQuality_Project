@@ -8,13 +8,16 @@
 
 | Document | Purpose |
 |----------|---------|
+| [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) | **Start here for teammates** — idea, problem, decisions, what was built, status |
+| [PROJECT_ONE_PAGER.md](PROJECT_ONE_PAGER.md) | Concise one-page share sheet |
+| [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md) | Architecture, locked choices, metrics, file map |
 | **This file** — [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) | Full phased plan, sub-phases, artifacts, exit criteria |
-| [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) | Daily checkbox tracker (tick as you finish) |
-| [SYSTEM_AUDIT_AND_ENHANCEMENT.md](SYSTEM_AUDIT_AND_ENHANCEMENT.md) | Post-build audit, gaps, prioritized fix waves |
+| [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) | Daily checkbox tracker |
+| [SYSTEM_AUDIT_AND_ENHANCEMENT.md](SYSTEM_AUDIT_AND_ENHANCEMENT.md) | Post-build audit and fix waves |
 | [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md) | Academic scope, dataset, required tasks |
-| [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md) | Dashboard screens, enhancement rationale |
+| [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md) | Dashboard screens and enhancement rationale |
 
-**How to use:** Execute phases **1 → 13 in order**. Do not start Phase 9–10 UI work until Phase 6 artifacts exist. Tick items in the checklist file as each sub-phase completes. A phase is done only when its **Exit criteria** are met.
+**How to use:** For sharing with the group, prefer the three teammate docs above. For phased build history, use phases **1 → 13**. A phase is done only when its **Exit criteria** are met.
 
 ---
 
@@ -45,7 +48,7 @@
 
 4. FastAPI backend serving cleaned data + predictions  
 5. React dashboard (6 pages)  
-6. Deployed public URL for class/viva  
+6. Optional public cloud URL (Vercel + Render) for class/viva — local demo is acceptable if cloud accounts are not ready  
 
 ---
 
@@ -806,7 +809,7 @@ Write/finalize:
 - Academic notebooks + cleaned data + report  
 - API: health, meta, overview, timeseries, patterns, correlation, data, model info/predict/evaluation  
 - UI: Home, Explore, Insights, Predict, Evaluation, Team  
-- Deployed URL + backup  
+- Local runnable demo (cloud URL optional)  
 - Limitations narrative  
 
 ### Nice-to-Have (only after Must-Haves)
@@ -824,7 +827,7 @@ The project is complete when:
 1. Next-hour `CO(GT)` pipeline runs end-to-end in Python notebooks.  
 2. Cleaned dataset and model artifacts are exported and reloaded successfully.  
 3. Report covers approach, findings, results, limitations, and contributions.  
-4. AirWatch CO dashboard demonstrates Explore → Insights → Predict → Evaluation on a live URL.  
+4. AirWatch CO dashboard demonstrates Explore → Insights → Predict → Evaluation locally (or on a public URL if deployed).  
 5. UI metrics match notebook metrics.  
 6. Class presentation rehearsed with backup plan.  
 7. [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) Must-Have items are all checked.

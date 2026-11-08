@@ -480,16 +480,10 @@ In the report, add one short section:
 
 ---
 
-## 18. How I Can Help Next
+## 18. Status Note
 
-I can:
-- Scaffold the FastAPI + React project structure in this repo  
-- Build API endpoints from your cleaned data/model artifacts  
-- Implement the 5 dashboard pages with presentation-friendly charts  
-- Wire predict-vs-actual demo  
-- Prepare deployment configs and a class presentation script  
-- Keep the academic notebooks/report aligned with the dashboard numbers  
+The FastAPI + React AirWatch CO dashboard described in this plan is **implemented in the repository** (local demo via `start_project.bat` / `start_project.ps1`). Cloud deploy (Vercel + Render) remains optional and needs host account credentials. For teammate-facing status, decisions, and run instructions, use [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) and [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md).
 
 ---
 
-*This enhancement is designed to make Group 3’s Air Quality project feel complete, demoable, and professor-ready — without abandoning the official Statistics IA requirements.*
+*This enhancement makes Group 3’s Air Quality project demoable for class/viva without replacing the official Statistics IA Python deliverables.*

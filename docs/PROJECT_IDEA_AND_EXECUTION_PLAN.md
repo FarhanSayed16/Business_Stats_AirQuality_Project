@@ -2,7 +2,8 @@
 ## Group 3 — Air Quality and Pollution  
 ### Project Idea, Scope & 21-Day Execution Plan
 
-**Document map:** [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) (phased execution) · [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) (daily checkboxes) · [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md) (dashboard enhancement)
+**Share with teammates first:** [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) · [PROJECT_ONE_PAGER.md](PROJECT_ONE_PAGER.md) · [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md)  
+**Build plans:** [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) · [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) · [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md)
 
 ---
 
@@ -61,7 +62,7 @@ Missing / invalid sensor values are coded as **`-200`**, not as blank/NaN. If yo
 5. **Interpret** usefulness and limitations for real air-quality monitoring.
 6. **Submit** notebook/scripts + cleaned dataset + written report with member contributions.
 
-**All work must be in Python only.**
+**Official academic analysis must be in Python** (notebooks/scripts). The FastAPI + React dashboard is an optional presentation layer for demo/viva and does not replace the Python deliverables.
 
 ---
 
@@ -218,59 +219,31 @@ If you have 3 members, merge C+D or A+B. Everyone should still understand the fu
 
 ---
 
-## 9. How I (Cursor AI Assistant) Can Help You Complete This
+## 9. End-State Definition (Definition of Done)
 
-I can work with you day-by-day inside this repo as a **coding + statistics partner**:
+The academic core is complete when **all** of the following are true:
 
-| Area | How I help |
-|------|------------|
-| **Environment** | Create `requirements.txt`, folder structure, reproducible notebook skeleton |
-| **Preprocessing** | Write robust Python to load UCI CSV, handle `-200`, datetime, lags, cleaned export |
-| **EDA** | Generate plots + statistical summaries and help you interpret them in report language |
-| **Modelling** | Implement baselines, regression, tree models with **time-aware** splits (no leakage) |
-| **Tuning** | Set up `TimeSeriesSplit` + Grid/RandomizedSearch; compare models fairly |
-| **Evaluation** | Compute RMSE/MAE/R², residual diagnostics, “when predictions fail” analysis |
-| **Report writing** | Draft report sections (approach, findings, limitations, contributions) in academic tone |
-| **Debugging** | Fix notebook errors, data bugs, metric mistakes before submission |
-| **Viva prep** | Short Q&A notes: why this model, why this metric, what leakage means, limitations |
+- [x] Cleaned dataset exported and documented  
+- [x] EDA answers: how pollution changes over time + link to weather/sensors  
+- [x] Next-hour `CO(GT)` model trained without target leakage  
+- [x] Hyperparameters tuned with time-aware validation  
+- [x] Metrics reported on a held-out time period  
+- [x] Usefulness & limitations written for air-quality monitoring  
+- [ ] Report member contribution names finalized (replace Member B / C placeholders)  
+- [x] Python notebooks/scripts run end-to-end  
 
-### What I will *not* do (so your submission stays honest)
-- Invent results without running code on your dataset  
-- Skip justification — every method choice should be explainable by your group  
-- Use future information that would leak into next-hour prediction  
-
-### Suggested working style with me
-1. Say which phase you are on (e.g. “Day 3 preprocessing”).  
-2. I implement / update the notebook.  
-3. You review outputs and write member notes.  
-4. We iterate until the submission pack is complete.
+Optional demo layer (AirWatch CO dashboard): FastAPI + React — see [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md).
 
 ---
 
-## 10. End-State Definition (Definition of Done)
+## 10. Where to Read Next
 
-You are done when **all** of the following are true:
-
-- [ ] Cleaned dataset exported and documented  
-- [ ] EDA answers: how pollution changes over time + link to weather/sensors  
-- [ ] Next-hour `CO(GT)` model trained without target leakage  
-- [ ] Hyperparameters tuned with time-aware validation  
-- [ ] Metrics reported on a held-out time period  
-- [ ] Usefulness & limitations clearly written for air-quality monitoring  
-- [ ] Report includes each member’s contribution  
-- [ ] Python-only notebook/scripts run end-to-end  
+1. [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) — full teammate briefing (idea, decisions, status).  
+2. [PROJECT_ONE_PAGER.md](PROJECT_ONE_PAGER.md) — short shareable summary.  
+3. [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md) — architecture, metrics, what exists on disk.  
+4. [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) — phased execution detail.  
+5. [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) — checkbox tracker.
 
 ---
 
-## 11. Immediate Next Step (Start Today)
-
-1. Open [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) and begin **Phase 1**.  
-2. Confirm group members and assign roles (Section 8 / master plan team table).  
-3. Create project folders: `notebooks/`, `data/cleaned/`, `reports/`, `figures/`, `backend/`, `frontend/`.  
-4. Build a starter notebook that loads `AirQualityUCI.csv` correctly and shows missingness after replacing `-200`.  
-5. Lock the target definition: **predict `CO(GT)` at t+1**.  
-6. Follow [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) for the full Python + React end-to-end path.
-
----
-
-*Document prepared for MCA I Statistics Internal Assessment — Group 3 (Air Quality and Pollution). Duration: 21 days. Academic analysis: Python only; presentation layer: FastAPI + React (AirWatch CO).*
+*Document for MCA I Statistics Internal Assessment — Group 3 (Air Quality and Pollution). Academic analysis: Python; presentation layer: FastAPI + React (AirWatch CO).*

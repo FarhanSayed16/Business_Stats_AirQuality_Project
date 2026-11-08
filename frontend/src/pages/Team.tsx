@@ -1,39 +1,79 @@
 ﻿import React from 'react';
 import { Users, Server, CheckCircle2, GitBranch, Cpu, Database, FileText, Sparkles, ExternalLink } from 'lucide-react';
 
+type TeamMember = {
+  name: string;
+  role: string;
+  badge: string;
+  responsibilities: string[];
+};
+
 export const Team: React.FC = () => {
-  const members = [
+  const members: TeamMember[] = [
     {
       name: 'Farhan Sayed',
       role: 'System Architect & Data Engineering Lead',
       badge: 'Group 3 Lead',
       responsibilities: [
-        'Raw dataset ingestion, delimiter parsing, and -200 hardware sentinel sanitization',
-        'Time-aware linear interpolation and chronological train/val/test split masking',
-        'FastAPI REST backend architecture, high-concurrency routers, and model persistence',
-        'React + Vite + TypeScript dashboard engineering, data visualization, and full-stack integration'
+        'Raw UCI ingestion, European CSV parsing, and −200 sentinel sanitization',
+        'Time-aware imputation and chronological 70/15/15 train–val–test masking',
+        'FastAPI architecture, artifact loading, and React dashboard integration',
+        'Repository packaging, README runbook, and deploy configs (Render / Vercel)'
       ]
     },
     {
-      name: 'Member B (replace with legal name)',
+      name: 'Salman Khan',
+      role: 'Predictive Modelling Lead',
+      badge: 'Modelling',
+      responsibilities: [
+        'Next-hour target design (`CO_next`) with strict anti-leakage feature rules',
+        'Persistence baseline plus Linear / Ridge benchmark models',
+        'HistGradientBoosting training path and comparison against tree ensembles',
+        'Predict Lab scenario wiring aligned with `model.joblib` artifacts'
+      ]
+    },
+    {
+      name: 'Sahil Tambe',
       role: 'Statistical Analysis & EDA Lead',
-      badge: 'Analytics Lead',
+      badge: 'Analytics',
       responsibilities: [
-        'Parametric summary statistics, central tendencies, and diurnal dispersion metrics',
-        'Diurnal rush-hour bimodal curve characterization and Sunday activity minimum modeling',
-        'Atmospheric microclimatic coupling (Temperature, Relative Humidity, Absolute Humidity)',
-        'Publication-standard statistical chart generation and exploratory report drafting'
+        'Univariate summaries for CO, sensors, and weather variables',
+        'Diurnal (hour-of-day) and weekday pollution pattern analysis',
+        'Weather–CO coupling exploration (T, RH, AH)',
+        'EDA narrative for notebooks and Insights page interpretation'
       ]
     },
     {
-      name: 'Member C (replace with legal name)',
-      role: 'Machine Learning & Validation Lead',
-      badge: 'Modelling Lead',
+      name: 'Shruti Pawar',
+      role: 'Insights & Visualization Lead',
+      badge: 'Visuals',
       responsibilities: [
-        'Supervised learning target formulation (CO_next) with strict anti-leakage policies',
-        'Naive persistence baseline implementation and standardized Linear/Ridge benchmarks',
-        '5-fold TimeSeriesSplit cross-validation for HistGradientBoosting hyperparameter tuning',
-        'Holdout test set evaluation (RMSE, MAE, R²) and artifact serialization (model.joblib, metrics.json)'
+        'Publication figures for diurnal, correlation, and residual plots',
+        'Recharts dashboard visuals on Insights and Evaluation screens',
+        'Glassmorphism UI polish consistency across chart cards',
+        'Visual QA so dashboard numbers match `metrics.json` / cleaned data'
+      ]
+    },
+    {
+      name: 'Aayesha Kaliwala',
+      role: 'Validation & Evaluation Lead',
+      badge: 'Validation',
+      responsibilities: [
+        'TimeSeriesSplit hyperparameter tuning protocol and holdout scoring',
+        'RMSE / MAE / R² table assembly from `artifacts/metrics.json`',
+        'Error-by-magnitude and failure-mode review for viva honesty',
+        'Evaluation page content: benchmarks, importance, limitations callouts'
+      ]
+    },
+    {
+      name: 'Kashish Maurya',
+      role: 'Documentation, Report & Viva Lead',
+      badge: 'Docs',
+      responsibilities: [
+        'Formal statistics report structure (approach, findings, results)',
+        'Usefulness & limitations write-up for air-quality monitoring',
+        'Viva script, Top-10 Q&A, and contribution statements',
+        'Team dossier clarity so classmates can run and explain the system'
       ]
     }
   ];
@@ -74,8 +114,8 @@ export const Team: React.FC = () => {
         <p className="text-sm text-slate-500 mt-1 max-w-2xl">
           MCA I Statistics Internal Assessment — <strong className="text-slate-700">Group 3: Air Quality and Pollution</strong>. Developed for university coursework, combining academic statistics with a modern telemetry interface.
         </p>
-        <p className="text-xs text-amber-800 mt-3 max-w-2xl bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
-          Before final submission, replace <strong>Member B</strong> and <strong>Member C</strong> placeholders with each teammate’s legal name in this page, the PDF/HTML report, and the viva script.
+        <p className="text-xs text-slate-600 mt-3 max-w-3xl glass-inner rounded-xl px-3 py-2">
+          Official <strong>Group 3</strong> roster (6 members) with roles aligned to the AirWatch CO academic core and dashboard.
         </p>
         <div className="mt-3 text-xs text-slate-600 glass-inner rounded-xl px-3 py-2 max-w-2xl">
           <strong className="text-slate-800">Demo URLs:</strong> Local dashboard <code className="font-mono text-sky-700">http://localhost:5173</code>
@@ -84,34 +124,37 @@ export const Team: React.FC = () => {
         </div>
       </div>
 
-      {/* Team Member Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {members.map((m, i) => (
-          <div key={i} className="glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-5 hover:bg-white/50 transition-all duration-300">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl glass-inner text-sky-600 flex items-center justify-center font-bold">
-                  <Users className="w-5 h-5" />
-                </div>
-                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full glass-soft text-sky-700 font-mono">
-                  {m.badge}
-                </span>
+      {/* Team Member Cards — official Group 3 (6) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        {members.map((m) => (
+          <div
+            key={m.name}
+            className="glass-panel rounded-3xl p-6 flex flex-col space-y-5 hover:bg-white/50 transition-all duration-300"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="w-10 h-10 rounded-2xl glass-inner text-sky-600 flex items-center justify-center font-bold shrink-0">
+                <Users className="w-5 h-5" />
               </div>
-              <div>
-                <h3 className="font-bold text-base text-slate-900">{m.name}</h3>
-                <p className="text-xs font-semibold text-sky-700 mt-0.5">{m.role}</p>
-              </div>
-              <div className="pt-3 border-t border-white/40">
-                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">Key Responsibilities:</h4>
-                <ul className="space-y-2 text-xs text-slate-600">
-                  {m.responsibilities.map((r, rIdx) => (
-                    <li key={rIdx} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0 mt-0.5" />
-                      <span className="text-slate-600 leading-relaxed">{r}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full glass-soft text-sky-700 font-mono">
+                {m.badge}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-bold text-base text-slate-900">{m.name}</h3>
+              <p className="text-xs font-semibold text-sky-700 mt-0.5">{m.role}</p>
+            </div>
+            <div className="pt-3 border-t border-white/40">
+              <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">
+                Key Responsibilities:
+              </h4>
+              <ul className="space-y-2 text-xs text-slate-600">
+                {m.responsibilities.map((r, rIdx) => (
+                  <li key={rIdx} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0 mt-0.5" />
+                    <span className="leading-relaxed">{r}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}

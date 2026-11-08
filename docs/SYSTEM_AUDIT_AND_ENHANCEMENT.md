@@ -1,18 +1,20 @@
 # System Audit & Enhancement Plan — AirWatch CO  
 ## Group 3 | MCA I Statistics Internal Assessment  
-### Independent audit against [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md)
+### Historical audit against [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md)
 
-**Audit date:** 2026-03-08  
-**Scope:** Repo structure, academic notebooks/artifacts, FastAPI backend, React dashboard, reports, deployment configs, checklist honesty  
+**Original audit date:** 2026-03-08  
+**Status note (current):** Prefer [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) and [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md) for live teammate status. Most Wave A–D fixes below were **completed** afterward (Render start path, CORS allow-list, metrics/missingness from artifacts, PDF report, glass UI). Remaining open items are mainly **Member B/C legal names** and **optional cloud deploy**.
+
+**Original scope:** Repo structure, academic notebooks/artifacts, FastAPI backend, React dashboard, reports, deployment configs, checklist honesty  
 **Method:** Code review + cleaned-data validation + `test_backend_api.py` run + `npm run build` + metric/artifact parity checks  
 
-**Related docs:** [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) · [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md) · [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md)
+**Related docs:** [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) · [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) · [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md) · [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md)
 
 ---
 
-## 1. Executive verdict
+## 1. Executive verdict *(as of original audit — many items since closed)*
 
-| Area | Status | Score (approx.) |
+| Area | Status at audit | Score (approx.) |
 |------|--------|-----------------|
 | Academic core (preprocess → EDA → model → tune) | Strong | 90% |
 | Artifacts + cleaned data | Strong | 95% |
@@ -20,14 +22,14 @@
 | React dashboard (local feature coverage) | Good, with gaps | 80% |
 | Integration / error UX / metric honesty | Needs work | 65% |
 | Production deployment readiness | **Not ready** | 40% |
-| College report / viva pack | Good (HTML/MD; no PDF) | 85% |
+| College report / viva pack | Good (HTML/MD; PDF added later) | 85% |
 | Checklist accuracy vs reality | Over-marked on Phases 11–12 | — |
 
-**Bottom line:** The project is **locally demoable and academically substantial**. Backend tests pass (100% of current suite). Cleaned data and `model.joblib` are valid. The dashboard pages exist and look polished.
+**Bottom line (audit-time):** The project was **locally demoable and academically substantial**. Backend tests passed. Cleaned data and `model.joblib` were valid. Dashboard pages existed.
 
-It is **not fully complete** against the master plan’s Must-Haves and Definition of Done, mainly because:
+It was **not fully complete** against the master plan’s Must-Haves at audit time, mainly because:
 
-1. Production deploy configs are **incorrect** and would fail on Render as written.  
+1. Production deploy configs were **incorrect** and would fail on Render as written *(later fixed via root `Procfile` + `render.yaml`)*.  
 2. Several Must-Have UI pieces are missing or only partially done (full CO timeseries on Insights; date filters on Explore; real user-facing error states).  
 3. Documentation / UI / `metrics.json` **drift** (Ridge & Random Forest claimed in README/report but absent from API metrics).  
 4. The master checklist is marked fully done, including production smoke tests that are **not evidenced by live URLs**.  
