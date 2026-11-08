@@ -1,0 +1,148 @@
+{
+  "target": {
+    "name": "CO_next",
+    "unit": "mg/m\u00b3"
+  },
+  "features": [
+    {
+      "name": "CO(GT)",
+      "type": "float64",
+      "mean": 2.0911
+    },
+    {
+      "name": "C6H6(GT)",
+      "type": "float64",
+      "mean": 10.1929
+    },
+    {
+      "name": "NOx(GT)",
+      "type": "float64",
+      "mean": 240.4709
+    },
+    {
+      "name": "NO2(GT)",
+      "type": "float64",
+      "mean": 109.2399
+    },
+    {
+      "name": "PT08.S1(CO)",
+      "type": "float64",
+      "mean": 1102.6815
+    },
+    {
+      "name": "PT08.S2(NMHC)",
+      "type": "float64",
+      "mean": 942.4713
+    },
+    {
+      "name": "PT08.S3(NOx)",
+      "type": "float64",
+      "mean": 833.0477
+    },
+    {
+      "name": "PT08.S4(NO2)",
+      "type": "float64",
+      "mean": 1452.6748
+    },
+    {
+      "name": "PT08.S5(O3)",
+      "type": "float64",
+      "mean": 1030.9317
+    },
+    {
+      "name": "T",
+      "type": "float64",
+      "mean": 18.2968
+    },
+    {
+      "name": "RH",
+      "type": "float64",
+      "mean": 48.905
+    },
+    {
+      "name": "AH",
+      "type": "float64",
+      "mean": 1.018
+    },
+    {
+      "name": "hour",
+      "type": "int64",
+      "mean": 11.4959
+    },
+    {
+      "name": "day_of_week",
+      "type": "int64",
+      "mean": 3.0106
+    },
+    {
+      "name": "month",
+      "type": "int64",
+      "mean": 6.3117
+    },
+    {
+      "name": "is_weekend",
+      "type": "int64",
+      "mean": 0.2874
+    },
+    {
+      "name": "hour_sin",
+      "type": "float64",
+      "mean": 0.0006
+    },
+    {
+      "name": "hour_cos",
+      "type": "float64",
+      "mean": 0.0002
+    },
+    {
+      "name": "month_sin",
+      "type": "float64",
+      "mean": 0.0529
+    },
+    {
+      "name": "month_cos",
+      "type": "float64",
+      "mean": 0.0227
+    },
+    {
+      "name": "CO_lag1",
+      "type": "float64",
+      "mean": 2.0911
+    },
+    {
+      "name": "CO_lag2",
+      "type": "float64",
+      "mean": 2.091
+    },
+    {
+      "name": "CO_lag3",
+      "type": "float64",
+      "mean": 2.0911
+    },
+    {
+      "name": "CO_rolling_mean_3h",
+      "type": "float64",
+      "mean": 2.0911
+    },
+    {
+      "name": "PT08_S1_lag1",
+      "type": "float64",
+      "mean": 1102.7242
+    },
+    {
+      "name": "PT08_S2_lag1",
+      "type": "float64",
+      "mean": 942.469
+    },
+    {
+      "name": "T_lag1",
+      "type": "float64",
+      "mean": 18.295
+    },
+    {
+      "name": "RH_lag1",
+      "type": "float64",
+      "mean": 48.9093
+    }
+  ]
+}

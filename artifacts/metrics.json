@@ -1,0 +1,68 @@
+{
+  "project": "AirWatch CO",
+  "assessment": "MCA I Statistics Internal Assessment \u2014 Group 3",
+  "target_variable": "CO_next (next hour true CO ground truth concentration)",
+  "dataset_time_range": {
+    "start": "2004-03-10 21:00:00",
+    "end": "2005-04-04 13:00:00",
+    "total_records": 9353
+  },
+  "splits": {
+    "train": {
+      "records": 6547,
+      "start": "2004-03-10 21:00:00",
+      "end": "2004-12-08 15:00:00"
+    },
+    "val": {
+      "records": 1403,
+      "start": "2004-12-08 16:00:00",
+      "end": "2005-02-05 02:00:00"
+    },
+    "test": {
+      "records": 1403,
+      "start": "2005-02-05 03:00:00",
+      "end": "2005-04-04 13:00:00"
+    }
+  },
+  "best_hyperparameters": {
+    "l2_regularization": 0.5,
+    "learning_rate": 0.1,
+    "max_depth": 10,
+    "max_iter": 100,
+    "min_samples_leaf": 20,
+    "random_state": 42
+  },
+  "models_comparison": {
+    "Persistence_Baseline": {
+      "val_rmse": 0.7832,
+      "val_mae": 0.4908,
+      "val_r2": 0.7591,
+      "test_rmse": 0.7739,
+      "test_mae": 0.4996,
+      "test_r2": 0.6556
+    },
+    "Linear_Regression": {
+      "val_rmse": 0.7698,
+      "val_mae": 0.5776,
+      "val_r2": 0.7673,
+      "test_rmse": 0.7556,
+      "test_mae": 0.6035,
+      "test_r2": 0.6717
+    },
+    "Tuned_HistGradientBoosting": {
+      "val_rmse": 0.6621,
+      "val_mae": 0.4369,
+      "val_r2": 0.8278,
+      "test_rmse": 0.5378,
+      "test_mae": 0.3608,
+      "test_r2": 0.8337
+    }
+  },
+  "primary_model": {
+    "name": "Tuned HistGradientBoostingRegressor",
+    "test_rmse": 0.5378,
+    "test_mae": 0.3608,
+    "test_r2": 0.8337,
+    "rmse_improvement_over_baseline_pct": 30.5
+  }
+}
