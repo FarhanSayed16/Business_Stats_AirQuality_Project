@@ -11,6 +11,15 @@ export interface OverviewData {
     median: number;
     max: number;
   };
+  weather_stats: {
+    t_mean: number;
+    rh_mean: number;
+    ah_mean: number;
+  };
+  sensor_stats: {
+    pt08_s1_mean: number;
+    pt08_s2_mean: number;
+  };
   primary_model: {
     name: string;
     test_rmse: number;

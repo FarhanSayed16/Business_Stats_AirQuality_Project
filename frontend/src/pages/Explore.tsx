@@ -1,38 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { Download, Filter, Info, CheckCircle2, ChevronLeft, ChevronRight, Search, X, Layers, Database } from 'lucide-react';
+﻿import React, { useEffect, useState } from 'react';
+import { Download, Filter, Info, CheckCircle2, ChevronLeft, ChevronRight, Search, X, Layers, Database, CalendarRange } from 'lucide-react';
 import { api } from '../api/client';
 import type { PaginatedData, MissingnessItem } from '../types';
+import { EmptyState, ErrorState } from '../components/ui';
 
 export const Explore: React.FC = () => {
   const [data, setData] = useState<PaginatedData | null>(null);
   const [missingness, setMissingness] = useState<MissingnessItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [hourFilter, setHourFilter] = useState<string>('');
   const [splitFilter, setSplitFilter] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const [showDictionary, setShowDictionary] = useState(false);
 
   useEffect(() => {
-    api.getMissingness().then(setMissingness).catch(console.error);
+    api.getMissingness()
+      .then(setMissingness)
+      .catch(() => setMissingness([]));
   }, []);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     const hourNum = hourFilter !== '' ? parseInt(hourFilter, 10) : undefined;
     const splitVal = splitFilter !== '' ? splitFilter : undefined;
     const searchVal = searchTerm.trim() !== '' ? searchTerm.trim() : undefined;
+    const startVal = startDate || undefined;
+    const endVal = endDate || undefined;
 
-    api.getDataRows(page, 20, undefined, undefined, hourNum, splitVal, searchVal)
+    api.getDataRows(page, 20, startVal, endVal, hourNum, splitVal, searchVal)
       .then((res) => {
         setData(res);
         setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        setError(err instanceof Error ? err.message : 'Failed to load data');
         setLoading(false);
       });
-  }, [page, hourFilter, splitFilter, searchTerm]);
+  }, [page, hourFilter, splitFilter, searchTerm, startDate, endDate]);
 
   const dictionary = [
     { name: 'DateTime', meaning: 'Observation timestamp (Hourly frequency)', unit: 'ISO YYYY-MM-DD HH:MM', role: 'Time index / temporal encodings' },
@@ -53,7 +62,7 @@ export const Explore: React.FC = () => {
   ];
 
   const getCoColorClass = (val: number) => {
-    if (val < 2.0) return 'text-emerald-700 font-semibold';
+    if (val < 2.0) return 'text-sky-700 font-semibold';
     if (val < 4.0) return 'text-amber-700 font-semibold';
     return 'text-rose-600 font-bold';
   };
@@ -63,8 +72,8 @@ export const Explore: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold tracking-wide border border-teal-200 mb-2">
-            <Database className="w-3.5 h-3.5 text-teal-600" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold tracking-wide border border-sky-200 mb-2">
+            <Database className="w-3.5 h-3.5 text-sky-600" />
             <span>Cleaned Atmospheric Telemetry Repository</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Dataset Explorer</h1>
@@ -76,15 +85,15 @@ export const Explore: React.FC = () => {
         <div className="flex items-center gap-3 self-start sm:self-auto">
           <button
             onClick={() => setShowDictionary(!showDictionary)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-all shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl glass-inner hover:bg-white/60 text-slate-700 text-xs font-semibold transition-all"
           >
-            <Info className="w-4 h-4 text-teal-600" />
+            <Info className="w-4 h-4 text-sky-600" />
             <span>{showDictionary ? 'Hide Schema' : 'Column Schema'}</span>
           </button>
           <a
             href={api.getDownloadUrl()}
             download="cleaned_air_quality.csv"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition-all shadow-md shadow-teal-600/20 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition-all shadow-md shadow-sky-600/20 hover:-translate-y-0.5"
           >
             <Download className="w-4 h-4" />
             <span>Export CSV (2.5 MB)</span>
@@ -94,10 +103,10 @@ export const Explore: React.FC = () => {
 
       {/* Column Dictionary Modal/Dropdown */}
       {showDictionary && (
-        <div className="bg-white rounded-2xl border border-teal-200 p-6 shadow-card space-y-4 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="glass-panel-strong rounded-2xl p-6 space-y-4 animate-in fade-in duration-200">
+          <div className="flex items-center justify-between border-b border-white/40 pb-3">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Info className="w-4 h-4 text-teal-600" />
+              <Info className="w-4 h-4 text-sky-600" />
               <span>Dataset Variable Dictionary & Sensor Mapping</span>
             </h3>
             <span className="text-xs text-slate-400 font-mono">UCI Air Quality Benchmark</span>
@@ -115,7 +124,7 @@ export const Explore: React.FC = () => {
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {dictionary.map((item) => (
                   <tr key={item.name} className="hover:bg-slate-50/70 transition-colors">
-                    <td className="py-2 px-3 font-mono font-semibold text-teal-800">{item.name}</td>
+                    <td className="py-2 px-3 font-mono font-semibold text-sky-800">{item.name}</td>
                     <td className="py-2 px-3">{item.meaning}</td>
                     <td className="py-2 px-3 font-mono text-slate-500">{item.unit}</td>
                     <td className="py-2 px-3 font-medium text-slate-800">{item.role}</td>
@@ -128,25 +137,25 @@ export const Explore: React.FC = () => {
       )}
 
       {/* Missingness & Hardware Sentinel Treatment Audit */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-card space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div className="glass-panel rounded-2xl p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-white/40 pb-3">
           <div>
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Layers className="w-4 h-4 text-teal-600" />
+              <Layers className="w-4 h-4 text-sky-600" />
               <span>Missingness & Hardware Sentinel Treatment Audit</span>
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Sensors emitted hardware sentinel <code className="text-rose-600 font-mono bg-rose-50 px-1 rounded">-200</code> during power dropouts or sensor saturation. All sentinels sanitized before analysis.
             </p>
           </div>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
             Audit Verified
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {missingness.map((item) => (
-            <div key={item.variable} className="p-3.5 rounded-xl bg-slate-50/70 border border-slate-200/70 text-xs space-y-1.5 hover:border-slate-300 transition-colors">
+            <div key={item.variable} className="p-3.5 rounded-xl glass-inner text-xs space-y-1.5 hover:border-slate-300 transition-colors">
               <div className="flex items-center justify-between font-semibold">
                 <span className="text-slate-800 font-mono text-xs">{item.variable}</span>
                 <span className={`font-mono text-xs ${item.raw_missing_pct > 50 ? 'text-rose-600' : 'text-amber-600'}`}>
@@ -154,7 +163,7 @@ export const Explore: React.FC = () => {
                 </span>
               </div>
               <div className="text-[11px] text-slate-500 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0" />
                 <span>{item.status}</span>
               </div>
             </div>
@@ -163,17 +172,17 @@ export const Explore: React.FC = () => {
       </div>
 
       {/* Interactive Data Table Station */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-card overflow-hidden">
+      <div className="glass-panel rounded-2xl overflow-hidden">
         {/* Table Filters Toolbar */}
-        <div className="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-4 bg-slate-50/60">
+        <div className="p-4 border-b border-white/40 flex flex-wrap items-center justify-between gap-4 bg-white/25">
           <div className="flex flex-wrap items-center gap-3">
             {/* Split Filter Chips */}
-            <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 text-xs shadow-sm">
+            <div className="flex items-center gap-1 glass-soft p-1 rounded-xl text-xs">
               <button
                 onClick={() => { setSplitFilter(''); setPage(1); }}
                 className={`px-3 py-1 rounded-lg font-semibold transition-all ${
                   splitFilter === ''
-                    ? 'bg-slate-900 text-white shadow-sm'
+                    ? 'bg-white/90 text-slate-900 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -203,7 +212,7 @@ export const Explore: React.FC = () => {
                 onClick={() => { setSplitFilter('test'); setPage(1); }}
                 className={`px-3 py-1 rounded-lg font-semibold transition-all ${
                   splitFilter === 'test'
-                    ? 'bg-emerald-600 text-white shadow-sm'
+                    ? 'bg-sky-600 text-white shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -211,8 +220,40 @@ export const Explore: React.FC = () => {
               </button>
             </div>
 
+            {/* Date range */}
+            <div className="flex items-center gap-2 glass-soft px-3 py-1.5 rounded-xl">
+              <CalendarRange className="w-3.5 h-3.5 text-slate-500" />
+              <span className="text-xs font-medium text-slate-500">From</span>
+              <input
+                type="date"
+                value={startDate}
+                min="2004-03-10"
+                max="2005-04-04"
+                onChange={(e) => { setStartDate(e.target.value); setPage(1); }}
+                className="text-xs font-mono bg-transparent outline-none text-slate-700"
+              />
+              <span className="text-xs font-medium text-slate-500">To</span>
+              <input
+                type="date"
+                value={endDate}
+                min="2004-03-10"
+                max="2005-04-04"
+                onChange={(e) => { setEndDate(e.target.value); setPage(1); }}
+                className="text-xs font-mono bg-transparent outline-none text-slate-700"
+              />
+              {(startDate || endDate) && (
+                <button
+                  onClick={() => { setStartDate(''); setEndDate(''); setPage(1); }}
+                  className="text-slate-400 hover:text-slate-700"
+                  title="Clear dates"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
             {/* Hour Selector */}
-            <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="flex items-center gap-2 glass-soft px-3 py-1.5 rounded-xl">
               <Filter className="w-3.5 h-3.5 text-slate-500" />
               <span className="text-xs font-medium text-slate-500">Hour:</span>
               <select
@@ -243,7 +284,7 @@ export const Explore: React.FC = () => {
                   setSearchTerm(e.target.value);
                   setPage(1);
                 }}
-                className="text-xs bg-white border border-slate-200 rounded-xl pl-9 pr-8 py-1.5 font-mono text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-sm w-56"
+                className="text-xs glass-soft rounded-xl pl-9 pr-8 py-1.5 font-mono text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 w-56"
               />
               {searchTerm && (
                 <button
@@ -256,12 +297,14 @@ export const Explore: React.FC = () => {
             </div>
 
             {/* Clear All Filters */}
-            {(hourFilter !== '' || splitFilter !== '' || searchTerm !== '') && (
+            {(hourFilter !== '' || splitFilter !== '' || searchTerm !== '' || startDate !== '' || endDate !== '') && (
               <button
                 onClick={() => {
                   setHourFilter('');
                   setSplitFilter('');
                   setSearchTerm('');
+                  setStartDate('');
+                  setEndDate('');
                   setPage(1);
                 }}
                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold hover:bg-rose-100 transition-colors"
@@ -273,14 +316,14 @@ export const Explore: React.FC = () => {
           </div>
 
           <div className="text-xs text-slate-500 font-mono">
-            Records: <strong className="text-slate-900">{data?.total_records.toLocaleString() || '...'}</strong> | Page <strong className="text-teal-700">{page}</strong> of <strong className="text-slate-700">{data?.total_pages || 1}</strong>
+            Records: <strong className="text-slate-900">{data?.total_records.toLocaleString() || '...'}</strong> | Page <strong className="text-sky-700">{page}</strong> of <strong className="text-slate-700">{data?.total_pages || 1}</strong>
           </div>
         </div>
 
         {/* Table View */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-100/75 text-slate-600 font-semibold uppercase tracking-wider border-b border-slate-200">
+            <thead className="bg-white/35 text-slate-600 font-semibold uppercase tracking-wider border-b border-white/40">
               <tr>
                 <th className="py-3 px-4">Observation Timestamp</th>
                 <th className="py-3 px-3">CO (mg/m³)</th>
@@ -289,7 +332,7 @@ export const Explore: React.FC = () => {
                 <th className="py-3 px-3">PT08.S1 Sensor</th>
                 <th className="py-3 px-3">Temp (°C)</th>
                 <th className="py-3 px-3">RH (%)</th>
-                <th className="py-3 px-3 text-teal-800 font-bold">CO_next (Target)</th>
+                <th className="py-3 px-3 text-sky-800 font-bold">CO_next (Target)</th>
                 <th className="py-3 px-3">Partition</th>
               </tr>
             </thead>
@@ -298,9 +341,15 @@ export const Explore: React.FC = () => {
                 <tr>
                   <td colSpan={9} className="py-16 text-center text-slate-400 font-sans">
                     <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="w-6 h-6 border-2 border-teal-600 border-t-transparent rounded-full animate-spin" />
+                      <div className="w-6 h-6 border-2 border-sky-600 border-t-transparent rounded-full animate-spin" />
                       <span>Loading atmospheric observations...</span>
                     </div>
+                  </td>
+                </tr>
+              ) : error ? (
+                <tr>
+                  <td colSpan={9} className="py-8 px-4 font-sans">
+                    <ErrorState message={error} onRetry={() => setPage((p) => p)} />
                   </td>
                 </tr>
               ) : data?.data && data.data.length > 0 ? (
@@ -313,8 +362,8 @@ export const Explore: React.FC = () => {
                     <td className="py-2.5 px-3 text-sky-700">{row['PT08.S1(CO)']}</td>
                     <td className="py-2.5 px-3 text-slate-600">{row['T']}°C</td>
                     <td className="py-2.5 px-3 text-slate-600">{row['RH']}%</td>
-                    <td className="py-2.5 px-3 font-bold text-teal-700">
-                      <span className="px-2 py-0.5 rounded-md bg-teal-50 border border-teal-200">
+                    <td className="py-2.5 px-3 font-bold text-sky-700">
+                      <span className="px-2 py-0.5 rounded-md bg-sky-50 border border-sky-200">
                         {row['CO_next']}
                       </span>
                     </td>
@@ -325,7 +374,7 @@ export const Explore: React.FC = () => {
                             ? 'bg-blue-50 text-blue-700 border border-blue-200'
                             : row['split'] === 'val'
                             ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                            : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-sky-50 text-sky-700 border border-sky-200'
                         }`}
                       >
                         {row['split']}
@@ -335,8 +384,8 @@ export const Explore: React.FC = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={9} className="py-16 text-center text-slate-400 font-sans">
-                    No atmospheric records found matching the active filters.
+                  <td colSpan={9} className="py-8 px-4 font-sans">
+                    <EmptyState />
                   </td>
                 </tr>
               )}
@@ -345,22 +394,22 @@ export const Explore: React.FC = () => {
         </div>
 
         {/* Pagination Bar */}
-        <div className="p-4 border-t border-slate-200 flex items-center justify-between bg-slate-50/50 font-mono text-xs">
+        <div className="p-4 border-t border-white/40 flex items-center justify-between bg-white/20 font-mono text-xs">
           <button
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl glass-soft text-slate-700 hover:bg-white/55 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
             <span className="font-sans">Previous</span>
           </button>
           <span className="text-slate-500 font-sans">
-            Page <strong className="text-teal-800 font-mono">{page}</strong> of <strong className="text-slate-700 font-mono">{data?.total_pages || 1}</strong>
+            Page <strong className="text-sky-800 font-mono">{page}</strong> of <strong className="text-slate-700 font-mono">{data?.total_pages || 1}</strong>
           </span>
           <button
             disabled={!data || page >= data.total_pages}
             onClick={() => setPage((p) => p + 1)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl glass-soft text-slate-700 hover:bg-white/55 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             <span className="font-sans">Next</span>
             <ChevronRight className="w-4 h-4" />

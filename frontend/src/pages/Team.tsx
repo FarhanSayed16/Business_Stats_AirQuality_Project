@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Users, Server, CheckCircle2, GitBranch, Cpu, Database, FileText, Sparkles, ExternalLink } from 'lucide-react';
 
 export const Team: React.FC = () => {
@@ -15,7 +15,7 @@ export const Team: React.FC = () => {
       ]
     },
     {
-      name: 'Group 3 Analytics Specialist',
+      name: 'Member B (replace with legal name)',
       role: 'Statistical Analysis & EDA Lead',
       badge: 'Analytics Lead',
       responsibilities: [
@@ -26,7 +26,7 @@ export const Team: React.FC = () => {
       ]
     },
     {
-      name: 'Group 3 Modelling Specialist',
+      name: 'Member C (replace with legal name)',
       role: 'Machine Learning & Validation Lead',
       badge: 'Modelling Lead',
       responsibilities: [
@@ -47,19 +47,25 @@ export const Team: React.FC = () => {
     { name: 'Recharts', category: 'Data Visualization', desc: 'Interactive timeseries, bar charts, and scatter plots' }
   ];
 
+  const apiBase =
+    import.meta.env.VITE_API_URL ||
+    (typeof window !== 'undefined' && (window.location.port === '8000' || !window.location.port)
+      ? ''
+      : 'http://localhost:8000');
+
   const deliverables = [
-    { name: 'Formal Statistics Assessment Report', format: 'HTML (Printable / PDF)', path: '/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.html', desc: '12-section comprehensive college assessment report.' },
-    { name: 'Viva Presentation Script & Top 10 Q&A', format: 'Markdown Dossier', path: '/reports/VIVA_PRESENTATION_SCRIPT_AND_QA.md', desc: '8–10 minute oral walkthrough and examiner defense notes.' },
-    { name: 'Curated Cleaned Atmospheric Dataset', format: 'CSV (2.5 MB, 9,353 Rows)', path: '/data/download', desc: 'Fully preprocessed dataset ready for reproduction.' },
-    { name: 'Champion Model & Serialization Weights', format: 'Joblib & JSON Artifacts', path: '#', desc: 'Tuned HistGradientBoostingRegressor and feature schema.' }
+    { name: 'Formal Statistics Assessment Report (HTML)', format: 'HTML (printable)', path: `${apiBase}/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.html`, desc: 'Full college assessment report — open and Print to PDF if needed.' },
+    { name: 'Formal Statistics Assessment Report (PDF)', format: 'PDF', path: `${apiBase}/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.pdf`, desc: 'Submission-ready PDF generated from metrics + report summary.' },
+    { name: 'Viva Presentation Script & Top 10 Q&A', format: 'Markdown', path: `${apiBase}/reports/VIVA_PRESENTATION_SCRIPT_AND_QA.md`, desc: '8–10 minute oral walkthrough and examiner defense notes.' },
+    { name: 'Curated Cleaned Atmospheric Dataset', format: 'CSV (9,353 rows)', path: `${apiBase}/data/download`, desc: 'Fully preprocessed dataset ready for reproduction.' }
   ];
 
   return (
     <div className="space-y-10 pb-12">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold tracking-wide border border-teal-200/80 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold tracking-wide border border-sky-200/80 mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-sky-600" />
           <span>Research Dossier & Technical Credits</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -68,31 +74,39 @@ export const Team: React.FC = () => {
         <p className="text-sm text-slate-500 mt-1 max-w-2xl">
           MCA I Statistics Internal Assessment — <strong className="text-slate-700">Group 3: Air Quality and Pollution</strong>. Developed for university coursework, combining academic statistics with a modern telemetry interface.
         </p>
+        <p className="text-xs text-amber-800 mt-3 max-w-2xl bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
+          Before final submission, replace <strong>Member B</strong> and <strong>Member C</strong> placeholders with each teammate’s legal name in this page, the PDF/HTML report, and the viva script.
+        </p>
+        <div className="mt-3 text-xs text-slate-600 glass-inner rounded-xl px-3 py-2 max-w-2xl">
+          <strong className="text-slate-800">Demo URLs:</strong> Local dashboard <code className="font-mono text-sky-700">http://localhost:5173</code>
+          {' '}· API <code className="font-mono text-sky-700">http://localhost:8000</code>
+          {' '}· Cloud deploy configs ready in <code className="font-mono">render.yaml</code> / <code className="font-mono">frontend/vercel.json</code> (awaiting host credentials).
+        </div>
       </div>
 
       {/* Team Member Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {members.map((m, i) => (
-          <div key={i} className="bg-white rounded-3xl p-6 border border-slate-100 shadow-card flex flex-col justify-between space-y-5 hover:shadow-card-hover hover:border-teal-200/80 transition-all duration-300">
+          <div key={i} className="glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-5 hover:bg-white/50 transition-all duration-300">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-100 text-teal-600 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-2xl glass-inner text-sky-600 flex items-center justify-center font-bold">
                   <Users className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 font-mono">
+                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full glass-soft text-sky-700 font-mono">
                   {m.badge}
                 </span>
               </div>
               <div>
                 <h3 className="font-bold text-base text-slate-900">{m.name}</h3>
-                <p className="text-xs font-semibold text-teal-700 mt-0.5">{m.role}</p>
+                <p className="text-xs font-semibold text-sky-700 mt-0.5">{m.role}</p>
               </div>
-              <div className="pt-3 border-t border-slate-100">
+              <div className="pt-3 border-t border-white/40">
                 <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">Key Responsibilities:</h4>
                 <ul className="space-y-2 text-xs text-slate-600">
                   {m.responsibilities.map((r, rIdx) => (
                     <li key={rIdx} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-sky-600 shrink-0 mt-0.5" />
                       <span className="text-slate-600 leading-relaxed">{r}</span>
                     </li>
                   ))}
@@ -104,10 +118,10 @@ export const Team: React.FC = () => {
       </div>
 
       {/* Dual-Layer Architecture Blueprint */}
-      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card space-y-5">
-        <div className="border-b border-slate-100 pb-3">
+      <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-5">
+        <div className="border-b border-white/40 pb-3">
           <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <GitBranch className="w-4 h-4 text-teal-600" />
+            <GitBranch className="w-4 h-4 text-sky-600" />
             <span>Dual-Layer Architectural Architecture</span>
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -116,9 +130,9 @@ export const Team: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-1">
-          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+          <div className="p-4 rounded-2xl glass-inner space-y-2">
             <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
-              <Database className="w-4 h-4 text-teal-600" />
+              <Database className="w-4 h-4 text-sky-600" />
               <span>1. Academic Core</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
@@ -126,17 +140,17 @@ export const Team: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+          <div className="p-4 rounded-2xl glass-inner space-y-2">
             <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
               <Cpu className="w-4 h-4 text-cyan-600" />
               <span>2. Artifact Engine</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Serialized champion model (<code className="font-mono text-teal-700 bg-teal-50 px-1 py-0.5 rounded">model.joblib</code>), statistical metrics (<code className="font-mono text-teal-700 bg-teal-50 px-1 py-0.5 rounded">metrics.json</code>), and feature schema.
+              Serialized champion model (<code className="font-mono text-sky-700 bg-sky-50 px-1 py-0.5 rounded">model.joblib</code>), statistical metrics (<code className="font-mono text-sky-700 bg-sky-50 px-1 py-0.5 rounded">metrics.json</code>), and feature schema.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+          <div className="p-4 rounded-2xl glass-inner space-y-2">
             <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
               <Server className="w-4 h-4 text-sky-600" />
               <span>3. FastAPI Presentation</span>
@@ -146,9 +160,9 @@ export const Team: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+          <div className="p-4 rounded-2xl glass-inner space-y-2">
             <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
-              <Sparkles className="w-4 h-4 text-emerald-600" />
+              <Sparkles className="w-4 h-4 text-sky-600" />
               <span>4. React 19 Interface</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
@@ -159,10 +173,10 @@ export const Team: React.FC = () => {
       </div>
 
       {/* Tech Stack Grid */}
-      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card space-y-5">
-        <div className="border-b border-slate-100 pb-3">
+      <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-5">
+        <div className="border-b border-white/40 pb-3">
           <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-teal-600" />
+            <Cpu className="w-4 h-4 text-sky-600" />
             <span>Technology Stack & Scientific Libraries</span>
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">Underlying computational and presentation frameworks powering AirWatch CO.</p>
@@ -170,9 +184,9 @@ export const Team: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {techStack.map((tech) => (
-            <div key={tech.name} className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-1 hover:border-teal-200 transition-colors">
+            <div key={tech.name} className="p-3.5 rounded-2xl glass-inner space-y-1 hover:border-sky-200 transition-colors">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-teal-700 text-xs">{tech.name}</span>
+                <span className="font-mono font-bold text-sky-700 text-xs">{tech.name}</span>
                 <span className="text-[10px] text-slate-400 font-medium">{tech.category}</span>
               </div>
               <p className="text-[11px] text-slate-500 leading-relaxed">{tech.desc}</p>
@@ -182,10 +196,10 @@ export const Team: React.FC = () => {
       </div>
 
       {/* Assessment Deliverables Hub */}
-      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card space-y-5">
-        <div className="border-b border-slate-100 pb-3">
+      <div className="glass-panel rounded-3xl p-6 sm:p-7 space-y-5">
+        <div className="border-b border-white/40 pb-3">
           <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <FileText className="w-4 h-4 text-teal-600" />
+            <FileText className="w-4 h-4 text-sky-600" />
             <span>Assessment Deliverables & Submission Assets</span>
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">Official course assessment documentation generated by this repository.</p>
@@ -193,11 +207,11 @@ export const Team: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {deliverables.map((del, i) => (
-            <div key={i} className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 flex items-start justify-between gap-3 hover:border-teal-200 transition-colors">
+            <div key={i} className="p-4 rounded-2xl glass-inner flex items-start justify-between gap-3 hover:border-sky-200 transition-colors">
               <div className="space-y-1">
                 <div className="text-xs font-bold text-slate-900">{del.name}</div>
                 <div className="text-[11px] text-slate-500">{del.desc}</div>
-                <span className="inline-block text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200/80">
+                <span className="inline-block text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200/80">
                   {del.format}
                 </span>
               </div>
@@ -206,7 +220,7 @@ export const Team: React.FC = () => {
                   href={del.path}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-teal-700 hover:border-teal-300 shadow-sm transition-colors"
+                  className="p-2 rounded-xl glass-soft text-slate-500 hover:text-sky-700 hover:bg-white/55 transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
