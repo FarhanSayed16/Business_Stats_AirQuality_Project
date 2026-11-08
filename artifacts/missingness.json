@@ -1,0 +1,68 @@
+[
+  {
+    "variable": "NMHC(GT)",
+    "raw_missing_pct": 90.23,
+    "cleaned_missing_pct": 100.0,
+    "status": "Dropped (>90% missing)"
+  },
+  {
+    "variable": "CO(GT)",
+    "raw_missing_pct": 17.99,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "NOx(GT)",
+    "raw_missing_pct": 17.52,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "NO2(GT)",
+    "raw_missing_pct": 17.55,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "PT08.S1(CO)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "C6H6(GT)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "PT08.S2(NMHC)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "PT08.S3(NOx)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "PT08.S4(NO2)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "PT08.S5(O3)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  },
+  {
+    "variable": "Weather (T, RH, AH)",
+    "raw_missing_pct": 3.91,
+    "cleaned_missing_pct": 0.0,
+    "status": "Cleaned & Imputed via Time Interpolation"
+  }
+]

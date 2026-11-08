@@ -22,7 +22,7 @@
 | **Persistence Baseline** ($\hat{y}_{t+1} = y_t$) | 0.7739 | 0.4996 | 0.6556 | Reference | Naive Benchmark |
 | **Standardized Linear Regression** | 0.7556 | 0.6035 | 0.6717 | +2.4% RMSE reduction | Interpretable |
 | **Ridge Regression ($\alpha=10.0$)** | 0.7641 | 0.6156 | 0.6642 | +1.3% RMSE reduction | L2 Regularized |
-| **Random Forest Regressor** | 0.5969 | 0.4232 | 0.7951 | +22.9% RMSE reduction | Tree Ensemble |
+| **Random Forest Regressor** | 0.5842 | 0.4032 | 0.8037 | +24.5% RMSE reduction | Tree Ensemble |
 | **Tuned HistGradientBoostingRegressor** | **0.5378** | **0.3608** | **0.8337** | **+30.50% RMSE reduction** | **Selected Champion** |
 
 * **Optimal Tuned Hyperparameters (5-Fold TimeSeriesSplit):**
@@ -153,5 +153,13 @@ cd frontend && npm run build
 ## 7. Group 3 Team Members & Roles
 
 * **Farhan Sayed (Data & Architecture Lead):** Cleaned dataset curation, `-200` sentinel handling, time-aware interpolation, chronological splits, FastAPI REST backend, React dashboard, and report compilation.
-* **Group 3 Team Member (EDA & Analytics Lead):** Statistical moments, diurnal hourly cycle analysis, weekday vs weekend distributions, and correlation heatmap generation.
-* **Group 3 Team Member (Predictive Modelling Lead):** Formulation of next-hour target $CO_{next}$, baseline calibration, 5-fold `TimeSeriesSplit` cross-validation, and serialized model evaluation.
+* **Member B (EDA & Analytics Lead):** Statistical moments, diurnal hourly cycle analysis, weekday vs weekend distributions, and correlation heatmap generation. *Replace with legal name before submission.*
+* **Member C (Predictive Modelling Lead):** Formulation of next-hour target $CO_{next}$, baseline calibration, 5-fold `TimeSeriesSplit` cross-validation, and serialized model evaluation. *Replace with legal name before submission.*
+
+## 8. Reports & Local Demo
+
+* Report pack: `reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.md` / `.html` / `.pdf`
+* Regenerate HTML: `python build_html_report.py`
+* Regenerate PDF: `python export_report_pdf.py`
+* Primary viva demo path: `.\start_project.ps1` → http://localhost:5173 + http://localhost:8000
+* Cloud: `render.yaml` + `frontend/vercel.json` (deploy when credentials available)

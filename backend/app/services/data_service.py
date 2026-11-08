@@ -10,12 +10,13 @@ class DataService:
         self.df: Optional[pd.DataFrame] = None
         self.metrics: Optional[Dict[str, Any]] = None
         self.feature_schema: Optional[Dict[str, Any]] = None
+        self.missingness: List[Dict[str, Any]] = []
         self.model = None
         self.features: List[str] = []
         self._find_and_load_artifacts()
 
     def _find_and_load_artifacts(self):
-        # Look in multiple possible parent locations
+        # Look in multiple possible parent locations (prefer project root)
         search_dirs = [
             os.path.abspath("."),
             os.path.abspath(".."),
@@ -27,12 +28,14 @@ class DataService:
         metrics_path = None
         schema_path = None
         model_path = None
+        missingness_path = None
 
         for d in search_dirs:
             c_test = os.path.join(d, "data", "cleaned", "cleaned_air_quality.csv")
             m_test = os.path.join(d, "artifacts", "metrics.json")
             s_test = os.path.join(d, "artifacts", "feature_schema.json")
             mod_test = os.path.join(d, "artifacts", "model.joblib")
+            miss_test = os.path.join(d, "artifacts", "missingness.json")
 
             if os.path.exists(c_test) and csv_path is None:
                 csv_path = c_test
@@ -42,6 +45,8 @@ class DataService:
                 schema_path = s_test
             if os.path.exists(mod_test) and model_path is None:
                 model_path = mod_test
+            if os.path.exists(miss_test) and missingness_path is None:
+                missingness_path = miss_test
 
         if not (csv_path and metrics_path and schema_path and model_path):
             raise FileNotFoundError(
@@ -61,6 +66,12 @@ class DataService:
             self.feature_schema = json.load(f)
 
         self.features = [feat['name'] for feat in self.feature_schema['features']]
+
+        if missingness_path:
+            with open(missingness_path, 'r', encoding='utf-8') as f:
+                self.missingness = json.load(f)
+        else:
+            self.missingness = []
 
         # 3. Load Trained Model
         self.model = joblib.load(model_path)
@@ -94,6 +105,15 @@ class DataService:
                 "min": round(float(co.min()), 2),
                 "median": round(float(co.median()), 2),
                 "max": round(float(co.max()), 2)
+            },
+            "weather_stats": {
+                "t_mean": round(float(self.df['T'].mean()), 1),
+                "rh_mean": round(float(self.df['RH'].mean()), 1),
+                "ah_mean": round(float(self.df['AH'].mean()), 3)
+            },
+            "sensor_stats": {
+                "pt08_s1_mean": round(float(self.df['PT08.S1(CO)'].mean()), 1),
+                "pt08_s2_mean": round(float(self.df['PT08.S2(NMHC)'].mean()), 1)
             },
             "primary_model": self.metrics.get("primary_model", {}),
             "models_comparison": self.metrics.get("models_comparison", {})
@@ -236,19 +256,9 @@ class DataService:
         }
 
     def get_missingness_summary(self) -> List[Dict[str, Any]]:
-        return [
-            {"variable": "NMHC(GT)", "raw_missing_pct": 90.23, "cleaned_missing_pct": 100.0, "status": "Dropped (>90% missing)"},
-            {"variable": "CO(GT)", "raw_missing_pct": 17.99, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "NOx(GT)", "raw_missing_pct": 17.52, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "NO2(GT)", "raw_missing_pct": 17.55, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "PT08.S1(CO)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "C6H6(GT)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "PT08.S2(NMHC)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "PT08.S3(NOx)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "PT08.S4(NO2)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "PT08.S5(O3)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"},
-            {"variable": "Weather (T, RH, AH)", "raw_missing_pct": 3.91, "cleaned_missing_pct": 0.0, "status": "Cleaned & Imputed via Time Interpolation"}
-        ]
+        if self.missingness:
+            return self.missingness
+        raise FileNotFoundError("artifacts/missingness.json not found — regenerate from preprocessing notes.")
 
     def get_sample_test_timestamps(self, count: int = 60) -> List[Dict[str, Any]]:
         test_subset = self.df[self.df['split'] == 'test']

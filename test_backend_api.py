@@ -24,8 +24,13 @@ def test_endpoints():
     assert r.status_code == 200, f"Failed /stats/overview: {r.text}"
     stats_data = r.json()
     assert "co_stats" in stats_data
+    assert "weather_stats" in stats_data and "t_mean" in stats_data["weather_stats"]
+    assert "sensor_stats" in stats_data
     assert stats_data["total_hours"] == 9353
-    print("  /stats/overview passed. Mean CO:", stats_data["co_stats"]["mean"])
+    primary = stats_data["primary_model"]
+    assert abs(primary["test_rmse"] - 0.5378) < 1e-6
+    assert abs(primary["test_r2"] - 0.8337) < 1e-6
+    print("  /stats/overview passed. Mean CO:", stats_data["co_stats"]["mean"], "T mean:", stats_data["weather_stats"]["t_mean"])
 
     print("Testing /stats/timeseries ...")
     r = client.get("/stats/timeseries?step=12")
@@ -123,6 +128,30 @@ def test_endpoints():
     filter_res = r.json()
     assert "data" in filter_res
     print(f"  /data (filters) passed: {filter_res['total_records']} records returned.")
+
+    print("Testing /reports HTML ...")
+    r = client.get("/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.html")
+    assert r.status_code == 200, f"Report HTML missing: {r.status_code}"
+    print("  /reports HTML passed")
+
+    print("Testing /reports PDF ...")
+    r = client.get("/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.pdf")
+    assert r.status_code == 200, f"Report PDF missing: {r.status_code}"
+    assert r.headers.get("content-type", "").startswith("application/pdf") or len(r.content) > 500
+    print("  /reports PDF passed")
+
+    print("Testing model comparison completeness ...")
+    r = client.get("/model/evaluation")
+    keys = set(r.json()["models_comparison"].keys())
+    required = {
+        "Persistence_Baseline",
+        "Linear_Regression",
+        "Ridge_Regression",
+        "Random_Forest",
+        "Tuned_HistGradientBoosting",
+    }
+    assert required.issubset(keys), f"Missing model keys: {required - keys}"
+    print("  model comparison keys passed:", sorted(keys))
 
     print("\nALL BACKEND API TESTS PASSED SUCCESSFULLY! 100% HEALTHY.")
 

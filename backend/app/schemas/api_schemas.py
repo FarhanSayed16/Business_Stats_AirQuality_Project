@@ -18,6 +18,8 @@ class OverviewResponse(BaseModel):
     total_hours: int
     date_range: Dict[str, str]
     co_stats: Dict[str, float]
+    weather_stats: Dict[str, float]
+    sensor_stats: Dict[str, float]
     primary_model: Dict[str, Any]
     models_comparison: Dict[str, Any]
 
