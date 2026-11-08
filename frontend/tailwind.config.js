@@ -12,14 +12,7 @@ export default {
         mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', 'monospace'],
       },
       colors: {
-        background: '#090d16',
-        surface: {
-          50: '#1e293b',
-          100: '#162032',
-          200: '#111927',
-          300: '#0d131f',
-          DEFAULT: '#111927',
-        },
+        canvas: '#f4f7fb',
         brand: {
           50: '#f0fdfa',
           100: '#ccfbf1',
@@ -32,16 +25,11 @@ export default {
           800: '#115e59',
           900: '#134e4a',
         },
-        slate: {
-          850: '#131b2e',
-          925: '#0b111e',
-          950: '#070a12',
-        }
       },
       boxShadow: {
-        'glow-teal': '0 0 25px -5px rgba(20, 184, 166, 0.25)',
-        'glow-sky': '0 0 25px -5px rgba(56, 189, 248, 0.25)',
-        'glow-card': '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05)',
+        'card': '0 8px 30px rgba(0, 0, 0, 0.04)',
+        'card-hover': '0 14px 35px rgba(0, 0, 0, 0.07)',
+        'pod': '0 4px 20px rgba(0, 0, 0, 0.06)',
       }
     },
   },

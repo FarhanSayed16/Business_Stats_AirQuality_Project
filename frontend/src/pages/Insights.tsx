@@ -36,74 +36,74 @@ export const Insights: React.FC = () => {
     <div className="space-y-8 pb-12">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 text-xs font-semibold tracking-wide border border-teal-500/20 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold tracking-wide border border-teal-200 mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-teal-600" />
           <span>Empirical Statistical Discoveries</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Exploratory Data Analysis & Atmospheric Rhythms
         </h1>
-        <p className="text-sm text-slate-400 mt-1 max-w-2xl">
+        <p className="text-sm text-slate-500 mt-1 max-w-2xl">
           Quantitative statistical analyses exploring diurnal traffic commute waves, weekly commercial respite, solid-state sensor fidelity, and multi-pollutant covariance.
         </p>
       </div>
 
       {/* 4 Core Empirical Takeaway Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-5 rounded-2xl border border-slate-800/80 shadow-xl space-y-2 hover:border-teal-500/40 transition-all duration-200">
-          <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/25 text-teal-400 flex items-center justify-center font-bold text-sm">
-            <Clock className="w-4 h-4" />
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-card space-y-2 hover:shadow-card-hover transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center font-bold text-sm">
+            <Clock className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-sm text-white">Bimodal Rush-Hour Surges</h4>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Traffic generates twin daily peaks: morning commute at <strong className="text-teal-300 font-mono">8:00–9:00 AM</strong> (2.7 mg/m³) and evening peak at <strong className="text-teal-300 font-mono">6:00–8:00 PM</strong> (3.1 mg/m³).
+          <h4 className="font-bold text-sm text-slate-900">Bimodal Rush-Hour Surges</h4>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Traffic generates twin daily peaks: morning commute at <strong className="text-teal-800 font-mono">8:00–9:00 AM</strong> (2.7 mg/m³) and evening peak at <strong className="text-teal-800 font-mono">6:00–8:00 PM</strong> (3.1 mg/m³).
           </p>
         </div>
 
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-5 rounded-2xl border border-slate-800/80 shadow-xl space-y-2 hover:border-sky-500/40 transition-all duration-200">
-          <div className="w-9 h-9 rounded-xl bg-sky-500/10 border border-sky-500/25 text-sky-400 flex items-center justify-center font-bold text-sm">
-            <Calendar className="w-4 h-4" />
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-card space-y-2 hover:shadow-card-hover transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-bold text-sm">
+            <Calendar className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-sm text-white">Sunday Activity Lull</h4>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Emissions remain high Monday through Friday, taper on Saturday, and drop by <strong className="text-sky-300">~35% on Sunday</strong> (mean 1.54 mg/m³), confirming vehicular traffic as the prime source.
+          <h4 className="font-bold text-sm text-slate-900">Sunday Activity Lull</h4>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Emissions remain high Monday through Friday, taper on Saturday, and drop by <strong className="text-sky-800">~35% on Sunday</strong> (mean 1.54 mg/m³), confirming vehicular traffic as the prime source.
           </p>
         </div>
 
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-5 rounded-2xl border border-slate-800/80 shadow-xl space-y-2 hover:border-cyan-500/40 transition-all duration-200">
-          <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 flex items-center justify-center font-bold text-sm">
-            <Layers className="w-4 h-4" />
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-card space-y-2 hover:shadow-card-hover transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-sm">
+            <Layers className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-sm text-white">Semiconductor Sensor Fidelity</h4>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Tin oxide sensor <code className="font-mono text-teal-300">PT08.S1</code> (r = <strong className="text-cyan-300">0.82</strong>) and titania <code className="font-mono text-teal-300">PT08.S2</code> (r = <strong className="text-cyan-300">0.87</strong>) show high predictive tracking with reference CO.
+          <h4 className="font-bold text-sm text-slate-900">Semiconductor Sensor Fidelity</h4>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Tin oxide sensor <code className="font-mono text-teal-700 bg-teal-50 px-1 rounded">PT08.S1</code> (r = <strong className="text-indigo-800">0.82</strong>) and titania <code className="font-mono text-teal-700 bg-teal-50 px-1 rounded">PT08.S2</code> (r = <strong className="text-indigo-800">0.87</strong>) show high predictive tracking with reference CO.
           </p>
         </div>
 
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-5 rounded-2xl border border-slate-800/80 shadow-xl space-y-2 hover:border-amber-500/40 transition-all duration-200">
-          <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-400 flex items-center justify-center font-bold text-sm">
-            <CloudSun className="w-4 h-4" />
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-card space-y-2 hover:shadow-card-hover transition-all duration-200">
+          <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-sm">
+            <CloudSun className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-sm text-white">Boundary Layer Trapping</h4>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <h4 className="font-bold text-sm text-slate-900">Boundary Layer Trapping</h4>
+          <p className="text-xs text-slate-600 leading-relaxed">
             Winter months display higher pollution accumulation due to nocturnal thermal inversions trapping automobile combustion exhaust within street canyons.
           </p>
         </div>
       </div>
 
-      {/* Chart 1: Diurnal Hourly Cycle */}
-      <div className="bg-[#0b1220]/75 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+      {/* Chart 1: Diurnal Hourly Cycle (Wavy Spline Profile) */}
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-card space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Clock className="w-4 h-4 text-teal-400" />
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Clock className="w-4 h-4 text-teal-600" />
               <span>Diurnal Hourly Profile of Carbon Monoxide</span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Hourly aggregate curve across 24 hours displaying Mean, Median, and Interquartile Range (IQR). Note the commute peaks at 8 AM and 7 PM.
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-teal-300 bg-teal-500/10 px-3 py-1 rounded-full border border-teal-500/30 self-start sm:self-auto font-mono">
+          <div className="flex items-center gap-2 text-xs font-semibold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200 self-start sm:self-auto font-mono">
             <span>Bimodal Traffic Signature</span>
           </div>
         </div>
@@ -111,7 +111,7 @@ export const Insights: React.FC = () => {
         <div className="h-72 w-full pt-4">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={hourly} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
               <XAxis
                 dataKey="hour"
                 tickFormatter={(hr) => `${hr < 10 ? '0' : ''}${hr}:00`}
@@ -122,13 +122,13 @@ export const Insights: React.FC = () => {
               <Tooltip
                 formatter={(val: any) => [`${val} mg/m³`, '']}
                 labelFormatter={(hr) => `Observation Hour: ${hr}:00`}
-                contentStyle={{ backgroundColor: '#0b1220', borderRadius: '12px', border: '1px solid #334155', color: '#f1f5f9', fontSize: '12px' }}
+                contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
               />
               <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-              <Line type="monotone" dataKey="mean" stroke="#2dd4bf" strokeWidth={3} name="Mean CO(GT)" dot={{ r: 3, fill: '#2dd4bf' }} />
-              <Line type="monotone" dataKey="median" stroke="#38bdf8" strokeWidth={2} strokeDasharray="4 4" name="Median CO(GT)" dot={false} />
+              <Line type="monotone" dataKey="mean" stroke="#0d9488" strokeWidth={3} name="Mean CO(GT)" dot={{ r: 3, fill: '#0d9488' }} />
+              <Line type="monotone" dataKey="median" stroke="#0284c7" strokeWidth={2} strokeDasharray="4 4" name="Median CO(GT)" dot={false} />
               <Line type="monotone" dataKey="q75" stroke="#94a3b8" strokeWidth={1} name="75th Percentile" dot={false} />
-              <Line type="monotone" dataKey="q25" stroke="#475569" strokeWidth={1} name="25th Percentile" dot={false} />
+              <Line type="monotone" dataKey="q25" stroke="#cbd5e1" strokeWidth={1} name="25th Percentile" dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -137,25 +137,25 @@ export const Insights: React.FC = () => {
       {/* Chart 2 & 3: Weekday and Weather Relationships */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Weekly Profile */}
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl space-y-4">
-          <div className="border-b border-slate-800 pb-3">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-sky-400" />
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-card space-y-4">
+          <div className="border-b border-slate-100 pb-4">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-sky-600" />
               <span>Weekly Distribution: Day-of-Week Variation</span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Compares commercial weekday congestion against weekend respite (Sunday minimum of 1.54 mg/m³).
             </p>
           </div>
           <div className="h-64 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weekday} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis dataKey="day_name" stroke="#64748b" fontSize={11} />
                 <YAxis stroke="#64748b" fontSize={11} unit=" mg" />
                 <Tooltip
                   formatter={(val: any) => [`${val} mg/m³`, 'Mean CO']}
-                  contentStyle={{ backgroundColor: '#0b1220', borderRadius: '12px', border: '1px solid #334155', color: '#f1f5f9', fontSize: '12px' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '12px' }}
                 />
                 <Bar dataKey="mean" fill="#0d9488" radius={[6, 6, 0, 0]} name="Mean CO" />
               </BarChart>
@@ -164,20 +164,20 @@ export const Insights: React.FC = () => {
         </div>
 
         {/* Meteorological Scatter */}
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-card space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <CloudSun className="w-4 h-4 text-amber-400" />
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <CloudSun className="w-4 h-4 text-amber-600" />
                 <span>Atmospheric Microclimate Coupling</span>
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">Correlation with road-level temperature & humidity.</p>
+              <p className="text-xs text-slate-500 mt-0.5">Correlation with road-level temperature & humidity.</p>
             </div>
-            <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
               <button
                 onClick={() => setSelectedWeatherVar('t')}
                 className={`px-2.5 py-1 rounded-lg transition-colors ${
-                  selectedWeatherVar === 't' ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30' : 'text-slate-400 hover:text-slate-200'
+                  selectedWeatherVar === 't' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Temp (°C)
@@ -185,7 +185,7 @@ export const Insights: React.FC = () => {
               <button
                 onClick={() => setSelectedWeatherVar('rh')}
                 className={`px-2.5 py-1 rounded-lg transition-colors ${
-                  selectedWeatherVar === 'rh' ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30' : 'text-slate-400 hover:text-slate-200'
+                  selectedWeatherVar === 'rh' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Humidity (%)
@@ -193,7 +193,7 @@ export const Insights: React.FC = () => {
               <button
                 onClick={() => setSelectedWeatherVar('ah')}
                 className={`px-2.5 py-1 rounded-lg transition-colors ${
-                  selectedWeatherVar === 'ah' ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30' : 'text-slate-400 hover:text-slate-200'
+                  selectedWeatherVar === 'ah' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Abs Hum
@@ -204,7 +204,7 @@ export const Insights: React.FC = () => {
           <div className="h-64 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <ScatterChart margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
                 <XAxis
                   type="number"
                   dataKey={selectedWeatherVar}
@@ -214,10 +214,10 @@ export const Insights: React.FC = () => {
                 />
                 <YAxis type="number" dataKey="co" name="CO(GT)" unit=" mg" stroke="#64748b" fontSize={11} />
                 <Tooltip
-                  cursor={{ strokeDasharray: '3 3', stroke: '#64748b' }}
-                  contentStyle={{ backgroundColor: '#0b1220', borderRadius: '12px', border: '1px solid #334155', color: '#f1f5f9', fontSize: '12px' }}
+                  cursor={{ strokeDasharray: '3 3', stroke: '#94a3b8' }}
+                  contentStyle={{ backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#0f172a', fontSize: '12px' }}
                 />
-                <Scatter name="Observations" data={weatherScatter} fill="#38bdf8" fillOpacity={0.4} />
+                <Scatter name="Observations" data={weatherScatter} fill="#0284c7" fillOpacity={0.45} />
               </ScatterChart>
             </ResponsiveContainer>
           </div>
@@ -226,13 +226,13 @@ export const Insights: React.FC = () => {
 
       {/* Multi-Pollutant Correlation Heatmap */}
       {correlation && (
-        <div className="bg-[#0b1220]/75 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl space-y-4">
-          <div className="border-b border-slate-800 pb-3">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Activity className="w-4 h-4 text-cyan-400" />
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-card space-y-4">
+          <div className="border-b border-slate-100 pb-4">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-sky-600" />
               <span>Multi-Pollutant & Sensor Correlation Matrix (Pearson r)</span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Pairwise correlation coefficients among reference gas analyzers, solid-state semiconductor sensors, and meteorological variables.
             </p>
           </div>
@@ -241,9 +241,9 @@ export const Insights: React.FC = () => {
             <table className="w-full text-center text-[11px] font-mono">
               <thead>
                 <tr>
-                  <th className="py-2.5 px-3 text-left font-sans font-semibold text-slate-400 uppercase tracking-wider">Feature</th>
+                  <th className="py-2.5 px-3 text-left font-sans font-semibold text-slate-600 uppercase tracking-wider">Feature</th>
                   {correlation.columns.map((c) => (
-                    <th key={c} className="py-2.5 px-1 font-medium text-slate-400 truncate max-w-[70px]">
+                    <th key={c} className="py-2.5 px-1 font-medium text-slate-600 truncate max-w-[70px]">
                       {c.replace('(GT)', '').replace('PT08.', '')}
                     </th>
                   ))}
@@ -251,8 +251,8 @@ export const Insights: React.FC = () => {
               </thead>
               <tbody>
                 {correlation.columns.map((rowName, rIdx) => (
-                  <tr key={rowName} className="border-t border-slate-800/50 hover:bg-slate-800/30 transition-colors">
-                    <td className="py-2 px-3 text-left font-semibold text-slate-200 truncate max-w-[120px]">
+                  <tr key={rowName} className="border-t border-slate-100 hover:bg-slate-50/70 transition-colors">
+                    <td className="py-2 px-3 text-left font-semibold text-slate-800 truncate max-w-[120px]">
                       {rowName}
                     </td>
                     {correlation.columns.map((_, cIdx) => {
@@ -263,14 +263,14 @@ export const Insights: React.FC = () => {
 
                       const bgClass =
                         isHighPos
-                          ? 'bg-teal-500/30 text-teal-200 border border-teal-500/40 font-bold'
+                          ? 'bg-teal-600 text-white font-bold'
                           : isModPos
-                          ? 'bg-teal-500/10 text-teal-300 font-medium'
+                          ? 'bg-teal-100 text-teal-900 font-medium'
                           : isHighNeg
-                          ? 'bg-rose-500/30 text-rose-200 border border-rose-500/40 font-bold'
+                          ? 'bg-rose-500 text-white font-bold'
                           : val < 0
-                          ? 'bg-rose-500/10 text-rose-300'
-                          : 'bg-slate-900/40 text-slate-400';
+                          ? 'bg-rose-50 text-rose-800'
+                          : 'bg-slate-50 text-slate-700';
 
                       return (
                         <td key={cIdx} className="p-1">

@@ -43,7 +43,7 @@ export const Team: React.FC = () => {
     { name: 'FastAPI & Uvicorn', category: 'Backend Presentation Layer', desc: 'High-performance asynchronous REST API service' },
     { name: 'Scikit-Learn', category: 'Machine Learning', desc: 'HistGradientBoosting, Ridge, TimeSeriesSplit CV' },
     { name: 'React 19 & TypeScript', category: 'Frontend Interface', desc: 'Type-safe interactive dashboard application' },
-    { name: 'Tailwind CSS', category: 'Styling Toolchain', desc: 'Responsive utility styling with dark obsidian design tokens' },
+    { name: 'Tailwind CSS', category: 'Styling Toolchain', desc: 'Responsive utility styling with luminous Clean-Air design tokens' },
     { name: 'Recharts', category: 'Data Visualization', desc: 'Interactive timeseries, bar charts, and scatter plots' }
   ];
 
@@ -58,42 +58,42 @@ export const Team: React.FC = () => {
     <div className="space-y-10 pb-12">
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 text-xs font-semibold tracking-wide border border-teal-500/20 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-semibold tracking-wide border border-teal-200/80 mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-teal-600" />
           <span>Research Dossier & Technical Credits</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Project Team & System Architecture
         </h1>
-        <p className="text-sm text-slate-400 mt-1 max-w-2xl">
-          MCA I Statistics Internal Assessment — <strong>Group 3: Air Quality and Pollution</strong>. Developed for university coursework, combining academic statistics with a modern telemetry interface.
+        <p className="text-sm text-slate-500 mt-1 max-w-2xl">
+          MCA I Statistics Internal Assessment — <strong className="text-slate-700">Group 3: Air Quality and Pollution</strong>. Developed for university coursework, combining academic statistics with a modern telemetry interface.
         </p>
       </div>
 
       {/* Team Member Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {members.map((m, i) => (
-          <div key={i} className="bg-[#0b1220]/75 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl flex flex-col justify-between space-y-5 hover:border-teal-500/40 transition-all duration-200">
+          <div key={i} className="bg-white rounded-3xl p-6 border border-slate-100 shadow-card flex flex-col justify-between space-y-5 hover:shadow-card-hover hover:border-teal-200/80 transition-all duration-300">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-2xl bg-teal-50 border border-teal-100 text-teal-600 flex items-center justify-center font-bold">
                   <Users className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30 font-mono">
+                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 font-mono">
                   {m.badge}
                 </span>
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">{m.name}</h3>
-                <p className="text-xs font-semibold text-teal-400 mt-0.5">{m.role}</p>
+                <h3 className="font-bold text-base text-slate-900">{m.name}</h3>
+                <p className="text-xs font-semibold text-teal-700 mt-0.5">{m.role}</p>
               </div>
-              <div className="pt-3 border-t border-slate-800">
+              <div className="pt-3 border-t border-slate-100">
                 <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 font-mono">Key Responsibilities:</h4>
-                <ul className="space-y-2 text-xs text-slate-300">
+                <ul className="space-y-2 text-xs text-slate-600">
                   {m.responsibilities.map((r, rIdx) => (
                     <li key={rIdx} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
-                      <span className="text-slate-300 leading-relaxed">{r}</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
+                      <span className="text-slate-600 leading-relaxed">{r}</span>
                     </li>
                   ))}
                 </ul>
@@ -104,54 +104,54 @@ export const Team: React.FC = () => {
       </div>
 
       {/* Dual-Layer Architecture Blueprint */}
-      <div className="bg-[#0b1220]/75 backdrop-blur-md rounded-2xl border border-slate-800/80 p-6 shadow-xl space-y-4">
-        <div className="border-b border-slate-800 pb-3">
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <GitBranch className="w-4 h-4 text-teal-400" />
+      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card space-y-5">
+        <div className="border-b border-slate-100 pb-3">
+          <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <GitBranch className="w-4 h-4 text-teal-600" />
             <span>Dual-Layer Architectural Architecture</span>
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Strict boundary separation between the Python academic statistics core and the modern dashboard presentation service.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-2">
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-bold text-white flex items-center gap-2 text-xs">
-              <Database className="w-4 h-4 text-teal-400" />
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-1">
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+            <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
+              <Database className="w-4 h-4 text-teal-600" />
               <span>1. Academic Core</span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-500 leading-relaxed">
               4 serialized Jupyter notebooks covering preprocessing, EDA, baseline regression, and 5-fold TimeSeriesSplit tuning.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-bold text-white flex items-center gap-2 text-xs">
-              <Cpu className="w-4 h-4 text-cyan-400" />
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+            <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
+              <Cpu className="w-4 h-4 text-cyan-600" />
               <span>2. Artifact Engine</span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Serialized champion model (<code className="font-mono text-teal-300">model.joblib</code>), statistical metrics (<code className="font-mono text-teal-300">metrics.json</code>), and feature schema.
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Serialized champion model (<code className="font-mono text-teal-700 bg-teal-50 px-1 py-0.5 rounded">model.joblib</code>), statistical metrics (<code className="font-mono text-teal-700 bg-teal-50 px-1 py-0.5 rounded">metrics.json</code>), and feature schema.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-bold text-white flex items-center gap-2 text-xs">
-              <Server className="w-4 h-4 text-sky-400" />
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+            <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
+              <Server className="w-4 h-4 text-sky-600" />
               <span>3. FastAPI Presentation</span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-500 leading-relaxed">
               Asynchronous backend exposing overview KPIs, timeseries summaries, historical predictions, and custom what-if simulation.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div className="font-bold text-white flex items-center gap-2 text-xs">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
+          <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-2">
+            <div className="font-bold text-slate-900 flex items-center gap-2 text-xs">
+              <Sparkles className="w-4 h-4 text-emerald-600" />
               <span>4. React 19 Interface</span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-slate-500 leading-relaxed">
               Vite + TypeScript + Tailwind CSS SPA providing interactive telemetry, live simulator HUD, and assessment reporting.
             </p>
           </div>
@@ -159,45 +159,45 @@ export const Team: React.FC = () => {
       </div>
 
       {/* Tech Stack Grid */}
-      <div className="bg-[#0b1220]/75 backdrop-blur-md rounded-2xl border border-slate-800/80 p-6 shadow-xl space-y-4">
-        <div className="border-b border-slate-800 pb-3">
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-teal-400" />
+      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card space-y-5">
+        <div className="border-b border-slate-100 pb-3">
+          <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-teal-600" />
             <span>Technology Stack & Scientific Libraries</span>
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">Underlying computational and presentation frameworks powering AirWatch CO.</p>
+          <p className="text-xs text-slate-500 mt-0.5">Underlying computational and presentation frameworks powering AirWatch CO.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {techStack.map((tech) => (
-            <div key={tech.name} className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1 hover:border-slate-700 transition-colors">
+            <div key={tech.name} className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-150/70 space-y-1 hover:border-teal-200 transition-colors">
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-teal-300 text-xs">{tech.name}</span>
-                <span className="text-[10px] text-slate-400">{tech.category}</span>
+                <span className="font-mono font-bold text-teal-700 text-xs">{tech.name}</span>
+                <span className="text-[10px] text-slate-400 font-medium">{tech.category}</span>
               </div>
-              <p className="text-[11px] text-slate-400 leading-relaxed">{tech.desc}</p>
+              <p className="text-[11px] text-slate-500 leading-relaxed">{tech.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Assessment Deliverables Hub */}
-      <div className="bg-[#0b1220]/75 backdrop-blur-md rounded-2xl border border-slate-800/80 p-6 shadow-xl space-y-4">
-        <div className="border-b border-slate-800 pb-3">
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <FileText className="w-4 h-4 text-teal-400" />
+      <div className="bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card space-y-5">
+        <div className="border-b border-slate-100 pb-3">
+          <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <FileText className="w-4 h-4 text-teal-600" />
             <span>Assessment Deliverables & Submission Assets</span>
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">Official course assessment documentation generated by this repository.</p>
+          <p className="text-xs text-slate-500 mt-0.5">Official course assessment documentation generated by this repository.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {deliverables.map((del, i) => (
-            <div key={i} className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 flex items-start justify-between gap-3 hover:border-teal-500/30 transition-colors">
+            <div key={i} className="p-4 rounded-2xl bg-slate-50/80 border border-slate-150/70 flex items-start justify-between gap-3 hover:border-teal-200 transition-colors">
               <div className="space-y-1">
-                <div className="text-xs font-bold text-white">{del.name}</div>
-                <div className="text-[11px] text-slate-400">{del.desc}</div>
-                <span className="inline-block text-[10px] font-mono px-2 py-0.5 rounded bg-teal-500/10 text-teal-300 border border-teal-500/20">
+                <div className="text-xs font-bold text-slate-900">{del.name}</div>
+                <div className="text-[11px] text-slate-500">{del.desc}</div>
+                <span className="inline-block text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200/80">
                   {del.format}
                 </span>
               </div>
@@ -206,7 +206,7 @@ export const Team: React.FC = () => {
                   href={del.path}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-teal-300 hover:border-teal-500/40 transition-colors"
+                  className="p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-teal-700 hover:border-teal-300 shadow-sm transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
