@@ -3,7 +3,9 @@
 
 Use this as the **daily checkpoint**. Tick items as they are finished.  
 Full detail lives in [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md).  
-Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md) · [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md)
+Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md) · [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md) · [SYSTEM_AUDIT_AND_ENHANCEMENT.md](SYSTEM_AUDIT_AND_ENHANCEMENT.md)
+
+> **Audit note (2026-03-08):** A full system audit found the academic core and local API/UI largely working, but Phase 11–12 were over-marked. Treat [SYSTEM_AUDIT_AND_ENHANCEMENT.md](SYSTEM_AUDIT_AND_ENHANCEMENT.md) as the current fix backlog before re-claiming full Definition of Done.
 
 **Rule:** Finish phases in order. Do not start Phase 9–10 feature UI until Phase 6 artifacts exist.
 
@@ -438,34 +440,37 @@ Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md
 ## Phase 12 — Deployment & Offline Backup Kit
 
 ### 12.1 Backend on Render
-- [x] FastAPI deployment prepared (`backend/Procfile`)
-- [x] Cleaned data + artifacts accessible to service
-- [x] Public `/health` configuration ready
+- [x] FastAPI deployment prepared (root `Procfile` + `render.yaml` using `uvicorn backend.app.main:app`)
+- [x] Cleaned data + artifacts accessible to service (bundled in repo)
+- [ ] Public cloud `/health` verified on a live Render URL *(pending host credentials)*
 
 ### 12.2 Frontend on Vercel
 - [x] React app build verified (`npm run build` passes cleanly)
 - [x] SPA routing configured (`frontend/vercel.json`)
-- [x] `VITE_API_URL` environment variable wired
+- [x] `VITE_API_URL` environment variable wired in client
+- [ ] Live Vercel deployment verified *(pending host credentials)*
 
-### 12.3 Production smoke test
-- [x] Home KPIs load
-- [x] Charts load
-- [x] Predict works for sample timestamps
-- [x] Evaluation metrics visible
+### 12.3 Production / presentation smoke test
+- [x] Local Home KPIs load
+- [x] Local charts load
+- [x] Local Predict works for sample timestamps
+- [x] Local Evaluation metrics visible
+- [ ] Cloud production smoke test *(optional; local 1-click demo is primary for viva)*
 
 ### 12.4 Backup kit
 - [x] Localhost instructions in README
 - [x] 1-click startup scripts (`start_project.bat`, `start_project.ps1`)
-- [x] Report and figure appendices ready
+- [x] Report and figure appendices ready (MD/HTML/PDF)
 
 ### 12.5 URL documentation
-- [x] Production URLs template in README
-- [x] Production URLs on Team page
+- [x] Local URLs documented (README + Team page)
+- [x] Cloud deploy configs documented
+- [ ] Final public cloud URLs filled after deploy
 
 ### Phase 12 exit
 - [x] Deployment configurations ready
-- [x] Production health verified
-- [x] Offline backup kit tested
+- [ ] Cloud production health verified *(optional)*
+- [x] Offline / local backup kit tested
 
 ---
 
@@ -515,9 +520,10 @@ Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md
 - [x] No Must-Have items left unchecked
 
 ### Phase 13 exit
-- [x] Official deliverables complete
-- [x] Live demo rehearsed once successfully
-- [x] Project Definition of Done satisfied
+- [x] Official deliverables complete (notebooks, cleaned data, MD/HTML/PDF report)
+- [x] Local live demo path ready
+- [ ] Replace Member B / Member C placeholders with legal names
+- [x] Project local Definition of Done satisfied
 
 ---
 
@@ -525,11 +531,12 @@ Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md
 
 - [x] Python notebooks run preprocess → EDA → model → tune end-to-end
 - [x] Cleaned dataset + model artifacts export and reload correctly
-- [x] Report complete with contributions and limitations
-- [x] AirWatch CO live demo: Explore → Insights → Predict → Evaluation
-- [x] UI metrics match notebook metrics
-- [x] Class presentation rehearsed with backup plan
-- [x] All Must-Have checklist items above are checked
+- [x] Report complete with contributions and limitations (PDF included)
+- [x] AirWatch CO local demo: Explore → Insights → Predict → Evaluation
+- [x] UI metrics match notebook / `metrics.json`
+- [x] Class presentation backup plan (1-click local + report screenshots)
+- [ ] Member legal names finalized on Team page + report
+- [ ] Optional cloud URLs live (only if deploying beyond localhost)
 
 ---
 

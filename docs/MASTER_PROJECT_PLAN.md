@@ -10,6 +10,7 @@
 |----------|---------|
 | **This file** — [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) | Full phased plan, sub-phases, artifacts, exit criteria |
 | [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) | Daily checkbox tracker (tick as you finish) |
+| [SYSTEM_AUDIT_AND_ENHANCEMENT.md](SYSTEM_AUDIT_AND_ENHANCEMENT.md) | Post-build audit, gaps, prioritized fix waves |
 | [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md) | Academic scope, dataset, required tasks |
 | [ENHANCEMENT_WEB_DASHBOARD_PLAN.md](ENHANCEMENT_WEB_DASHBOARD_PLAN.md) | Dashboard screens, enhancement rationale |
 

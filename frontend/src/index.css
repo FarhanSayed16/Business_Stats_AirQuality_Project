@@ -5,35 +5,92 @@
 @layer base {
   :root {
     color-scheme: light;
+    --aw-sky: #0284c7;
+    --aw-sky-deep: #0369a1;
+    --aw-glass: rgba(255, 255, 255, 0.38);
+    --aw-glass-strong: rgba(255, 255, 255, 0.55);
+    --aw-glass-inner: rgba(255, 255, 255, 0.48);
+    --aw-glass-edge: rgba(255, 255, 255, 0.55);
+    --aw-glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
   }
-  
+
   body {
-    background-color: #f4f7fb;
+    background-color: #dbeaf5;
     color: #1e293b;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    min-height: 100vh;
   }
 }
 
-/* Custom Scrollbars */
+@layer components {
+  /* Primary frosted card — matches Lucent / dashboard glass refs */
+  .glass-panel {
+    background: var(--aw-glass);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--aw-glass-edge);
+    box-shadow:
+      var(--aw-glass-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  /* Nav / hero — slightly denser so text stays readable */
+  .glass-panel-strong {
+    background: var(--aw-glass-strong);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow:
+      0 12px 40px rgba(2, 132, 199, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  }
+
+  /* Nested widgets inside glass cards */
+  .glass-inner {
+    background: var(--aw-glass-inner);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* Soft chips / toolbars / pill tracks */
+  .glass-soft {
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  /* Hairline divider that reads as glass edge, not solid slate */
+  .glass-divider {
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(148, 163, 184, 0.45);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(100, 116, 139, 0.65);
 }
 
-/* Range input thumb styling for light theme */
 input[type=range] {
   -webkit-appearance: none;
   background: transparent;
@@ -48,24 +105,18 @@ input[type=range]::-webkit-slider-thumb {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #0d9488;
-  border: 3px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.4);
+  background: #0284c7;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
   cursor: pointer;
   margin-top: -6px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-input[type=range]::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.6);
 }
 
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 8px;
   cursor: pointer;
-  background: #e2e8f0;
+  background: rgba(255, 255, 255, 0.45);
   border-radius: 9999px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
