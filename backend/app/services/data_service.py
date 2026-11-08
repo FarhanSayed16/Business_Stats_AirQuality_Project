@@ -272,18 +272,47 @@ class DataService:
         }
 
     def predict_custom_features(self, custom_inputs: Dict[str, float]) -> Dict[str, Any]:
-        # Validate and construct feature vector
-        missing = [f for f in self.features if f not in custom_inputs]
-        if missing:
-            raise ValueError(f"Missing required features: {missing[:5]}")
+        # Intelligent defaults for simulation inputs
+        full_inputs = {}
+        means = self.df[self.features].mean().to_dict()
 
-        input_df = pd.DataFrame([custom_inputs])[self.features]
+        for f in self.features:
+            if f in custom_inputs:
+                full_inputs[f] = float(custom_inputs[f])
+            else:
+                full_inputs[f] = float(means.get(f, 0.0))
+
+        # Re-derive cyclical & lag features if base values were customized
+        if 'hour' in custom_inputs:
+            hr = float(custom_inputs['hour'])
+            full_inputs['hour_sin'] = float(np.sin(2 * np.pi * hr / 24.0))
+            full_inputs['hour_cos'] = float(np.cos(2 * np.pi * hr / 24.0))
+
+        if 'month' in custom_inputs:
+            mo = float(custom_inputs['month'])
+            full_inputs['month_sin'] = float(np.sin(2 * np.pi * (mo - 1) / 12.0))
+            full_inputs['month_cos'] = float(np.cos(2 * np.pi * (mo - 1) / 12.0))
+
+        if 'CO(GT)' in custom_inputs:
+            co = float(custom_inputs['CO(GT)'])
+            if 'CO_lag1' not in custom_inputs: full_inputs['CO_lag1'] = co
+            if 'CO_lag2' not in custom_inputs: full_inputs['CO_lag2'] = co
+            if 'CO_lag3' not in custom_inputs: full_inputs['CO_lag3'] = co
+            if 'CO_rolling_mean_3h' not in custom_inputs: full_inputs['CO_rolling_mean_3h'] = co
+
+        if 'T' in custom_inputs and 'T_lag1' not in custom_inputs:
+            full_inputs['T_lag1'] = float(custom_inputs['T'])
+
+        if 'RH' in custom_inputs and 'RH_lag1' not in custom_inputs:
+            full_inputs['RH_lag1'] = float(custom_inputs['RH'])
+
+        input_df = pd.DataFrame([full_inputs])[self.features]
         pred_val = float(self.model.predict(input_df)[0])
 
         return {
             "predicted_co_next": round(pred_val, 2),
-            "status": "success",
-            "features_used": custom_inputs
+            "current_co": round(full_inputs.get('CO(GT)', 0.0), 2),
+            "features_used": {f: round(float(full_inputs[f]), 2) for f in self.features}
         }
 
     def get_evaluation_details(self) -> Dict[str, Any]:

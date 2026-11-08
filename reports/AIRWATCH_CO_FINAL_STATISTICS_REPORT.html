@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AirWatch CO — MCA I Statistics Internal Assessment Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+      color: #1e293b;
+      background: #f8fafc;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 60px 50px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.25;
+      border-bottom: 2px solid #0f766e;
+      padding-bottom: 16px;
+      margin-top: 0;
+    }
+    h2 {
+      color: #0f766e;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 40px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+    h3 {
+      color: #1e293b;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 24px;
+    }
+    p, li {
+      color: #334155;
+      font-size: 0.98rem;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.88em;
+      color: #0f766e;
+    }
+    pre code {
+      display: block;
+      padding: 16px;
+      overflow-x: auto;
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.92rem;
+    }
+    th, td {
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    th {
+      background-color: #f0fdfa;
+      color: #0f766e;
+      font-weight: 700;
+    }
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    blockquote {
+      border-left: 4px solid #0f766e;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background: #f0fdfa;
+      color: #134e4a;
+      border-radius: 0 8px 8px 0;
+    }
+    .header-badge {
+      display: inline-block;
+      background: #ccfbf1;
+      color: #0f766e;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-badge">Group 3 • Internal Assessment Final Report</div>
+    <h1>AirWatch CO: Predictive Modelling and Statistical Analysis of Urban Carbon Monoxide Concentrations</h1>
+<p><strong>MCA I Statistics Internal Assessment | Group 3 — Air Quality and Pollution</strong><br />
+<strong>Academic Year:</strong> 2024–2025 / 2025–2026<br />
+<strong>Primary Author / Lead Contributor:</strong> Farhan Sayed &amp; Group 3 Team<br />
+<strong>Dataset:</strong> UCI Machine Learning Repository — Air Quality Data Set (CNR-ISAC, Italy)  </p>
+<hr />
+<h2>1. Executive Summary &amp; Problem Formulation</h2>
+<p>Airborne pollutants in dense metropolitan street canyons represent a critical determinant of respiratory and cardiovascular morbidity. Among primary combustion byproducts, Carbon Monoxide ($CO$) is a toxic, colorless gas primarily emitted by incomplete combustion in motor vehicle engines. Because urban traffic follows diurnal rhythms dictated by human mobility, ground-level $CO$ exhibits sharp temporal variations that challenge stationary air-quality management networks.</p>
+<p>This study implements an end-to-end statistical analysis and predictive forecasting pipeline for Carbon Monoxide concentrations using the official UCI <strong>Air Quality</strong> dataset, comprising 9,358 valid hourly observations recorded from March 2004 through April 2005 at road level within an Italian city. </p>
+<h3>Core Research Objective</h3>
+<p><em>Given current hourly meteorological readings ($T, RH, AH$), solid-state chemical sensor responses, and reference pollutant concentrations, can we reliably forecast next-hour Carbon Monoxide concentration ($CO_{t+1}$) without temporal data leakage?</em></p>
+<h3>Key Results Summary</h3>
+<ol>
+<li><strong>Benchmark Persistence Baseline:</strong> Predicting $CO_{t+1} = CO_t$ achieves a Test RMSE of <strong>0.7739 mg/m³</strong> ($R^2 = 0.6556$).</li>
+<li><strong>Standardized Linear Regression:</strong> Yields modest gains with a Test RMSE of <strong>0.7556 mg/m³</strong> ($R^2 = 0.6717$), identifying current $CO$, proxy sensor resistance, and temperature shifts as the dominant linear drivers.</li>
+<li><strong>Tuned Non-Linear Ensemble (<code>HistGradientBoostingRegressor</code>):</strong> Optimized via 5-fold <code>TimeSeriesSplit</code> cross-validation, the final model attains a Test RMSE of <strong>0.5378 mg/m³</strong>, a Test MAE of <strong>0.3608 mg/m³</strong>, and a coefficient of determination ($R^2$) of <strong>0.8337</strong>.</li>
+<li><strong>Error Reduction:</strong> Achieves a <strong>30.50% reduction in Root Mean Squared Error</strong> relative to the naive persistence benchmark.</li>
+</ol>
+<hr />
+<h2>2. Dataset Understanding &amp; Variable Dictionary</h2>
+<p>The dataset originates from field deployment of a multi-sensor device co-located with an official European reference analyzer at road level in a heavily trafficked urban area.</p>
+<h3>2.1 Variable Specification</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Physical Meaning</th>
+<th style="text-align: left;">Dimension / Unit</th>
+<th style="text-align: left;">Project Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Date</code>, <code>Time</code></td>
+<td style="text-align: left;">Observation timestamp</td>
+<td style="text-align: left;">Date (<code>DD/MM/YYYY</code>), Time (<code>HH.MM.SS</code>)</td>
+<td style="text-align: left;">Time-series indexing; calendar feature extraction</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>CO(GT)</code></strong></td>
+<td style="text-align: left;">Reference analyzer true Carbon Monoxide</td>
+<td style="text-align: left;">$\text{mg/m}^3$</td>
+<td style="text-align: left;"><strong>Primary Forecasting Target ($CO_{t+1}$) &amp; Lags</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PT08.S1(CO)</code></td>
+<td style="text-align: left;">Tin oxide semiconductor sensor (nominally CO)</td>
+<td style="text-align: left;">Resistance ($\Omega$)</td>
+<td style="text-align: left;">Chemical sensor predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NMHC(GT)</code></td>
+<td style="text-align: left;">Reference Non-Methane Hydrocarbons</td>
+<td style="text-align: left;">$\mu\text{g/m}^3$</td>
+<td style="text-align: left;">Pruned (&gt;90% missing)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>C6H6(GT)</code></td>
+<td style="text-align: left;">Reference Benzene concentration</td>
+<td style="text-align: left;">$\mu\text{g/m}^3$</td>
+<td style="text-align: left;">Pollutant co-emission predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PT08.S2(NMHC)</code></td>
+<td style="text-align: left;">Titania semiconductor sensor (nominally NMHC)</td>
+<td style="text-align: left;">Resistance ($\Omega$)</td>
+<td style="text-align: left;">Chemical sensor predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NOx(GT)</code></td>
+<td style="text-align: left;">Reference Nitrogen Oxides</td>
+<td style="text-align: left;">$\text{ppb}$</td>
+<td style="text-align: left;">Pollutant co-emission predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PT08.S3(NOx)</code></td>
+<td style="text-align: left;">Tungsten oxide sensor (nominally NOx)</td>
+<td style="text-align: left;">Resistance ($\Omega$)</td>
+<td style="text-align: left;">Chemical sensor predictor (negative correlation)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NO2(GT)</code></td>
+<td style="text-align: left;">Reference Nitrogen Dioxide</td>
+<td style="text-align: left;">$\mu\text{g/m}^3$</td>
+<td style="text-align: left;">Pollutant co-emission predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PT08.S4(NO2)</code></td>
+<td style="text-align: left;">Tungsten oxide sensor (nominally NO2)</td>
+<td style="text-align: left;">Resistance ($\Omega$)</td>
+<td style="text-align: left;">Chemical sensor predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PT08.S5(O3)</code></td>
+<td style="text-align: left;">Indium oxide sensor (nominally Ozone)</td>
+<td style="text-align: left;">Resistance ($\Omega$)</td>
+<td style="text-align: left;">Chemical sensor predictor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>T</code></td>
+<td style="text-align: left;">Ambient Temperature</td>
+<td style="text-align: left;">$^\circ\text{C}$</td>
+<td style="text-align: left;">Meteorological driver</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RH</code></td>
+<td style="text-align: left;">Relative Humidity</td>
+<td style="text-align: left;">$\%$</td>
+<td style="text-align: left;">Meteorological driver</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AH</code></td>
+<td style="text-align: left;">Absolute Humidity</td>
+<td style="text-align: left;">$\text{g/m}^3$</td>
+<td style="text-align: left;">Meteorological driver</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Data Cleansing &amp; Preprocessing Methodology</h2>
+<h3>3.1 Sentinel Value Identification (<code>-200</code>)</h3>
+<p>The telemetry hardware utilized <code>-200</code> as a sentinel error code indicating uncalibrated sensors, power dropouts, or saturation. Treating <code>-200</code> as numeric values distorts all statistical moments (mean, variance, skewness). Across the 9,357 valid hourly records:
+* <code>NMHC(GT)</code>: Missing 8,443 records (<strong>90.23%</strong>).
+* <code>CO(GT)</code>: Missing 1,683 records (<strong>17.99%</strong>).
+* <code>NOx(GT)</code> &amp; <code>NO2(GT)</code>: Missing ~1,640 records (<strong>17.5%</strong>).
+* Solid-State Sensors &amp; Weather: Missing 366 records (<strong>3.91%</strong>).</p>
+<h3>3.2 Imputation &amp; Column Pruning Rationale</h3>
+<ul>
+<li><strong>Pruning <code>NMHC(GT)</code>:</strong> Attempting to impute 90.2% of missing entries introduces synthetic noise and destroys model validity. The column was dropped; its proxy sensor <code>PT08.S2(NMHC)</code> was retained.</li>
+<li><strong>Time-Aware Linear Interpolation:</strong> For sensors and meteorological readings exhibiting short contiguous dropouts ($\le 6$ hours), time-based linear interpolation along the datetime index was applied. Remaining boundary edges were filled via bounded forward/backward fill.</li>
+<li><strong>Target Preservation:</strong> Original ground-truth values were preserved as <code>CO_GT_raw</code> to guarantee test evaluation against uncorrupted analyzer observations.</li>
+</ul>
+<h3>3.3 Feature Engineering</h3>
+<p>To enable regression models to capture temporal cycles and physical inertia:
+1. <strong>Calendar Features:</strong> <code>hour</code> (0–23), <code>day_of_week</code> (0–6), <code>month</code> (1–12), <code>is_weekend</code> (0 or 1).
+2. <strong>Cyclical Transforms:</strong> Harmonic sine and cosine encodings for hour ($\tau = 24$) and month ($\tau = 12$) preserving boundary continuity (e.g. 23:00 to 00:00).
+3. <strong>Autoregressive Lags:</strong> $CO_{t-1}, CO_{t-2}, CO_{t-3}$ to capture atmospheric memory.
+4. <strong>Rolling Smoothing:</strong> 3-hour backward rolling mean of $CO$ ($\overline{CO}_{3h}$).
+5. <strong>Sensor/Weather Lags:</strong> Lags of key proxy sensors (<code>PT08.S1</code>, <code>PT08.S2</code>) and weather variables ($T, RH$).</p>
+<h3>3.4 Chronological Split Masks</h3>
+<p>Because air pollution data exhibits strong autocorrelation, standard randomized K-Fold splits produce severe data leakage and artificially inflated scores. Strict chronological boundaries were enforced:
+* <strong>Train Partition (70%):</strong> 6,547 observations (March 10, 2004 to December 8, 2004).
+* <strong>Validation Partition (15%):</strong> 1,403 observations (December 8, 2004 to February 5, 2005).
+* <strong>Holdout Test Partition (15%):</strong> 1,403 observations (February 5, 2005 to April 4, 2005).</p>
+<hr />
+<h2>4. Exploratory Data Analysis &amp; Empirical Findings</h2>
+<h3>4.1 Diurnal Rush-Hour Signature</h3>
+<p>Hourly aggregation reveals a distinct <strong>bimodal diurnal profile</strong>:
+* <strong>Morning Commute Surge:</strong> Concentrations rise steeply from 06:00, peaking at <strong>08:00–09:00 AM</strong> (mean 2.72 mg/m³) due to morning traffic.
+* <strong>Midday Dispersion:</strong> Midday solar heating elevates the planetary boundary layer height, promoting convective dilution between 13:00 and 15:00.
+* <strong>Evening Commute &amp; Nocturnal Trapping:</strong> Concentrations peak at <strong>18:00–20:00 PM</strong> (mean 3.12 mg/m³) as evening traffic coincides with nocturnal boundary layer descent and thermal radiation cooling.</p>
+<h3>4.2 Weekly Traffic Respite</h3>
+<p>Analysis across weekdays confirms that Monday through Friday sustain high median $CO$ levels (~2.0 mg/m³). Commercial activity drops on Saturday, reaching an absolute weekly minimum on <strong>Sunday</strong> (mean 1.54 mg/m³), confirming vehicle traffic as the overwhelming emission source.</p>
+<h3>4.3 Sensor Sensitivity &amp; Cross-Pollutant Correlation</h3>
+<ul>
+<li><code>CO(GT)</code> exhibits high positive correlation with <code>C6H6(GT)</code> ($r = 0.88$) and <code>NOx(GT)</code> ($r = 0.79$), confirming co-emission from gasoline and diesel exhaust.</li>
+<li>Tin oxide sensor <code>PT08.S1(CO)</code> ($r = 0.82$) and titania sensor <code>PT08.S2(NMHC)</code> ($r = 0.87$) show strong linear sensitivity, demonstrating their capability to serve as real-time proxies.</li>
+<li>Tungsten oxide sensor <code>PT08.S3(NOx)</code> exhibits strong negative correlation ($r = -0.70$), consistent with the semiconductor resistance increase characteristic of oxidising gas exposure.</li>
+</ul>
+<hr />
+<h2>5. Model Architecture &amp; Cross-Validation</h2>
+<h3>5.1 Evaluated Model Families</h3>
+<ol>
+<li><strong>Persistence Baseline:</strong> $\hat{y}_{t+1} = y_t$ (persistence assumption).</li>
+<li><strong>Standardized Linear Regression:</strong> $\hat{y} = \beta_0 + \sum \beta_i z_i$.</li>
+<li><strong>L2 Regularized Ridge Regression:</strong> Optimizing penalty $\alpha = 10.0$.</li>
+<li><strong>Random Forest Regressor:</strong> 100 estimators, max depth 12.</li>
+<li><strong>Histogram-based Gradient Boosting Regressor (<code>HistGradientBoostingRegressor</code>):</strong> Binned gradient-boosted decision trees.</li>
+</ol>
+<h3>5.2 Time-Series Hyperparameter Optimization</h3>
+<p>Using <code>TimeSeriesSplit(n_splits=5)</code> on historical calibration data, grid search converged on the following optimal hyperparameters for <code>HistGradientBoostingRegressor</code>:
+* <code>learning_rate</code>: <strong>0.1</strong>
+* <code>max_iter</code>: <strong>100</strong>
+* <code>max_depth</code>: <strong>10</strong>
+* <code>min_samples_leaf</code>: <strong>20</strong>
+* <code>l2_regularization</code>: <strong>0.5</strong></p>
+<hr />
+<h2>6. Final Comparative Results (Holdout Test Evaluation)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Model Architecture</th>
+<th style="text-align: center;">Validation RMSE ($\text{mg/m}^3$)</th>
+<th style="text-align: center;">Validation $R^2$</th>
+<th style="text-align: center;">Test RMSE ($\text{mg/m}^3$)</th>
+<th style="text-align: center;">Test MAE ($\text{mg/m}^3$)</th>
+<th style="text-align: center;">Test $R^2$</th>
+<th style="text-align: center;">Error Reduction vs Baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Persistence Baseline</strong></td>
+<td style="text-align: center;">0.7832</td>
+<td style="text-align: center;">0.7591</td>
+<td style="text-align: center;">0.7739</td>
+<td style="text-align: center;">0.4996</td>
+<td style="text-align: center;">0.6556</td>
+<td style="text-align: center;">Baseline Reference</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Linear Regression</strong></td>
+<td style="text-align: center;">0.7698</td>
+<td style="text-align: center;">0.7673</td>
+<td style="text-align: center;">0.7556</td>
+<td style="text-align: center;">0.6035</td>
+<td style="text-align: center;">0.6717</td>
+<td style="text-align: center;">+2.4% RMSE reduction</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ridge Regression</strong></td>
+<td style="text-align: center;">0.7761</td>
+<td style="text-align: center;">0.7634</td>
+<td style="text-align: center;">0.7641</td>
+<td style="text-align: center;">0.6156</td>
+<td style="text-align: center;">0.6642</td>
+<td style="text-align: center;">+1.3% RMSE reduction</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Random Forest</strong></td>
+<td style="text-align: center;">0.6806</td>
+<td style="text-align: center;">0.8181</td>
+<td style="text-align: center;">0.5969</td>
+<td style="text-align: center;">0.4232</td>
+<td style="text-align: center;">0.7951</td>
+<td style="text-align: center;">+22.9% RMSE reduction</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tuned HistGradientBoosting</strong></td>
+<td style="text-align: center;"><strong>0.6621</strong></td>
+<td style="text-align: center;"><strong>0.8278</strong></td>
+<td style="text-align: center;"><strong>0.5378</strong></td>
+<td style="text-align: center;"><strong>0.3608</strong></td>
+<td style="text-align: center;"><strong>0.8337</strong></td>
+<td style="text-align: center;"><strong>+30.50% RMSE reduction</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Operational Usefulness in Municipal Management</h2>
+<ol>
+<li><strong>Intelligent Traffic Management:</strong> A 1-hour advance warning of an impending $CO$ accumulation enables municipal traffic centers to dynamically adjust signal phases or redirect heavy transit to peripheral bypass routes before street canyon saturation occurs.</li>
+<li><strong>Public Health Advisory Dispatch:</strong> Carbon Monoxide binds readily with hemoglobin, impairing cellular oxygen transport. Advance notices allow schools, outdoor athletic centers, and elderly care facilities to curtail strenuous outdoor activity prior to peak commuter spikes.</li>
+<li><strong>Solid-State Sensor Cluster Drift Detection:</strong> Discrepancies between sensor readings and multi-feature model forecasts provide an automated diagnostic indicator for sensor calibration decay.</li>
+</ol>
+<hr />
+<h2>8. Statistical Limitations &amp; Failure Mode Analysis</h2>
+<ol>
+<li><strong>Underestimation of Extreme High-Pollution Spikes:</strong> Regression trees partition feature space into constant leaf values and cannot extrapolate beyond maximum training bounds. For extreme spikes ($CO &gt; 5.0\text{ mg/m}^3$), MAE rises from 0.23 to 1.14 mg/m³.</li>
+<li><strong>Microclimatic Stationarity:</strong> The model is calibrated to a specific Italian urban intersection. Local street canyon topography, building heights, and localized wind eddies prevent direct transference to other cities without localized recalibration.</li>
+<li><strong>Absence of Real-Time Vehicle Counts:</strong> The model infers traffic indirectly from chemical concentrations and temporal encodings; it cannot anticipate sudden traffic halts caused by emergency road closures.</li>
+</ol>
+<hr />
+<h2>9. System Enhancement: Interactive Web Dashboard</h2>
+<p>To bridge the gap between academic code and real-world stakeholder utility, an interactive monitoring dashboard was developed (<strong>AirWatch CO</strong>):
+* <strong>FastAPI Backend:</strong> Asynchronous Python service exposing <code>/stats</code>, <code>/data</code>, <code>/model/predict</code>, and <code>/model/evaluation</code>.
+* <strong>React + Vite Interface:</strong> Built with TypeScript, Tailwind CSS, and Recharts, offering 6 screens (Home, Explore Data, Insights, Predict Lab, Evaluation, Team).
+* <strong>Live Prediction Studio:</strong> Allows selecting historical holdout observations or testing arbitrary parameters with real-time health severity categorization.</p>
+<hr />
+<h2>10. Group Member Contributions</h2>
+<ul>
+<li><strong>Farhan Sayed (Data &amp; Architecture Lead):</strong> Cleaned dataset curation, delimiter and <code>-200</code> sentinel filtering, time-aware interpolation, chronological train/val/test masking, FastAPI REST architecture, React dashboard development, and report compilation.</li>
+<li><strong>Group 3 Team Member (EDA &amp; Analytics Lead):</strong> Univariate summary metrics, diurnal rush-hour curve analysis, weekday distribution analysis, correlation heatmap calculations, and visualization styling.</li>
+<li><strong>Group 3 Team Member (Predictive Modelling Lead):</strong> Target definition ($CO_{next}$), baseline formulation, standardized Linear/Ridge regression, 5-fold <code>TimeSeriesSplit</code> cross-validation, and serialisation of <code>model.joblib</code> and <code>metrics.json</code>.</li>
+</ul>
+<hr />
+<h2>11. Conclusion &amp; Recommendations</h2>
+<p>The AirWatch CO study demonstrates that next-hour Carbon Monoxide concentrations can be predicted with high precision ($R^2 = 0.8337$, $\text{RMSE} = 0.5378\text{ mg/m}^3$) using historical sensor telemetry, meteorological conditions, and autoregressive lags without temporal data leakage. Integrating machine learning forecasts into municipal traffic and public health infrastructure provides actionable lead time for mitigation, establishing the practical value of statistical modelling in environmental data science.</p>
+  </div>
+</body>
+</html>

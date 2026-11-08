@@ -89,7 +89,23 @@ def test_endpoints():
     pred_res = r.json()
     assert "predicted_co_next" in pred_res
     assert "actual_co_next" in pred_res
-    print(f"  /model/predict passed: Actual={pred_res['actual_co_next']}, Pred={pred_res['predicted_co_next']}, Error={pred_res['abs_error']}")
+    print(f"  /model/predict (timestamp) passed: Actual={pred_res['actual_co_next']}, Pred={pred_res['predicted_co_next']}, Error={pred_res['abs_error']}")
+
+    print("Testing /model/predict with custom slider features ...")
+    custom_payload = {
+        "custom_features": {
+            "CO(GT)": 3.5,
+            "T": 22.0,
+            "RH": 55.0,
+            "PT08.S1(CO)": 1250.0,
+            "hour": 18
+        }
+    }
+    r = client.post("/model/predict", json=custom_payload)
+    assert r.status_code == 200, f"Custom prediction failed: {r.text}"
+    custom_res = r.json()
+    assert "predicted_co_next" in custom_res
+    print(f"  /model/predict (custom features) passed: Input CO=3.5 -> Predicted Next CO={custom_res['predicted_co_next']} mg/m³")
 
     print("Testing /model/evaluation ...")
     r = client.get("/model/evaluation")

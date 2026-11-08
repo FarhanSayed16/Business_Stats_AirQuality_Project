@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Clock, CheckCircle2, AlertTriangle, ShieldAlert, Cpu, Sparkles, RefreshCw } from 'lucide-react';
+import { Clock, CheckCircle2, AlertTriangle, ShieldAlert, Cpu, Sparkles, RefreshCw, Sliders, History } from 'lucide-react';
 import { api } from '../api/client';
 import type { SampleTimestamp, PredictionResult } from '../types';
 
 export const Predict: React.FC = () => {
+  const [mode, setMode] = useState<'preset' | 'custom'>('preset');
   const [samples, setSamples] = useState<SampleTimestamp[]>([]);
   const [selectedTimestamp, setSelectedTimestamp] = useState<string>('');
   const [result, setResult] = useState<PredictionResult | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Custom Simulator State
+  const [customCO, setCustomCO] = useState<number>(2.5);
+  const [customTemp, setCustomTemp] = useState<number>(18.0);
+  const [customRH, setCustomRH] = useState<number>(50.0);
+  const [customSensor, setCustomSensor] = useState<number>(1100);
+  const [customHour, setCustomHour] = useState<number>(18);
 
   useEffect(() => {
     api.getSampleTimestamps(60)
@@ -15,17 +23,37 @@ export const Predict: React.FC = () => {
         setSamples(data);
         if (data.length > 0) {
           setSelectedTimestamp(data[0].datetime);
-          handlePredict(data[0].datetime);
+          handlePredictPreset(data[0].datetime);
         }
       })
       .catch(console.error);
   }, []);
 
-  const handlePredict = async (dt: string) => {
+  const handlePredictPreset = async (dt: string) => {
     if (!dt) return;
     setLoading(true);
     try {
       const res = await api.predict({ datetime_str: dt });
+      setResult(res);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePredictCustom = async () => {
+    setLoading(true);
+    try {
+      const res = await api.predict({
+        custom_features: {
+          'CO(GT)': customCO,
+          'T': customTemp,
+          'RH': customRH,
+          'PT08.S1(CO)': customSensor,
+          'hour': customHour
+        }
+      });
       setResult(res);
     } catch (err) {
       console.error(err);
@@ -64,44 +92,210 @@ export const Predict: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Interactive Prediction Controls & Output */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Timestamp Selector Card */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <Clock className="w-4 h-4 text-teal-600" />
-                <span>Select Historical Holdout Test Timestamp</span>
-              </h3>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
-                Untouched Test Partition
-              </span>
-            </div>
+          {/* Mode Switch Tabs */}
+          <div className="flex items-center gap-2 border-b border-slate-200 pb-3">
+            <button
+              onClick={() => {
+                setMode('preset');
+                if (selectedTimestamp) handlePredictPreset(selectedTimestamp);
+              }}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                mode === 'preset'
+                  ? 'bg-teal-600 text-white shadow-sm'
+                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              }`}
+            >
+              <History className="w-4 h-4" />
+              <span>1. Historical Test Samples</span>
+            </button>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <select
-                value={selectedTimestamp}
-                onChange={(e) => {
-                  setSelectedTimestamp(e.target.value);
-                  handlePredict(e.target.value);
-                }}
-                className="flex-1 text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
-              >
-                {samples.map((s) => (
-                  <option key={s.datetime} value={s.datetime}>
-                    {s.datetime} — Current CO: {s.current_co} mg/m³ ({s.temperature}°C, {s.humidity}%)
-                  </option>
-                ))}
-              </select>
+            <button
+              onClick={() => {
+                setMode('custom');
+                handlePredictCustom();
+              }}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                mode === 'custom'
+                  ? 'bg-teal-600 text-white shadow-sm'
+                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+              }`}
+            >
+              <Sliders className="w-4 h-4" />
+              <span>2. What-If Scenario Simulator</span>
+            </button>
+          </div>
+
+          {/* Mode 1: Timestamp Selector Card */}
+          {mode === 'preset' ? (
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-teal-600" />
+                  <span>Select Historical Holdout Test Timestamp</span>
+                </h3>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+                  Untouched Test Partition
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <select
+                  value={selectedTimestamp}
+                  onChange={(e) => {
+                    setSelectedTimestamp(e.target.value);
+                    handlePredictPreset(e.target.value);
+                  }}
+                  className="flex-1 text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                >
+                  {samples.map((s) => (
+                    <option key={s.datetime} value={s.datetime}>
+                      {s.datetime} — Current CO: {s.current_co} mg/m³ ({s.temperature}°C, {s.humidity}%)
+                    </option>
+                  ))}
+                </select>
+
+                <button
+                  disabled={loading}
+                  onClick={() => handlePredictPreset(selectedTimestamp)}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm transition-colors shadow-sm disabled:opacity-50"
+                >
+                  <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                  <span>Run Forecast</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* Mode 2: Interactive What-If Scenario Sliders */
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5 animate-in fade-in duration-150">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Sliders className="w-4 h-4 text-teal-600" />
+                  <span>Interactive Parameter Simulator</span>
+                </h3>
+                <span className="text-xs px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 font-semibold border border-teal-200">
+                  Custom What-If Inputs
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                {/* Initial CO */}
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex justify-between font-semibold">
+                    <span className="text-slate-700">Initial CO(GT) Level:</span>
+                    <span className="font-mono text-teal-700 font-bold">{customCO.toFixed(1)} mg/m³</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.5"
+                    max="10.0"
+                    step="0.1"
+                    value={customCO}
+                    onChange={(e) => setCustomCO(parseFloat(e.target.value))}
+                    className="w-full accent-teal-600"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>0.5 mg/m³</span>
+                    <span>10.0 mg/m³</span>
+                  </div>
+                </div>
+
+                {/* Temperature */}
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex justify-between font-semibold">
+                    <span className="text-slate-700">Ambient Temperature:</span>
+                    <span className="font-mono text-sky-700 font-bold">{customTemp.toFixed(1)}°C</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="40"
+                    step="0.5"
+                    value={customTemp}
+                    onChange={(e) => setCustomTemp(parseFloat(e.target.value))}
+                    className="w-full accent-sky-600"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>0°C (Winter)</span>
+                    <span>40°C (Summer)</span>
+                  </div>
+                </div>
+
+                {/* Relative Humidity */}
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex justify-between font-semibold">
+                    <span className="text-slate-700">Relative Humidity:</span>
+                    <span className="font-mono text-indigo-700 font-bold">{customRH.toFixed(0)}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="15"
+                    max="85"
+                    step="1"
+                    value={customRH}
+                    onChange={(e) => setCustomRH(parseFloat(e.target.value))}
+                    className="w-full accent-indigo-600"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>15% (Dry)</span>
+                    <span>85% (Humid)</span>
+                  </div>
+                </div>
+
+                {/* Hour of Day */}
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex justify-between font-semibold">
+                    <span className="text-slate-700">Hour of Day (Rush Hour):</span>
+                    <span className="font-mono text-amber-700 font-bold">{customHour}:00</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="23"
+                    step="1"
+                    value={customHour}
+                    onChange={(e) => setCustomHour(parseInt(e.target.value, 10))}
+                    className="w-full accent-amber-600"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>00:00 (Midnight)</span>
+                    <span>18:00 (Evening Rush)</span>
+                    <span>23:00</span>
+                  </div>
+                </div>
+
+                {/* PT08.S1 Sensor Resistance */}
+                <div className="sm:col-span-2 p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                  <div className="flex justify-between font-semibold">
+                    <span className="text-slate-700">Tin Oxide Sensor PT08.S1 Resistance:</span>
+                    <span className="font-mono text-purple-700 font-bold">{customSensor} Ω</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="600"
+                    max="1800"
+                    step="25"
+                    value={customSensor}
+                    onChange={(e) => setCustomSensor(parseInt(e.target.value, 10))}
+                    className="w-full accent-purple-600"
+                  />
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>600 Ω (Low response)</span>
+                    <span>1100 Ω (Normal mean)</span>
+                    <span>1800 Ω (High response)</span>
+                  </div>
+                </div>
+              </div>
 
               <button
                 disabled={loading}
-                onClick={() => handlePredict(selectedTimestamp)}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm transition-colors shadow-sm disabled:opacity-50"
+                onClick={handlePredictCustom}
+                className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs transition-colors shadow-sm flex items-center justify-center gap-2"
               >
-                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                <span>Run Forecast</span>
+                <Sparkles className="w-4 h-4" />
+                <span>Simulate Next-Hour CO with Custom Parameters</span>
               </button>
             </div>
-          </div>
+          )}
 
           {/* Prediction Result Display */}
           {result && (
@@ -112,7 +306,9 @@ export const Predict: React.FC = () => {
                   <div className="text-base font-bold text-slate-900 mt-0.5">
                     1 Hour Ahead (Hour t + 1)
                   </div>
-                  <p className="text-xs text-slate-500">Timestamp: {result.datetime}</p>
+                  <p className="text-xs text-slate-500">
+                    {mode === 'preset' ? `Timestamp: ${result.datetime}` : 'Custom Simulation Scenario'}
+                  </p>
                 </div>
 
                 {sev && (
@@ -142,14 +338,31 @@ export const Predict: React.FC = () => {
                 </div>
 
                 <div className="p-4 rounded-xl bg-sky-50 border border-sky-200 text-center">
-                  <div className="text-xs font-semibold text-sky-800 mb-1">Actual Observed Next CO</div>
+                  <div className="text-xs font-semibold text-sky-800 mb-1">
+                    {mode === 'preset' ? 'Actual Observed Next CO' : 'Expected Next Shift'}
+                  </div>
                   <div className="text-2xl font-extrabold text-sky-800">
-                    {result.actual_co_next} <span className="text-xs font-normal text-sky-600">mg/m³</span>
+                    {mode === 'preset' ? (
+                      <>
+                        {result.actual_co_next} <span className="text-xs font-normal text-sky-600">mg/m³</span>
+                      </>
+                    ) : (
+                      <>
+                        {(result.predicted_co_next - (result.current_co || 0)) > 0 ? '+' : ''}
+                        {(result.predicted_co_next - (result.current_co || 0)).toFixed(2)} <span className="text-xs font-normal text-sky-600">mg/m³</span>
+                      </>
+                    )}
                   </div>
                   <div className="text-[11px] text-slate-500 mt-1">
-                    Error: <strong className={result.abs_error! < 0.4 ? 'text-emerald-600' : 'text-amber-600'}>
-                      ±{result.abs_error} mg/m³
-                    </strong>
+                    {mode === 'preset' ? (
+                      <>
+                        Error: <strong className={result.abs_error! < 0.4 ? 'text-emerald-600' : 'text-amber-600'}>
+                          ±{result.abs_error} mg/m³
+                        </strong>
+                      </>
+                    ) : (
+                      'Simulated Rate of Change'
+                    )}
                   </div>
                 </div>
               </div>
