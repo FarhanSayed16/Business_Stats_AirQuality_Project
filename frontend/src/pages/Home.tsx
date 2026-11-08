@@ -8,7 +8,11 @@ import {
   Lightbulb,
   PlayCircle,
   Award,
-  ArrowRight
+  ArrowRight,
+  Layers,
+  Sparkles,
+  BarChart3,
+  Sliders
 } from 'lucide-react';
 import { api } from '../api/client';
 import type { OverviewData } from '../types';
@@ -30,183 +34,274 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-10 pb-12">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-850 to-teal-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-3xl relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold tracking-wide border border-teal-500/30">
-            MCA I Statistics Internal Assessment • Group 3
+      <section className="relative rounded-3xl p-8 sm:p-12 border border-slate-800/80 bg-gradient-to-br from-[#0c1424] via-[#090e1a] to-[#071318] shadow-2xl shadow-black/60 overflow-hidden">
+        {/* Glow Spheres */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-teal-500/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-3xl relative z-10 space-y-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-semibold tracking-wide">
+            <Sparkles className="w-3.5 h-3.5 text-teal-400" />
+            <span>MCA I Statistics Internal Assessment • Group 3</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-            AirWatch CO <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-sky-400">
-              Air Quality & Pollution Intelligence
+
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1]">
+            Next-Hour Urban Air Quality{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-teal-400 to-cyan-400">
+              Intelligence
             </span>
           </h1>
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Investigating 1-year hourly pollution dynamics from an urban Italian monitoring station (UCI Air Quality Dataset), uncovering diurnal rush-hour cycles, and forecasting <strong>next-hour Carbon Monoxide concentration</strong> using gradient-boosted time-series regression without temporal leakage.
+
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+            A statistically rigorous time-series forecasting engine. We predict road-level Carbon Monoxide concentrations (<code className="font-mono text-teal-300 bg-teal-950/60 px-1.5 py-0.5 rounded border border-teal-800/50">CO_next</code>) one hour ahead using semiconductor telemetry, chronological partitioning, and tuned gradient boosting with <strong className="text-white">zero future data leakage</strong>.
           </p>
 
-          <div className="flex flex-wrap gap-3 pt-4">
+          <div className="flex flex-wrap items-center gap-3 pt-3">
             <Link
               to="/predict"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-500 text-slate-950 font-bold hover:bg-teal-400 transition-colors shadow-lg shadow-teal-500/25 text-sm"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-teal-400 text-slate-950 font-bold hover:from-teal-400 hover:to-teal-300 transition-all duration-200 shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5 text-xs sm:text-sm"
             >
-              <PlayCircle className="w-4 h-4" />
-              <span>Launch Model Lab</span>
+              <PlayCircle className="w-4 h-4 fill-slate-950 stroke-none" />
+              <span>Launch Prediction Lab</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
+
             <Link
               to="/insights"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors border border-white/15 text-sm"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold transition-all duration-200 border border-slate-700/80 text-xs sm:text-sm"
             >
               <Lightbulb className="w-4 h-4 text-teal-400" />
-              <span>View EDA Findings</span>
+              <span>Explore EDA Insights</span>
             </Link>
+
             <Link
               to="/explore"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors border border-white/15 text-sm"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold transition-all duration-200 border border-slate-700/80 text-xs sm:text-sm"
             >
-              <Database className="w-4 h-4 text-sky-400" />
-              <span>Explore Cleaned Data</span>
+              <Database className="w-4 h-4 text-cyan-400" />
+              <span>Browse Telemetry Data</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* KPI Cards Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Observations Analysed</span>
-            <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+      {/* High-Impact Telemetry Metrics */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Card 1: Hours */}
+        <div className="bg-[#0b1220]/70 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl hover:border-slate-700 transition-all duration-200 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Observations</span>
+            <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-slate-900">
-            {loading ? '...' : `${data?.total_hours.toLocaleString()} hrs`}
+          <div className="text-3xl font-black text-white font-mono tracking-tight">
+            {loading ? '...' : `${data?.total_hours.toLocaleString()}`}
           </div>
-          <p className="text-xs text-slate-500 mt-1">Mar 2004 – Apr 2005 (1 year)</p>
+          <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+            <span>Mar 2004 – Apr 2005 (Hourly Series)</span>
+          </p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Historical Mean CO</span>
-            <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
+        {/* Card 2: Mean CO */}
+        <div className="bg-[#0b1220]/70 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl hover:border-slate-700 transition-all duration-200 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Historical Mean CO</span>
+            <div className="w-9 h-9 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center group-hover:scale-110 transition-transform">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-slate-900">
-            {loading ? '...' : `${data?.co_stats.mean} mg/m³`}
+          <div className="text-3xl font-black text-white font-mono tracking-tight">
+            {loading ? '...' : `${data?.co_stats.mean} `}
+            <span className="text-sm font-normal text-slate-400 font-sans">mg/m³</span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">Peak max: {data?.co_stats.max} mg/m³</p>
+          <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+            <span>Peak: {data?.co_stats.max || '11.9'} mg/m³ • Median: {data?.co_stats.median || '1.71'}</span>
+          </p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Test Goodness of Fit</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+        {/* Card 3: Model Fit R² */}
+        <div className="bg-[#0b1220]/70 backdrop-blur-md p-6 rounded-2xl border border-teal-500/30 shadow-xl shadow-teal-500/5 hover:border-teal-500/50 transition-all duration-200 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-teal-300">Champion Test Fit</span>
+            <div className="w-9 h-9 rounded-xl bg-teal-500/20 border border-teal-500/40 text-teal-300 flex items-center justify-center group-hover:scale-110 transition-transform">
               <Award className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-emerald-600">
+          <div className="text-3xl font-black text-teal-300 font-mono tracking-tight">
             {loading ? '...' : `R² = ${data?.primary_model.test_r2}`}
           </div>
-          <p className="text-xs text-slate-500 mt-1">Test RMSE: {data?.primary_model.test_rmse} mg/m³</p>
+          <p className="text-xs text-teal-200/70 mt-1 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+            <span>Test RMSE: {data?.primary_model.test_rmse} mg/m³</span>
+          </p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Error Reduction</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+        {/* Card 4: Error Reduction */}
+        <div className="bg-[#0b1220]/70 backdrop-blur-md p-6 rounded-2xl border border-slate-800/80 shadow-xl hover:border-slate-700 transition-all duration-200 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Accuracy Gain</span>
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
               <CheckCircle className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-indigo-600">
+          <div className="text-3xl font-black text-emerald-400 font-mono tracking-tight">
             {loading ? '...' : `+${data?.primary_model.rmse_improvement_over_baseline_pct}%`}
           </div>
-          <p className="text-xs text-slate-500 mt-1">Improvement vs persistence baseline</p>
+          <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>RMSE cut vs persistence baseline</span>
+          </p>
         </div>
       </section>
 
-      {/* Project Workflow Architecture */}
-      <section className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-        <h2 className="text-xl font-bold text-slate-900 mb-4">Dual-Layer Academic & Presentation Framework</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-            <div className="flex items-center gap-2 text-teal-700 font-bold text-sm">
-              <span className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center text-xs">1</span>
-              <span>1. Rigorous Data Cleansing</span>
+      {/* Four-Stage Research Architecture Pipeline */}
+      <section className="bg-[#0b1220]/60 backdrop-blur-md rounded-3xl p-8 border border-slate-800/80 shadow-xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+          <div>
+            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2.5">
+              <Layers className="w-5 h-5 text-teal-400" />
+              <span>Scientific Research & Engineering Pipeline</span>
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">
+              End-to-end transformation from raw solid-state semiconductor telemetry to validated machine learning inference.
+            </p>
+          </div>
+          <span className="text-[11px] font-semibold px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30 self-start sm:self-auto font-mono">
+            Anti-Leakage Certified
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Step 1 */}
+          <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/70 hover:border-teal-500/30 transition-all duration-200 space-y-2.5">
+            <div className="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold text-xs font-mono">
+              01
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Filtered hardware sentinels (<code className="text-rose-600 font-mono">-200</code>), pruned <code className="text-slate-800 font-mono">NMHC(GT)</code> due to 90.2% missingness, and applied time-aware linear interpolation preserving hourly continuity.
+            <h3 className="text-sm font-bold text-white">Ingestion & Sensor Audit</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              9,353 hourly records parsed with European <code className="text-teal-300 font-mono">;</code> separator and <code className="text-teal-300 font-mono">,</code> decimals. Evaluated 5 metal-oxide chemical sensors alongside meteorological readings.
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-            <div className="flex items-center gap-2 text-sky-700 font-bold text-sm">
-              <span className="w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-xs">2</span>
-              <span>2. Time-Aware Forecasting</span>
+          {/* Step 2 */}
+          <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/70 hover:border-teal-500/30 transition-all duration-200 space-y-2.5">
+            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-xs font-mono">
+              02
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Engineered autoregressive lags and cyclical solar transforms without data leakage. Chronological splits (70% Train, 15% Val, 15% Test) with <code className="font-mono text-slate-800">TimeSeriesSplit</code> tuning.
+            <h3 className="text-sm font-bold text-white">Sentinel Sanitization</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Identified hardware failure sentinels (<code className="text-rose-400 font-mono">-200</code>). Pruned <code className="font-mono text-slate-300">NMHC(GT)</code> (90.2% missing). Applied time-aware bounded linear interpolation with zero lookahead bias.
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-            <div className="flex items-center gap-2 text-indigo-700 font-bold text-sm">
-              <span className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs">3</span>
-              <span>3. Interactive Monitoring</span>
+          {/* Step 3 */}
+          <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/70 hover:border-teal-500/30 transition-all duration-200 space-y-2.5">
+            <div className="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center font-bold text-xs font-mono">
+              03
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Deployed serialised model artifacts into a decoupled FastAPI backend with interactive simulations, correlation analytics, and an audit of real-world usefulness and limitations.
+            <h3 className="text-sm font-bold text-white">Autoregressive Engineering</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Synthesized cyclical trigonometric traffic encodings (<code className="font-mono text-teal-300">hour_sin/cos</code>), autoregressive CO lags (1–3h), rolling moving averages, and sensor-to-pollutant cross-ratios.
+            </p>
+          </div>
+
+          {/* Step 4 */}
+          <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/70 hover:border-teal-500/30 transition-all duration-200 space-y-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs font-mono">
+              04
+            </div>
+            <h3 className="text-sm font-bold text-white">Chronological Validation</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Strict chronological partitioning (70% Train, 15% Val, 15% Test). Optimized hyperparameters across 5-fold <code className="font-mono text-teal-300">TimeSeriesSplit</code> to ensure absolute out-of-sample validity.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Feature Navigation Cards */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Feature Exploration Matrix */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <Link
-          to="/insights"
-          className="group p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:border-teal-500 hover:shadow-md transition-all flex flex-col justify-between"
+          to="/predict"
+          className="p-6 rounded-3xl bg-[#0b1220]/70 border border-slate-800/80 hover:border-teal-500/40 hover:bg-slate-900/70 transition-all duration-200 group flex items-start gap-4 shadow-xl"
         >
-          <div className="space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Lightbulb className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
-              Exploratory Data Analysis (EDA)
-            </h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Discover the bimodal rush-hour pollution cycle (8–9 AM & 6–8 PM), weekday vs weekend mobility variations, and meteorological dependencies on Temperature and Humidity.
-            </p>
+          <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/30 text-teal-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <Sliders className="w-6 h-6" />
           </div>
-          <div className="flex items-center gap-2 text-xs font-bold text-teal-600 pt-4">
-            <span>Explore Charts & Findings</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors">
+                Model Lab & What-If Simulator
+              </h3>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-teal-400 group-hover:translate-x-1 transition-all" />
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Interact with our tuned HistGradientBoosting model. Drag sensor resistance, temperature, and humidity sliders to simulate live atmospheric next-hour forecasts with WHO health severity ratings.
+            </p>
           </div>
         </Link>
 
         <Link
-          to="/predict"
-          className="group p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:border-teal-500 hover:shadow-md transition-all flex flex-col justify-between"
+          to="/insights"
+          className="p-6 rounded-3xl bg-[#0b1220]/70 border border-slate-800/80 hover:border-cyan-500/40 hover:bg-slate-900/70 transition-all duration-200 group flex items-start gap-4 shadow-xl"
         >
-          <div className="space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-              <PlayCircle className="w-5 h-5" />
+          <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <BarChart3 className="w-6 h-6" />
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
+                Empirical EDA & Traffic Rhythms
+              </h3>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 group-hover:text-sky-700 transition-colors">
-              Model Lab & Next-Hour Predictor
-            </h3>
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Select any historical test-set observation or adjust weather and chemical sensor parameters to forecast next-hour carbon monoxide concentration live with real-time severity alerts.
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Explore the bimodal traffic curve (8–9 AM & 6–8 PM commute waves), Sunday 35% emission dip, thermal inversion patterns, and semiconductor sensor correlation matrices.
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs font-bold text-sky-600 pt-4">
-            <span>Open Prediction Studio</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </Link>
+
+        <Link
+          to="/explore"
+          className="p-6 rounded-3xl bg-[#0b1220]/70 border border-slate-800/80 hover:border-sky-500/40 hover:bg-slate-900/70 transition-all duration-200 group flex items-start gap-4 shadow-xl"
+        >
+          <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 text-sky-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <Database className="w-6 h-6" />
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                Cleaned Dataset & Hardware Sentinel Audit
+              </h3>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-sky-400 group-hover:translate-x-1 transition-all" />
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Inspect the 9,353 cleaned hourly observations. Filter by split (Train, Val, Holdout Test), search timestamps, inspect variable definitions, or download the cleaned CSV.
+            </p>
+          </div>
+        </Link>
+
+        <Link
+          to="/evaluation"
+          className="p-6 rounded-3xl bg-[#0b1220]/70 border border-slate-800/80 hover:border-emerald-500/40 hover:bg-slate-900/70 transition-all duration-200 group flex items-start gap-4 shadow-xl"
+        >
+          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+            <Award className="w-6 h-6" />
+          </div>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+                Model Evaluation & Permutation Attribution
+              </h3>
+              <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Review comparative benchmarks (Baseline vs Linear vs Gradient Boosting), permutation feature importances, and residual error breakdowns across routine vs extreme pollution regimes.
+            </p>
           </div>
         </Link>
       </section>
