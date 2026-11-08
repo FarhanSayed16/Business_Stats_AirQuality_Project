@@ -247,71 +247,71 @@ Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md
 ## Phase 7 — Backend API foundation (FastAPI)
 
 ### 7.1 Scaffold backend
-- [ ] `backend/app/main.py` created
-- [ ] `routers/`, `services/`, `schemas/` created
-- [ ] `backend/requirements.txt` created
+- [x] `backend/app/main.py` created
+- [x] `routers/`, `services/`, `schemas/` created
+- [x] `backend/requirements.txt` created
 
 ### 7.2 Startup loading
-- [ ] Cleaned CSV loaded at startup
-- [ ] `metrics.json` loaded at startup
-- [ ] `feature_schema.json` loaded at startup
-- [ ] `model.joblib` loaded at startup
-- [ ] Clear failure if artifacts missing
+- [x] Cleaned CSV loaded at startup
+- [x] `metrics.json` loaded at startup
+- [x] `feature_schema.json` loaded at startup
+- [x] `model.joblib` loaded at startup
+- [x] Clear failure if artifacts missing
 
 ### 7.3 CORS and config
-- [ ] CORS allows `http://localhost:5173`
-- [ ] Artifact paths configurable
+- [x] CORS allows `http://localhost:5173`
+- [x] Artifact paths configurable
 
 ### 7.4 Core routes
-- [ ] `GET /health` works
-- [ ] `GET /meta` works
+- [x] `GET /health` works
+- [x] `GET /meta` works
 
 ### 7.5 Pydantic schemas
-- [ ] Overview / filter / predict / evaluation schemas defined
+- [x] Overview / filter / predict / evaluation schemas defined
 
 ### 7.6 Local run docs
-- [ ] Uvicorn run command documented
+- [x] Uvicorn run command documented
 
 ### Phase 7 exit
-- [ ] Uvicorn starts with artifacts present
-- [ ] `/health` returns 200
-- [ ] `/meta` reflects cleaned data summary
+- [x] Uvicorn starts with artifacts present
+- [x] `/health` returns 200
+- [x] `/meta` reflects cleaned data summary
 
 ---
 
 ## Phase 8 — Backend domain endpoints
 
 ### 8.1 Overview stats
-- [ ] `GET /stats/overview` returns KPIs + best model metrics
+- [x] `GET /stats/overview` returns KPIs + best model metrics
 
 ### 8.2 Timeseries and patterns
-- [ ] `GET /stats/timeseries` works (with date filters)
-- [ ] `GET /stats/hourly-pattern` works
-- [ ] `GET /stats/weekday-pattern` works
+- [x] `GET /stats/timeseries` works (with date filters)
+- [x] `GET /stats/hourly-pattern` works
+- [x] `GET /stats/weekday-pattern` works
 
 ### 8.3 Relationships
-- [ ] `GET /stats/correlation` works
-- [ ] `GET /stats/weather-scatter` works
+- [x] `GET /stats/correlation` works
+- [x] `GET /stats/weather-scatter` works
 
 ### 8.4 Data explorer
-- [ ] `GET /data` supports filters/pagination
-- [ ] Cleaned CSV download available
-- [ ] Missingness summary payload available
+- [x] `GET /data` supports filters/pagination
+- [x] Cleaned CSV download available
+- [x] Missingness summary payload available
 
 ### 8.5 Model endpoints
-- [ ] `GET /model/info` works
-- [ ] `GET /model/sample-timestamps` works
-- [ ] `POST /model/predict` works (timestamp and/or features)
-- [ ] `GET /model/evaluation` works
+- [x] `GET /model/info` works
+- [x] `GET /model/sample-timestamps` works
+- [x] `POST /model/predict` works (timestamp and/or features)
+- [x] `GET /model/evaluation` works
 
 ### 8.6 Parity checks
-- [ ] Overview metrics match `metrics.json`
-- [ ] One known timestamp prediction matches notebook
+- [x] Overview metrics match `metrics.json`
+- [x] One known timestamp prediction matches notebook
 
 ### Phase 8 exit
-- [ ] All Must-Have endpoints implemented
-- [ ] JSON numbers match notebook/artifacts
-- [ ] Historical predict works on test timestamps
+- [x] All Must-Have endpoints implemented
+- [x] JSON numbers match notebook/artifacts
+- [x] Historical predict works on test timestamps
 
 ---
 
