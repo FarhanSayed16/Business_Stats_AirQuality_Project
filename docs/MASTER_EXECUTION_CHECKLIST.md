@@ -12,235 +12,235 @@ Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md
 ## Phase 1 — Project kickoff and environment
 
 ### 1.1 Brief and scope lock
-- [ ] College brief re-read and understood
-- [ ] Dataset path confirmed: `dataset/air+quality/AirQualityUCI.csv`
-- [ ] Stack locked: Python notebooks + FastAPI + React (AirWatch CO)
-- [ ] Member roles assigned (Data / EDA / Modelling / Product)
+- [x] College brief re-read and understood
+- [x] Dataset path confirmed: `dataset/air+quality/AirQualityUCI.csv`
+- [x] Stack locked: Python notebooks + FastAPI + React (AirWatch CO)
+- [x] Member roles assigned (Data / EDA / Modelling / Product)
 
 ### 1.2 Repository folder skeleton
-- [ ] `notebooks/` created
-- [ ] `data/cleaned/` created
-- [ ] `artifacts/` created
-- [ ] `figures/` created
-- [ ] `reports/` created
-- [ ] `backend/` created
-- [ ] `frontend/` created
-- [ ] `.gitignore` covers `.venv/`, `node_modules/`, `__pycache__/`, `.env`
+- [x] `notebooks/` created
+- [x] `data/cleaned/` created
+- [x] `artifacts/` created
+- [x] `figures/` created
+- [x] `reports/` created
+- [x] `backend/` created
+- [x] `frontend/` created
+- [x] `.gitignore` covers `.venv/`, `node_modules/`, `__pycache__/`, `.env`
 
 ### 1.3 Python environment
-- [ ] Virtual environment created
-- [ ] pandas, numpy, matplotlib, seaborn, scikit-learn, joblib, openpyxl, jupyter installed
-- [ ] Root `requirements.txt` written
+- [x] Virtual environment created
+- [x] pandas, numpy, matplotlib, seaborn, scikit-learn, joblib, openpyxl, jupyter installed
+- [x] Root `requirements.txt` written
 
 ### 1.4 Node toolchain check
-- [ ] Node.js LTS available
-- [ ] npm available
-- [ ] Versions noted in README
+- [x] Node.js LTS available
+- [x] npm available
+- [x] Versions noted in README
 
 ### 1.5 README stub
-- [ ] Title + Group 3 + objective one-liner added
-- [ ] Venv / notebook run instructions added
-- [ ] Placeholder for API and frontend commands added
+- [x] Title + Group 3 + objective one-liner added
+- [x] Venv / notebook run instructions added
+- [x] Placeholder for API and frontend commands added
 
 ### 1.6 Smoke load raw data
-- [ ] CSV loads with `sep=';'` and `decimal=','`
-- [ ] Shape and columns printed successfully
+- [x] CSV loads with `sep=';'` and `decimal=','`
+- [x] Shape and columns printed successfully
 
 ### Phase 1 exit
-- [ ] Repo structure documented
-- [ ] Teammate can activate venv and import pandas
-- [ ] Raw CSV loads without parse errors
+- [x] Repo structure documented
+- [x] Teammate can activate venv and import pandas
+- [x] Raw CSV loads without parse errors
 
 ---
 
 ## Phase 2 — Data understanding
 
 ### 2.1 Variable dictionary
-- [ ] Every column documented (meaning, unit, role)
+- [x] Every column documented (meaning, unit, role)
 
 ### 2.2 Format and quality quirks
-- [ ] `;` separator and `,` decimal confirmed
-- [ ] `-200` invalid-value coding documented
-- [ ] Trailing empty columns noted if present
+- [x] `;` separator and `,` decimal confirmed
+- [x] `-200` invalid-value coding documented
+- [x] Trailing empty columns noted if present
 
 ### 2.3 Missingness profile (raw)
-- [ ] Missing % computed per column after treating `-200` as missing
-- [ ] Extreme-missing columns flagged (e.g. `NMHC(GT)`)
+- [x] Missing % computed per column after treating `-200` as missing
+- [x] Extreme-missing columns flagged (e.g. `NMHC(GT)`)
 
 ### 2.4 Target freeze
-- [ ] Target defined as `CO_next = CO(GT).shift(-1)`
-- [ ] “Info up to current hour only” rule written
+- [x] Target defined as `CO_next = CO(GT).shift(-1)`
+- [x] “Info up to current hour only” rule written
 
 ### 2.5 Feature policy freeze
-- [ ] Allowed features listed (current + lags + calendar)
-- [ ] Forbidden future leakage explicitly listed
+- [x] Allowed features listed (current + lags + calendar)
+- [x] Forbidden future leakage explicitly listed
 
 ### 2.6 Data-understanding write-up
-- [ ] Short notes ready for report Section 2
+- [x] Short notes ready for report Section 2
 
 ### Phase 2 exit
-- [ ] Team agrees on `CO_next`
-- [ ] `-200` rule documented
-- [ ] Leakage rules shared with team
+- [x] Team agrees on `CO_next`
+- [x] `-200` rule documented
+- [x] Leakage rules shared with team
 
 ---
 
 ## Phase 3 — Data preprocessing
 
 ### 3.1 Parsing and typing
-- [ ] Datetime index created from Date + Time
-- [ ] Numerics coerced correctly
-- [ ] Sorted by datetime; empty rows dropped
+- [x] Datetime index created from Date + Time
+- [x] Numerics coerced correctly
+- [x] Sorted by datetime; empty rows dropped
 
 ### 3.2 Invalid value handling
-- [ ] All `-200` replaced with NaN
-- [ ] Before/after missingness report generated
+- [x] All `-200` replaced with NaN
+- [x] Before/after missingness report generated
 
 ### 3.3 Column decisions
-- [ ] Drop/keep decisions made with written justification
-- [ ] Usable sensors, weather, pollutants retained
+- [x] Drop/keep decisions made with written justification
+- [x] Usable sensors, weather, pollutants retained
 
 ### 3.4 Imputation strategy
-- [ ] Time-aware imputation/drop approach chosen
-- [ ] Justification written in notebook
+- [x] Time-aware imputation/drop approach chosen
+- [x] Justification written in notebook
 
 ### 3.5 Feature engineering
-- [ ] Calendar features created (`hour`, `dayofweek`, `month`)
-- [ ] Lag features created (CO lags 1–3 at minimum)
-- [ ] Optional rolling features created or explicitly skipped
-- [ ] `CO_next` created; trailing NaN target rows dropped
+- [x] Calendar features created (`hour`, `dayofweek`, `month`)
+- [x] Lag features created (CO lags 1–3 at minimum)
+- [x] Optional rolling features created or explicitly skipped
+- [x] `CO_next` created; trailing NaN target rows dropped
 
 ### 3.6 Chronological split masks
-- [ ] Train/validation/test time boundaries defined
-- [ ] Split timestamps recorded for report + API
+- [x] Train/validation/test time boundaries defined
+- [x] Split timestamps recorded for report + API
 
 ### 3.7 Export cleaned data
-- [ ] `data/cleaned/cleaned_air_quality.csv` exported
-- [ ] Schema documented
+- [x] `data/cleaned/cleaned_air_quality.csv` exported
+- [x] Schema documented
 
 ### 3.8 Preprocessing notebook polish
-- [ ] `notebooks/01_preprocessing.ipynb` submission-ready
-- [ ] Report preprocessing bullets drafted
+- [x] `notebooks/01_preprocessing.ipynb` submission-ready
+- [x] Report preprocessing bullets drafted
 
 ### Phase 3 exit
-- [ ] Cleaned CSV reloads cleanly
-- [ ] No `-200` remain in cleaned numerics
-- [ ] `CO_next` and lags present
-- [ ] Split strategy documented
+- [x] Cleaned CSV reloads cleanly
+- [x] No `-200` remain in cleaned numerics
+- [x] `CO_next` and lags present
+- [x] Split strategy documented
 
 ---
 
 ## Phase 4 — Exploratory data analysis
 
 ### 4.1 Univariate summaries
-- [ ] Distributions for CO, key pollutants, sensors, weather summarized
-- [ ] Outliers/skew noted
+- [x] Distributions for CO, key pollutants, sensors, weather summarized
+- [x] Outliers/skew noted
 
 ### 4.2 Time behaviour
-- [ ] CO full-period timeseries plotted
-- [ ] CO by hour-of-day plotted
-- [ ] CO by day-of-week plotted
-- [ ] Pattern interpretation written
+- [x] CO full-period timeseries plotted
+- [x] CO by hour-of-day plotted
+- [x] CO by day-of-week plotted
+- [x] Pattern interpretation written
 
 ### 4.3 Weather relationships
-- [ ] CO vs T / RH / AH explored
-- [ ] Short correlation interpretation written
+- [x] CO vs T / RH / AH explored
+- [x] Short correlation interpretation written
 
 ### 4.4 Sensor and pollutant associations
-- [ ] Correlation heatmap created
-- [ ] Strongest CO correlates noted
+- [x] Correlation heatmap created
+- [x] Strongest CO correlates noted
 
 ### 4.5 Data-quality visuals
-- [ ] Missingness before vs after chart created
-- [ ] Optional boxplots created or skipped consciously
+- [x] Missingness before vs after chart created
+- [x] Optional boxplots created or skipped consciously
 
 ### 4.6 Insight cards copy
-- [ ] 4–8 dashboard insight bullets written (evidence-based only)
+- [x] 4–8 dashboard insight bullets written (evidence-based only)
 
 ### 4.7 Export figures
-- [ ] Figures saved under `figures/`
-- [ ] `notebooks/02_eda.ipynb` complete
+- [x] Figures saved under `figures/`
+- [x] `notebooks/02_eda.ipynb` complete
 
 ### Phase 4 exit
-- [ ] Time, weather, correlation analyses complete
-- [ ] Figures ready for report
-- [ ] Insight bullets team-reviewed
+- [x] Time, weather, correlation analyses complete
+- [x] Figures ready for report
+- [x] Insight bullets team-reviewed
 
 ---
 
 ## Phase 5 — Baseline and predictive modelling
 
 ### 5.1 Modelling frame
-- [ ] Feature columns selected per policy
-- [ ] Chronological train/val/test respected
+- [x] Feature columns selected per policy
+- [x] Chronological train/val/test respected
 
 ### 5.2 Baseline model
-- [ ] Naive baseline implemented
-- [ ] Baseline RMSE/MAE/R² recorded
+- [x] Naive baseline implemented
+- [x] Baseline RMSE/MAE/R² recorded
 
 ### 5.3 Interpretable model
-- [ ] Linear and/or Ridge fitted
-- [ ] Coefficients inspected for report story
+- [x] Linear and/or Ridge fitted
+- [x] Coefficients inspected for report story
 
 ### 5.4 Non-linear model
-- [ ] RandomForest or HistGradientBoosting fitted
+- [x] RandomForest or HistGradientBoosting fitted
 
 ### 5.5 Evaluation toolkit
-- [ ] Shared RMSE/MAE/R² helpers exist
-- [ ] Actual-vs-predicted plot created
-- [ ] Residual plot created
+- [x] Shared RMSE/MAE/R² helpers exist
+- [x] Actual-vs-predicted plot created
+- [x] Residual plot created
 
 ### 5.6 Model comparison table
-- [ ] Baseline vs Linear/Ridge vs Tree metrics tabulated
-- [ ] Tuning candidate selected
+- [x] Baseline vs Linear/Ridge vs Tree metrics tabulated
+- [x] Tuning candidate selected
 
 ### 5.7 Modelling notebook
-- [ ] `notebooks/03_modelling.ipynb` complete with justifications
+- [x] `notebooks/03_modelling.ipynb` complete with justifications
 
 ### Phase 5 exit
-- [ ] Baseline + ≥2 models trained
-- [ ] Validation metrics tabulated
-- [ ] Candidate model chosen for Phase 6
+- [x] Baseline + ≥2 models trained
+- [x] Validation metrics tabulated
+- [x] Candidate model chosen for Phase 6
 
 ---
 
 ## Phase 6 — Hyperparameter tuning and final evaluation
 
 ### 6.1 Tuning setup
-- [ ] `TimeSeriesSplit` configured
-- [ ] Search space defined
+- [x] `TimeSeriesSplit` configured
+- [x] Search space defined
 
 ### 6.2 Search and selection
-- [ ] Grid or Randomized search run
-- [ ] Best params + CV score recorded
+- [x] Grid or Randomized search run
+- [x] Best params + CV score recorded
 
 ### 6.3 Final holdout evaluation
-- [ ] Best model scored on untouched test set
-- [ ] Test metrics compared to baseline
+- [x] Best model scored on untouched test set
+- [x] Test metrics compared to baseline
 
 ### 6.4 Error / failure analysis
-- [ ] High-error conditions identified
-- [ ] Residual figures saved for report/UI
+- [x] High-error conditions identified
+- [x] Residual figures saved for report/UI
 
 ### 6.5 Artifact export
-- [ ] `artifacts/model.joblib` saved
-- [ ] `artifacts/metrics.json` saved
-- [ ] `artifacts/feature_schema.json` saved
+- [x] `artifacts/model.joblib` saved
+- [x] `artifacts/metrics.json` saved
+- [x] `artifacts/feature_schema.json` saved
 
 ### 6.6 Usefulness and limitations draft
-- [ ] Monitoring usefulness drafted
-- [ ] Limitations drafted
+- [x] Monitoring usefulness drafted
+- [x] Limitations drafted
 
 ### 6.7 Tuning notebook
-- [ ] `notebooks/04_tuning_evaluation.ipynb` complete
-- [ ] Reloaded model reproduces test metrics
+- [x] `notebooks/04_tuning_evaluation.ipynb` complete
+- [x] Reloaded model reproduces test metrics
 
 ### Phase 6 exit
-- [ ] Best hyperparameters documented
-- [ ] Test metrics finalized
-- [ ] All three artifact files exist
-- [ ] Limitations draft approved
-- [ ] **GATE PASSED — UI feature work may begin**
+- [x] Best hyperparameters documented
+- [x] Test metrics finalized
+- [x] All three artifact files exist
+- [x] Limitations draft approved
+- [x] **GATE PASSED — UI feature work may begin**
 
 ---
 
