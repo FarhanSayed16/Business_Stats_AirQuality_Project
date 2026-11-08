@@ -38,8 +38,10 @@ Home · Explore · Insights · Predict Lab · Evaluation · Team
 ### Run locally
 `start_project.bat` **or** API `:8000` + `frontend` `:5173`
 
-### Still open (team)
-- Fill Member 02–16 names/roles (16-seat Team roster)  
+### Group 3
+Farhan Sayed · Salman Khan · Sahil Tambe · Shruti Pawar · Aayesha Kaliwala · Kashish Maurya
+
+### Still open
 - Optional Vercel + Render public URLs  
 
 ### Say in viva

@@ -79,9 +79,8 @@ The optional presentation layer is **AirWatch CO**: a FastAPI API + React dashbo
 
 ### Still for humans (before final submit)
 
-1. Fill **Member 02–16** legal names/roles on the Team page (16-seat roster; only Farhan detailed for now) and update report contributions.  
-2. Optional: deploy Render + Vercel and paste public URLs into README / Team page.  
-3. Rehearse the 8–10 minute viva once on the local stack.
+1. Optional: deploy Render + Vercel and paste public URLs into README / Team page.  
+2. Rehearse the 8–10 minute viva once on the local stack.
 
 ---
 
@@ -143,14 +142,16 @@ npm run dev
 
 ---
 
-## 7. Suggested ownership (3–4 members)
+## 7. Official Group 3 roster & ownership
 
-| Role | Owns | Must be able to explain |
-|------|------|-------------------------|
-| Data Lead | Preprocessing, `-200`, cleaned CSV, Explore page data story | Why sentinel values matter |
-| EDA Lead | Insights charts, diurnal/weekday/weather findings | What patterns mean for CO |
-| Modelling Lead | Models, tuning, Evaluation + Predict | Why time-series split / no leakage |
-| Product Lead | Dashboard polish, report packaging, demo flow | End-to-end narrative |
+| Name | Role | Focus for viva |
+|------|------|----------------|
+| **Farhan Sayed** | System Architect & Data Engineering Lead | Pipeline, API, dashboard, anti-leakage splits |
+| **Salman Khan** | Predictive Modelling Lead | `CO_next`, baselines, champion HGB, Predict Lab |
+| **Sahil Tambe** | Statistical Analysis & EDA Lead | Diurnal/weekday/weather patterns |
+| **Shruti Pawar** | Insights & Visualization Lead | Figures, Insights charts, visual parity |
+| **Aayesha Kaliwala** | Validation & Evaluation Lead | TimeSeriesSplit, holdout metrics, failure modes |
+| **Kashish Maurya** | Documentation, Report & Viva Lead | Report, limitations, viva script |
 
 Everyone should walk Home → Explore → Insights → Predict → Evaluation → Team once before viva.
 
@@ -161,7 +162,7 @@ Everyone should walk Home → Explore → Insights → Predict → Evaluation �
 - [x] Python notebooks / scripts  
 - [x] Cleaned dataset  
 - [x] Report (approach, findings, results, limitations)  
-- [ ] Final legal names in contribution section  
+- [x] Legal names in Team page + report contributions  
 - [x] Runnable AirWatch CO demo (local)  
 - [ ] Optional cloud URLs  
 

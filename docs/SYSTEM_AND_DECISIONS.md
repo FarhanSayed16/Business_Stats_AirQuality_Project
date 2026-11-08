@@ -135,7 +135,6 @@ Env for cloud: `VITE_API_URL=<Render base URL>` (build-time).
 ### Remaining (human)
 | Item | Owner action |
 |------|----------------|
-| Member 02–16 names/roles | Edit Team page (16 seats) + report contributions |
 | Optional cloud deploy | Render service + Vercel project + CORS/`VITE_API_URL` |
 | Final viva rehearsal | Run `start_project` once end-to-end |
 

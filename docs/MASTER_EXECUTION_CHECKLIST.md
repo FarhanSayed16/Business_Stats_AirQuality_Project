@@ -522,7 +522,7 @@ Related: [PROJECT_IDEA_AND_EXECUTION_PLAN.md](PROJECT_IDEA_AND_EXECUTION_PLAN.md
 ### Phase 13 exit
 - [x] Official deliverables complete (notebooks, cleaned data, MD/HTML/PDF report)
 - [x] Local live demo path ready
-- [ ] Replace Member B / Member C placeholders with legal names
+- [x] Group 3 legal names on Team page + report (Farhan, Salman, Sahil, Shruti, Aayesha, Kashish)
 - [x] Project local Definition of Done satisfied
 
 ---

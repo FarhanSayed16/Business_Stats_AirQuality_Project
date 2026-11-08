@@ -229,7 +229,7 @@ The academic core is complete when **all** of the following are true:
 - [x] Hyperparameters tuned with time-aware validation  
 - [x] Metrics reported on a held-out time period  
 - [x] Usefulness & limitations written for air-quality monitoring  
-- [ ] Report member contribution names finalized (replace Member B / C placeholders)  
+- [x] Report member contribution names finalized (Group 3 of 6)  
 - [x] Python notebooks/scripts run end-to-end  
 
 Optional demo layer (AirWatch CO dashboard): FastAPI + React — see [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md).
