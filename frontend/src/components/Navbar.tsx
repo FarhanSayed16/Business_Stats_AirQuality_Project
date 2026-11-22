@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Wind, BarChart3, Database, Lightbulb, PlayCircle, Award, Users, Menu, X, Activity } from 'lucide-react';
+import { Wind, BarChart3, Database, Lightbulb, Sigma, PlayCircle, Award, Users, Menu, X, Activity } from 'lucide-react';
 import { api } from '../api/client';
 
 export const Navbar: React.FC = () => {
@@ -27,11 +27,12 @@ export const Navbar: React.FC = () => {
 
   const navItems = [
     { name: 'Home', path: '/', icon: BarChart3 },
-    { name: 'Explore Data', path: '/explore', icon: Database },
-    { name: 'Insights (EDA)', path: '/insights', icon: Lightbulb },
-    { name: 'Predict Lab', path: '/predict', icon: PlayCircle },
+    { name: 'Explore', path: '/explore', icon: Database },
+    { name: 'Insights', path: '/insights', icon: Lightbulb },
+    { name: 'Statistics', path: '/statistics', icon: Sigma },
+    { name: 'Predict', path: '/predict', icon: PlayCircle },
     { name: 'Evaluation', path: '/evaluation', icon: Award },
-    { name: 'Research Team', path: '/team', icon: Users },
+    { name: 'Team', path: '/team', icon: Users },
   ];
 
   return (
@@ -62,15 +63,15 @@ export const Navbar: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 ${
+                  `flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-xl text-[11px] xl:text-xs font-semibold transition-all duration-200 ${
                     isActive
-                      ? 'bg-white/90 text-slate-900 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'
+                      ? 'bg-white/95 text-slate-900 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/45'
                   }`
                 }
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{item.name}</span>
+                <Icon className="w-3.5 h-3.5 shrink-0" />
+                <span className="whitespace-nowrap">{item.name}</span>
               </NavLink>
             );
           })}

@@ -3,13 +3,13 @@ import {
   LineChart, Line, AreaChart, Area, BarChart, Bar, ScatterChart, Scatter,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
-import { Clock, Calendar, CloudSun, Layers, Sparkles, Activity, TrendingUp } from 'lucide-react';
+import { Clock, Calendar, CloudSun, Layers, Activity, TrendingUp } from 'lucide-react';
 import { api } from '../api/client';
 import type {
   HourlyPatternPoint, WeekdayPatternPoint, CorrelationData,
   WeatherScatterPoint, TimeseriesPoint
 } from '../types';
-import { ErrorState, GlassCard, LoadingState, SectionEyebrow } from '../components/ui';
+import { ErrorState, GlassCard, LoadingState } from '../components/ui';
 
 export const Insights: React.FC = () => {
   const [hourly, setHourly] = useState<HourlyPatternPoint[]>([]);
@@ -64,15 +64,13 @@ export const Insights: React.FC = () => {
   return (
     <div className="space-y-8 pb-12">
       <div>
-        <SectionEyebrow>
-          <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-          <span>Empirical statistical discoveries</span>
-        </SectionEyebrow>
         <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight">
-          Exploratory Data Analysis & Atmospheric Rhythms
+          Insights — Atmospheric Patterns
         </h1>
-        <p className="text-sm text-slate-500 mt-1 max-w-2xl">
-          Diurnal commute waves, weekly lulls, weather coupling, and multi-pollutant correlations from the cleaned UCI station series.
+        <p className="text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
+          Diurnal commute waves, weekly lulls, weather coupling, and multi-pollutant correlations.
+          For IQR outliers, normal-curve overlays, and empirical probabilities, use the{' '}
+          <strong className="text-slate-800">Statistics</strong> tab.
         </p>
       </div>
 

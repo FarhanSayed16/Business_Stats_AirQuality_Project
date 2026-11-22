@@ -9,7 +9,11 @@ import type {
   MissingnessItem,
   SampleTimestamp,
   PredictionResult,
-  EvaluationDetails
+  EvaluationDetails,
+  DistributionData,
+  OutlierData,
+  ProbabilitiesData,
+  MethodsSummary
 } from '../types';
 
 const rawApiBase =
@@ -109,5 +113,23 @@ export const api = {
 
   async getEvaluation(): Promise<EvaluationDetails> {
     return fetchJson<EvaluationDetails>('/model/evaluation');
+  },
+
+  async getDistribution(variable: string = 'CO(GT)', bins: number = 30): Promise<DistributionData> {
+    const params = new URLSearchParams({ variable, bins: String(bins) });
+    return fetchJson<DistributionData>(`/stats/distribution?${params.toString()}`);
+  },
+
+  async getOutliers(variable: string = 'CO(GT)'): Promise<OutlierData> {
+    const params = new URLSearchParams({ variable });
+    return fetchJson<OutlierData>(`/stats/outliers?${params.toString()}`);
+  },
+
+  async getProbabilities(): Promise<ProbabilitiesData> {
+    return fetchJson<ProbabilitiesData>('/stats/probabilities');
+  },
+
+  async getMethodsSummary(): Promise<MethodsSummary> {
+    return fetchJson<MethodsSummary>('/stats/methods-summary');
   }
 };
