@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, HTTPException
 from typing import Optional, List, Dict, Any
 from backend.app.schemas.api_schemas import OverviewResponse
 from backend.app.services.data_service import data_service
@@ -32,3 +32,34 @@ def get_correlation():
 @router.get("/weather-scatter", response_model=List[Dict[str, Any]])
 def get_weather_scatter(sample_size: int = Query(800, ge=100, le=3000)):
     return data_service.get_weather_scatter(sample_size=sample_size)
+
+
+@router.get("/distribution", response_model=Dict[str, Any])
+def get_distribution(
+    variable: str = Query("CO(GT)", description="Numeric variable for histogram + normal overlay"),
+    bins: int = Query(30, ge=10, le=60),
+):
+    try:
+        return data_service.get_distribution(variable=variable, bins=bins)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/outliers", response_model=Dict[str, Any])
+def get_outliers(
+    variable: str = Query("CO(GT)", description="Numeric variable for IQR fence analysis"),
+):
+    try:
+        return data_service.get_outliers_iqr(variable=variable)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/probabilities", response_model=Dict[str, Any])
+def get_probabilities():
+    return data_service.get_probabilities()
+
+
+@router.get("/methods-summary", response_model=Dict[str, Any])
+def get_methods_summary():
+    return data_service.get_methods_summary()

@@ -66,6 +66,44 @@ def test_endpoints():
     assert len(r.json()) == 100
     print("  /stats/weather-scatter passed")
 
+    print("Testing /stats/distribution ...")
+    r = client.get("/stats/distribution?variable=CO(GT)&bins=30")
+    assert r.status_code == 200, f"Failed /stats/distribution: {r.text}"
+    dist = r.json()
+    assert dist["variable"] == "CO(GT)"
+    assert dist["n"] > 0
+    assert len(dist["histogram"]) > 0
+    assert len(dist["normal_curve"]) > 0
+    print(f"  /stats/distribution passed (n={dist['n']}, skew={dist['skewness']})")
+
+    print("Testing /stats/outliers ...")
+    r = client.get("/stats/outliers?variable=CO(GT)")
+    assert r.status_code == 200, f"Failed /stats/outliers: {r.text}"
+    out = r.json()
+    assert "lower_fence" in out and "upper_fence" in out
+    assert "left_outlier_count" in out and "right_outlier_count" in out
+    print(
+        f"  /stats/outliers passed "
+        f"(left={out['left_outlier_count']}, right={out['right_outlier_count']}, IQR={out['iqr']})"
+    )
+
+    print("Testing /stats/probabilities ...")
+    r = client.get("/stats/probabilities")
+    assert r.status_code == 200, f"Failed /stats/probabilities: {r.text}"
+    probs = r.json()
+    assert "percentiles" in probs and "thresholds" in probs
+    tier_sum = sum(t["probability"] for t in probs["thresholds"] if t["rule"] in ("lt_2", "gte_2_lt_4", "gte_4"))
+    assert abs(tier_sum - 1.0) < 1e-2, f"tier probabilities sum to {tier_sum}"
+    print("  /stats/probabilities passed")
+
+    print("Testing /stats/methods-summary ...")
+    r = client.get("/stats/methods-summary")
+    assert r.status_code == 200, f"Failed /stats/methods-summary: {r.text}"
+    methods = r.json()
+    assert len(methods["process_steps"]) == 5
+    assert len(methods["models"]) >= 5
+    print("  /stats/methods-summary passed")
+
     print("Testing /data ...")
     r = client.get("/data?page=1&page_size=10")
     assert r.status_code == 200

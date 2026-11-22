@@ -8,9 +8,11 @@ Predict **next-hour Carbon Monoxide** (`CO_next`) from the UCI Air Quality datas
 |--|--|
 | **Dashboard (local)** | http://localhost:5173 |
 | **API (local)** | http://localhost:8000 · docs at `/docs` |
+| **Statistics tab** | http://localhost:5173/statistics (IQR outliers, normal curve, probabilities) |
 | **Teammate brief** | [`docs/TEAM_PROJECT_BRIEF.md`](docs/TEAM_PROJECT_BRIEF.md) |
 | **One-pager** | [`docs/PROJECT_ONE_PAGER.md`](docs/PROJECT_ONE_PAGER.md) |
 | **System / decisions** | [`docs/SYSTEM_AND_DECISIONS.md`](docs/SYSTEM_AND_DECISIONS.md) |
+| **Biz stats plan** | [`docs/BUSINESS_STATS_ENHANCEMENT_PLAN.md`](docs/BUSINESS_STATS_ENHANCEMENT_PLAN.md) |
 
 ---
 
@@ -126,7 +128,7 @@ npm run dev
 | Swagger docs | http://localhost:8000/docs |
 | Report (via API) | http://localhost:8000/reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.html |
 
-**Demo path for viva:** Home → Explore Data → Insights → Predict Lab → Evaluation → Research Team.
+**Demo path for viva:** Home → Explore Data → **Statistics** → Insights → Predict Lab → Evaluation → Research Team.
 
 ---
 
