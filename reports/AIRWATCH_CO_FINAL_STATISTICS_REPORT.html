@@ -260,6 +260,18 @@
 * <strong>Train Partition (70%):</strong> 6,547 observations (March 10, 2004 to December 8, 2004).
 * <strong>Validation Partition (15%):</strong> 1,403 observations (December 8, 2004 to February 5, 2005).
 * <strong>Holdout Test Partition (15%):</strong> 1,403 observations (February 5, 2005 to April 4, 2005).</p>
+<h3>3.5 Classical Outlier Policy (IQR Fences)</h3>
+<p>After cleaning, we apply the standard Business Statistics IQR rule on continuous variables (illustrated for <code>CO(GT)</code> on the dashboard <strong>Statistics</strong> tab):
+* Lower / left fence $= Q_1 - 1.5 \times \text{IQR}$
+* Upper / right fence $= Q_3 + 1.5 \times \text{IQR}$
+* <strong>Left/lower outliers</strong> = values below the lower fence; <strong>right/upper outliers</strong> = values above the upper fence.</p>
+<p>For cleaned Carbon Monoxide, right/upper outliers are common because extreme roadside peaks are physically real. We therefore <strong>flag and interpret</strong> IQR extremes for EDA and viva discussion; we do <strong>not</strong> mass-delete them as “noise.” This is distinct from hardware sentinel <code>-200</code> values, which were invalid measurements and were converted to missing.</p>
+<h3>3.6 Distribution, Normal Curve Comparison &amp; Empirical Probabilities</h3>
+<ul>
+<li>Summary moments include mean, standard deviation, skewness, and kurtosis. <code>CO(GT)</code> is right-skewed (positive skew), so a Normal$(\mu,\sigma)$ bell curve is an imperfect but pedagogically useful overlay—not a claim that CO is Gaussian.</li>
+<li>Empirical probabilities use cleaned frequencies, e.g. project analytical tiers $P(CO &lt; 2)$, $P(2 \le CO &lt; 4)$, $P(CO \ge 4)$, plus $P(CO \ge 5)$ and $P(CO \ge 6)$. These tiers are <strong>not</strong> certified regulatory AQI labels.</li>
+<li><strong>Scope note:</strong> This assessment uses classical Business Statistics and supervised ML. Bayesian regression is intentionally out of scope.</li>
+</ul>
 <hr />
 <h2>4. Exploratory Data Analysis &amp; Empirical Findings</h2>
 <h3>4.1 Diurnal Rush-Hour Signature</h3>

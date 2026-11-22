@@ -144,3 +144,65 @@ export interface EvaluationDetails {
     baseline: number;
   }[];
 }
+
+export interface DistributionData {
+  variable: string;
+  n: number;
+  mean: number;
+  std: number;
+  min: number;
+  max: number;
+  skewness: number;
+  kurtosis: number;
+  histogram: { bin_start: number; bin_end: number; bin_center: number; count: number }[];
+  normal_curve: { x: number; y: number }[];
+  note: string;
+}
+
+export interface OutlierData {
+  variable: string;
+  n: number;
+  q1: number;
+  median: number;
+  q3: number;
+  iqr: number;
+  lower_fence: number;
+  upper_fence: number;
+  left_outlier_count: number;
+  right_outlier_count: number;
+  outlier_rate_pct: number;
+  sample_left_outliers: number[];
+  sample_right_outliers: number[];
+  policy: string;
+}
+
+export interface ProbabilitiesData {
+  variable: string;
+  n: number;
+  percentiles: Record<string, number>;
+  thresholds: { label: string; rule: string; probability: number; count: number }[];
+  empirical_cdf: { x: number; cdf: number }[];
+  note: string;
+}
+
+export interface MethodsSummary {
+  process_steps: { step: number; title: string; detail: string }[];
+  cleaning_steps: string[];
+  models: {
+    key: string;
+    label: string;
+    test_rmse: number;
+    test_mae: number;
+    test_r2: number;
+  }[];
+  primary_model: {
+    name: string;
+    test_rmse: number;
+    test_mae: number;
+    test_r2: number;
+    rmse_improvement_over_baseline_pct?: number;
+  };
+  best_hyperparameters: Record<string, number | string>;
+  allowed_distribution_variables: string[];
+  classical_note: string;
+}

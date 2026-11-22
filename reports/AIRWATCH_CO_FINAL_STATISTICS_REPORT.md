@@ -77,6 +77,19 @@ Because air pollution data exhibits strong autocorrelation, standard randomized 
 * **Validation Partition (15%):** 1,403 observations (December 8, 2004 to February 5, 2005).
 * **Holdout Test Partition (15%):** 1,403 observations (February 5, 2005 to April 4, 2005).
 
+### 3.5 Classical Outlier Policy (IQR Fences)
+After cleaning, we apply the standard Business Statistics IQR rule on continuous variables (illustrated for `CO(GT)` on the dashboard **Statistics** tab):
+* Lower / left fence $= Q_1 - 1.5 \times \text{IQR}$
+* Upper / right fence $= Q_3 + 1.5 \times \text{IQR}$
+* **Left/lower outliers** = values below the lower fence; **right/upper outliers** = values above the upper fence.
+
+For cleaned Carbon Monoxide, right/upper outliers are common because extreme roadside peaks are physically real. We therefore **flag and interpret** IQR extremes for EDA and viva discussion; we do **not** mass-delete them as “noise.” This is distinct from hardware sentinel `-200` values, which were invalid measurements and were converted to missing.
+
+### 3.6 Distribution, Normal Curve Comparison & Empirical Probabilities
+* Summary moments include mean, standard deviation, skewness, and kurtosis. `CO(GT)` is right-skewed (positive skew), so a Normal$(\mu,\sigma)$ bell curve is an imperfect but pedagogically useful overlay—not a claim that CO is Gaussian.
+* Empirical probabilities use cleaned frequencies, e.g. project analytical tiers $P(CO < 2)$, $P(2 \le CO < 4)$, $P(CO \ge 4)$, plus $P(CO \ge 5)$ and $P(CO \ge 6)$. These tiers are **not** certified regulatory AQI labels.
+* **Scope note:** This assessment uses classical Business Statistics and supervised ML. Bayesian regression is intentionally out of scope.
+
 ---
 
 ## 4. Exploratory Data Analysis & Empirical Findings
