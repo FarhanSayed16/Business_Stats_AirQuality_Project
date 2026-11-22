@@ -115,6 +115,7 @@ Env for cloud: `VITE_API_URL=<Render base URL>` (build-time).
 | Home | Story, KPIs, champion snapshot, CO gauge |
 | Explore | Filter cleaned telemetry; missingness audit |
 | Insights | EDA charts (diurnal, weather, correlations) |
+| Statistics | Classical Business Stats: cleaning, IQR outliers, normal overlay, probabilities, methods |
 | Predict | Replay holdout hour or custom scenario → next-hour CO |
 | Evaluation | Model table, importance, error story |
 | Team | Members, stack, report links |

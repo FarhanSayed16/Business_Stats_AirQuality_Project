@@ -174,6 +174,7 @@ Everyone should walk Home → Explore → Insights → Predict → Evaluation �
 |-----|----------|
 | [PROJECT_ONE_PAGER.md](PROJECT_ONE_PAGER.md) | Fast share / WhatsApp / slide backup |
 | [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md) | Architecture + file/API detail |
+| [BUSINESS_STATS_ENHANCEMENT_PLAN.md](BUSINESS_STATS_ENHANCEMENT_PLAN.md) | Classical stats: outliers, normal curve, probabilities |
 | [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) | Full phase history |
 | [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) | Tick-box tracker |
 | [USEFULNESS_AND_LIMITATIONS.md](USEFULNESS_AND_LIMITATIONS.md) | Monitoring usefulness narrative |

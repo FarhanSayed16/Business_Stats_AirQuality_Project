@@ -364,5 +364,174 @@ class DataService:
             "test_evaluation_series": sample_eval
         }
 
+    # --- Classical Business Statistics helpers ---
+
+    _DISTRIBUTION_VARS = [
+        'CO(GT)', 'C6H6(GT)', 'NOx(GT)', 'NO2(GT)',
+        'PT08.S1(CO)', 'T', 'RH', 'AH'
+    ]
+
+    def _series_for_variable(self, variable: str) -> pd.Series:
+        if variable not in self._DISTRIBUTION_VARS:
+            raise ValueError(
+                f"Unsupported variable '{variable}'. Allowed: {', '.join(self._DISTRIBUTION_VARS)}"
+            )
+        s = self.df[variable].dropna().astype(float)
+        if s.empty:
+            raise ValueError(f"No finite values for variable '{variable}'.")
+        return s
+
+    def get_distribution(self, variable: str = 'CO(GT)', bins: int = 30) -> Dict[str, Any]:
+        s = self._series_for_variable(variable)
+        bins = int(np.clip(bins, 10, 60))
+        counts, edges = np.histogram(s.values, bins=bins)
+        bin_centers = ((edges[:-1] + edges[1:]) / 2.0).tolist()
+        histogram = [
+            {
+                "bin_start": round(float(edges[i]), 4),
+                "bin_end": round(float(edges[i + 1]), 4),
+                "bin_center": round(float(bin_centers[i]), 4),
+                "count": int(counts[i]),
+            }
+            for i in range(len(counts))
+        ]
+
+        mean = float(s.mean())
+        std = float(s.std(ddof=1)) if len(s) > 1 else 0.0
+        # Normal PDF curve across observed range (bell overlay for Business Stats)
+        x_min, x_max = float(s.min()), float(s.max())
+        if std <= 1e-12:
+            normal_curve = [{"x": round(mean, 4), "y": 1.0}]
+        else:
+            xs = np.linspace(x_min, x_max, 80)
+            pdf = (1.0 / (std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((xs - mean) / std) ** 2)
+            # Scale PDF to histogram count scale for overlay readability
+            bin_width = float(edges[1] - edges[0]) if len(edges) > 1 else 1.0
+            pdf_scaled = pdf * len(s) * bin_width
+            normal_curve = [
+                {"x": round(float(x), 4), "y": round(float(y), 4)}
+                for x, y in zip(xs, pdf_scaled)
+            ]
+
+        return {
+            "variable": variable,
+            "n": int(len(s)),
+            "mean": round(mean, 4),
+            "std": round(std, 4),
+            "min": round(float(s.min()), 4),
+            "max": round(float(s.max()), 4),
+            "skewness": round(float(s.skew()), 4),
+            "kurtosis": round(float(s.kurtosis()), 4),
+            "histogram": histogram,
+            "normal_curve": normal_curve,
+            "note": "Normal curve is a theoretical Normal(μ,σ) overlay scaled to histogram counts — classical Business Statistics comparison, not Bayesian inference."
+        }
+
+    def get_outliers_iqr(self, variable: str = 'CO(GT)') -> Dict[str, Any]:
+        s = self._series_for_variable(variable)
+        q1 = float(s.quantile(0.25))
+        q3 = float(s.quantile(0.75))
+        iqr = q3 - q1
+        lower = q1 - 1.5 * iqr
+        upper = q3 + 1.5 * iqr
+        left_mask = s < lower
+        right_mask = s > upper
+        left_vals = s[left_mask].sort_values().head(8).tolist()
+        right_vals = s[right_mask].sort_values(ascending=False).head(8).tolist()
+
+        return {
+            "variable": variable,
+            "n": int(len(s)),
+            "q1": round(q1, 4),
+            "median": round(float(s.median()), 4),
+            "q3": round(q3, 4),
+            "iqr": round(iqr, 4),
+            "lower_fence": round(lower, 4),
+            "upper_fence": round(upper, 4),
+            "left_outlier_count": int(left_mask.sum()),
+            "right_outlier_count": int(right_mask.sum()),
+            "outlier_rate_pct": round(float((left_mask.sum() + right_mask.sum()) / len(s) * 100.0), 2),
+            "sample_left_outliers": [round(float(v), 4) for v in left_vals],
+            "sample_right_outliers": [round(float(v), 4) for v in right_vals],
+            "policy": (
+                "IQR fences flag analytical outliers for discussion. "
+                "For CO, many right/upper outliers are real pollution peaks — we do not mass-delete them. "
+                "Hardware sentinel -200 values were cleaned separately as missing."
+            ),
+        }
+
+    def get_probabilities(self) -> Dict[str, Any]:
+        s = self._series_for_variable('CO(GT)')
+        n = len(s)
+        pct_levels = [10, 25, 50, 75, 90, 95]
+        percentiles = {
+            f"p{p}": round(float(s.quantile(p / 100.0)), 4) for p in pct_levels
+        }
+
+        thresholds = [
+            {"label": "Low tier (CO < 2)", "rule": "lt_2", "probability": round(float((s < 2).mean()), 4), "count": int((s < 2).sum())},
+            {"label": "Moderate tier (2 ≤ CO < 4)", "rule": "gte_2_lt_4", "probability": round(float(((s >= 2) & (s < 4)).mean()), 4), "count": int(((s >= 2) & (s < 4)).sum())},
+            {"label": "High tier (CO ≥ 4)", "rule": "gte_4", "probability": round(float((s >= 4).mean()), 4), "count": int((s >= 4).sum())},
+            {"label": "P(CO ≥ 5)", "rule": "gte_5", "probability": round(float((s >= 5).mean()), 4), "count": int((s >= 5).sum())},
+            {"label": "P(CO ≥ 6)", "rule": "gte_6", "probability": round(float((s >= 6).mean()), 4), "count": int((s >= 6).sum())},
+        ]
+
+        # Simple empirical CDF points for charting
+        xs = np.linspace(float(s.min()), float(s.max()), 40)
+        cdf = [
+            {"x": round(float(x), 4), "cdf": round(float((s <= x).mean()), 4)}
+            for x in xs
+        ]
+
+        return {
+            "variable": "CO(GT)",
+            "n": int(n),
+            "percentiles": percentiles,
+            "thresholds": thresholds,
+            "empirical_cdf": cdf,
+            "note": "Probabilities are empirical frequencies from cleaned hourly CO(GT). Project tiers (<2 / 2–4 / ≥4) are analytical bins, not certified regulatory AQI."
+        }
+
+    def get_methods_summary(self) -> Dict[str, Any]:
+        models = self.metrics.get("models_comparison", {})
+        model_rows = []
+        labels = {
+            "Persistence_Baseline": "Persistence baseline (ŷ = current CO)",
+            "Linear_Regression": "Standardized Linear Regression",
+            "Ridge_Regression": "Ridge Regression (α=10)",
+            "Random_Forest": "Random Forest Regressor",
+            "Tuned_HistGradientBoosting": "Tuned HistGradientBoosting (champion)",
+        }
+        for key, metrics in models.items():
+            model_rows.append({
+                "key": key,
+                "label": labels.get(key, key),
+                "test_rmse": metrics.get("test_rmse"),
+                "test_mae": metrics.get("test_mae"),
+                "test_r2": metrics.get("test_r2"),
+            })
+
+        return {
+            "process_steps": [
+                {"step": 1, "title": "Start", "detail": "Load UCI AirQualityUCI hourly station data (European CSV format)."},
+                {"step": 2, "title": "Clean", "detail": "Replace -200 sentinels with NaN; drop NMHC(GT); time-aware interpolate; build CO_next."},
+                {"step": 3, "title": "Explore", "detail": "Classical EDA: distributions, IQR outliers, diurnal/weekday patterns, correlations."},
+                {"step": 4, "title": "Model", "detail": "Chronological 70/15/15 split; Persistence, Linear, Ridge, RF, HistGradientBoosting."},
+                {"step": 5, "title": "Evaluate", "detail": "TimeSeriesSplit tuning; holdout RMSE/MAE/R²; residual and tier-error review."},
+            ],
+            "cleaning_steps": [
+                "Parse semicolon/comma European CSV; drop blank trailing rows/columns",
+                "Replace hardware sentinel -200 with missing (NaN)",
+                "Drop NMHC(GT) (~90% missing)",
+                "Time-aware linear interpolation for remaining continuous series",
+                "Target CO_next = CO(GT).shift(-1); chronological 70/15/15 split",
+            ],
+            "models": model_rows,
+            "primary_model": self.metrics.get("primary_model", {}),
+            "best_hyperparameters": self.metrics.get("best_hyperparameters", {}),
+            "allowed_distribution_variables": self._DISTRIBUTION_VARS,
+            "classical_note": "This project uses classical Business Statistics and supervised ML. Bayesian regression is intentionally out of scope.",
+        }
+
 # Global singleton
 data_service = DataService()

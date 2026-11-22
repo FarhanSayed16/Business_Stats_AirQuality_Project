@@ -11,6 +11,7 @@
 | [TEAM_PROJECT_BRIEF.md](TEAM_PROJECT_BRIEF.md) | **Start here for teammates** — idea, problem, decisions, what was built, status |
 | [PROJECT_ONE_PAGER.md](PROJECT_ONE_PAGER.md) | Concise one-page share sheet |
 | [SYSTEM_AND_DECISIONS.md](SYSTEM_AND_DECISIONS.md) | Architecture, locked choices, metrics, file map |
+| [BUSINESS_STATS_ENHANCEMENT_PLAN.md](BUSINESS_STATS_ENHANCEMENT_PLAN.md) | Classical Business Stats lab (IQR, normal curve, probabilities) |
 | **This file** — [MASTER_PROJECT_PLAN.md](MASTER_PROJECT_PLAN.md) | Full phased plan, sub-phases, artifacts, exit criteria |
 | [MASTER_EXECUTION_CHECKLIST.md](MASTER_EXECUTION_CHECKLIST.md) | Daily checkbox tracker |
 | [SYSTEM_AUDIT_AND_ENHANCEMENT.md](SYSTEM_AUDIT_AND_ENHANCEMENT.md) | Post-build audit and fix waves |
