@@ -1,5 +1,7 @@
 # Run AirWatch CO locally (quick reference)
 
+**Presentation pack:** [PRESENTATION_TEAM_HANDBOOK.md](PRESENTATION_TEAM_HANDBOOK.md) · [DASHBOARD_WALKTHROUGH.md](DASHBOARD_WALKTHROUGH.md) · [PRESENTATION_SCRIPT_6_MEMBERS.md](PRESENTATION_SCRIPT_6_MEMBERS.md)
+
 Open **two terminals** from the project root:
 
 `d:\Business_Stats_AirQuality_Project`
@@ -76,7 +78,12 @@ npm run build
 
 ---
 
-## Cloud URLs (if deployed)
+## Live system (already deployed — prefer for presentation)
 
-- API (Render): `https://business-stats-airquality-project.onrender.com`  
-- UI (Vercel): `https://business-stats-air-quality-project.vercel.app`  
+| Service | URL |
+|---------|-----|
+| **Dashboard (Vercel)** | https://business-stats-air-quality-project.vercel.app |
+| **API (Render)** | https://business-stats-airquality-project.onrender.com |
+| **Health** | https://business-stats-airquality-project.onrender.com/health |
+
+Local commands above are for development / backup if cloud is unreachable.  

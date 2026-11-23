@@ -6,9 +6,11 @@ Predict **next-hour Carbon Monoxide** (`CO_next`) from the UCI Air Quality datas
 
 | | |
 |--|--|
-| **Dashboard (local)** | http://localhost:5173 |
-| **API (local)** | http://localhost:8000 · docs at `/docs` |
-| **Statistics tab** | http://localhost:5173/statistics (IQR outliers, normal curve, probabilities) |
+| **Live dashboard (Vercel)** | https://business-stats-air-quality-project.vercel.app |
+| **Live API (Render)** | https://business-stats-airquality-project.onrender.com |
+| **Dashboard (local backup)** | http://localhost:5173 |
+| **API (local backup)** | http://localhost:8000 · docs at `/docs` |
+| **Statistics (live)** | https://business-stats-air-quality-project.vercel.app/statistics |
 | **Teammate brief** | [`docs/TEAM_PROJECT_BRIEF.md`](docs/TEAM_PROJECT_BRIEF.md) |
 | **One-pager** | [`docs/PROJECT_ONE_PAGER.md`](docs/PROJECT_ONE_PAGER.md) |
 | **System / decisions** | [`docs/SYSTEM_AND_DECISIONS.md`](docs/SYSTEM_AND_DECISIONS.md) |

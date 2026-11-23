@@ -79,8 +79,7 @@ The optional presentation layer is **AirWatch CO**: a FastAPI API + React dashbo
 
 ### Still for humans (before final submit)
 
-1. Optional: deploy Render + Vercel and paste public URLs into README / Team page.  
-2. Rehearse the 8–10 minute viva once on the local stack.
+1. Rehearse the 8–12 minute viva once on the **live** Vercel dashboard (local as backup).
 
 ---
 
@@ -134,6 +133,16 @@ cd frontend
 npm run dev
 ```
 
+### Live (preferred for class)
+
+| Service | URL |
+|---------|-----|
+| Dashboard | https://business-stats-air-quality-project.vercel.app |
+| API | https://business-stats-airquality-project.onrender.com |
+| Health | https://business-stats-airquality-project.onrender.com/health |
+
+### Local backup
+
 | Service | URL |
 |---------|-----|
 | Dashboard | http://127.0.0.1:5173 |
@@ -170,6 +179,15 @@ Everyone should walk Home → Explore → Insights → Predict → Evaluation �
 
 ## 9. Related docs
 
+### Wednesday presentation pack (start here)
+| Doc | Use when |
+|-----|----------|
+| [PRESENTATION_TEAM_HANDBOOK.md](PRESENTATION_TEAM_HANDBOOK.md) | Full end-to-end knowledge for every teammate |
+| [DASHBOARD_WALKTHROUGH.md](DASHBOARD_WALKTHROUGH.md) | Click each tab and know what to say |
+| [PRESENTATION_SCRIPT_6_MEMBERS.md](PRESENTATION_SCRIPT_6_MEMBERS.md) | Member 1–6 speaking parts (fill names) |
+| [RUN_LOCALLY.md](RUN_LOCALLY.md) | Backend + frontend commands |
+
+### Other reference
 | Doc | Use when |
 |-----|----------|
 | [PROJECT_ONE_PAGER.md](PROJECT_ONE_PAGER.md) | Fast share / WhatsApp / slide backup |

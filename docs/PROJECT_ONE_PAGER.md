@@ -33,10 +33,19 @@ Roadside CO spikes with traffic and weather. We need a **1-hour-ahead** statisti
 Replace **`-200`** with missing — it is a sentinel, not a real concentration.
 
 ### Dashboard pages
-Home · Explore · Insights · Predict Lab · Evaluation · Team
+Home · Explore · Statistics · Insights · Predict · Evaluation · Team
 
-### Run locally
-`start_project.bat` **or** API `:8000` + `frontend` `:5173`
+### Live system (deployed)
+- **UI:** https://business-stats-air-quality-project.vercel.app  
+- **API:** https://business-stats-airquality-project.onrender.com  
+
+### Wednesday prep
+1. [PRESENTATION_TEAM_HANDBOOK.md](PRESENTATION_TEAM_HANDBOOK.md)  
+2. [DASHBOARD_WALKTHROUGH.md](DASHBOARD_WALKTHROUGH.md)  
+3. [PRESENTATION_SCRIPT_6_MEMBERS.md](PRESENTATION_SCRIPT_6_MEMBERS.md)  
+
+### Local backup
+See [RUN_LOCALLY.md](RUN_LOCALLY.md) · or `start_project.bat` · API `:8000` + UI `:5173`
 
 ### Group 3
 Farhan Sayed · Salman Khan · Sahil Tambe · Shruti Pawar · Aayesha Kaliwala · Kashish Maurya

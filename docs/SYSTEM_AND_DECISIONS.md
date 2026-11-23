@@ -27,8 +27,12 @@ Python notebooks 01 → 04
         React dashboard (frontend/)  ←── typed client → API
 ```
 
-**Local ports:** API `8000` · Vite UI `5173`  
-**Optional cloud:** API on Render · UI on Vercel (`VITE_API_URL` + `ALLOWED_ORIGINS`)
+**Live (deployed):**  
+- UI: https://business-stats-air-quality-project.vercel.app  
+- API: https://business-stats-airquality-project.onrender.com  
+
+**Local ports (backup):** API `8000` · Vite UI `5173`  
+**Cloud wiring:** `VITE_API_URL` (Vercel) + `ALLOWED_ORIGINS` (Render)
 
 ---
 
@@ -150,7 +154,7 @@ Env for cloud: `VITE_API_URL=<Render base URL>` (build-time).
 5. Set Render `ALLOWED_ORIGINS` to the Vercel origin(s).  
 6. Paste both URLs into README and Team page.
 
-Until then, **localhost is the official demo path**.
+**Official demo path for presentation:** live Vercel + Render URLs above. Localhost remains the development / backup path.
 
 ---
 

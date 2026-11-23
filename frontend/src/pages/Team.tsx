@@ -118,10 +118,23 @@ export const Team: React.FC = () => {
         <p className="text-xs text-slate-600 mt-3 max-w-3xl glass-inner rounded-xl px-3 py-2">
           Official <strong>Group 3</strong> roster (6 members) with roles aligned to the AirWatch CO academic core and dashboard.
         </p>
-        <div className="mt-3 text-xs text-slate-600 glass-inner rounded-xl px-3 py-2 max-w-2xl">
-          <strong className="text-slate-800">Demo URLs:</strong> Local dashboard <code className="font-mono text-sky-700">http://localhost:5173</code>
-          {' '}· API <code className="font-mono text-sky-700">http://localhost:8000</code>
-          {' '}· Cloud deploy configs ready in <code className="font-mono">render.yaml</code> / <code className="font-mono">frontend/vercel.json</code> (awaiting host credentials).
+        <div className="mt-3 text-xs text-slate-600 glass-inner rounded-xl px-3 py-2 max-w-3xl space-y-1">
+          <div>
+            <strong className="text-slate-800">Live demo:</strong>{' '}
+            Dashboard{' '}
+            <a className="font-mono text-sky-700 underline" href="https://business-stats-air-quality-project.vercel.app" target="_blank" rel="noreferrer">
+              business-stats-air-quality-project.vercel.app
+            </a>
+            {' '}· API{' '}
+            <a className="font-mono text-sky-700 underline" href="https://business-stats-airquality-project.onrender.com/health" target="_blank" rel="noreferrer">
+              business-stats-airquality-project.onrender.com
+            </a>
+          </div>
+          <div>
+            <strong className="text-slate-800">Local backup:</strong>{' '}
+            <code className="font-mono text-sky-700">http://localhost:5173</code>
+            {' '}· <code className="font-mono text-sky-700">http://localhost:8000</code>
+          </div>
         </div>
       </div>
 
