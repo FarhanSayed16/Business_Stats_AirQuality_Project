@@ -9,6 +9,8 @@
 
 ## 1. Executive Summary & Problem Formulation
 
+> **Standalone submission document:** For a complete executive summary prepared for formal hand-in, see [`AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.md`](AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.md) / [`AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.html`](AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.html).
+
 Airborne pollutants in dense metropolitan street canyons represent a critical determinant of respiratory and cardiovascular morbidity. Among primary combustion byproducts, Carbon Monoxide ($CO$) is a toxic, colorless gas primarily emitted by incomplete combustion in motor vehicle engines. Because urban traffic follows diurnal rhythms dictated by human mobility, ground-level $CO$ exhibits sharp temporal variations that challenge stationary air-quality management networks.
 
 This study implements an end-to-end statistical analysis and predictive forecasting pipeline for Carbon Monoxide concentrations using the official UCI **Air Quality** dataset, comprising 9,358 valid hourly observations recorded from March 2004 through April 2005 at road level within an Italian city. 

@@ -1,0 +1,63 @@
+@startuml AirWatch_CO_Models_Metrics
+!theme plain
+skinparam backgroundColor #F8FBFE
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundCorner 16
+skinparam ArrowColor #0369A1
+skinparam ArrowThickness 1.4
+skinparam nodesep 40
+skinparam ranksep 35
+
+skinparam card {
+  BackgroundColor #E0F2FE
+  BorderColor #0284C7
+  FontColor #0F172A
+  RoundCorner 14
+}
+
+skinparam package {
+  BackgroundColor #FFFFFF
+  BorderColor #CBD5E1
+  FontColor #0F172A
+  FontStyle bold
+  RoundCorner 18
+}
+
+title <b>AirWatch CO — Models & Evaluation Metrics</b>\nMultiple ML models · RMSE / MAE / R² · champion selection
+
+package "Candidate models" as MODELS {
+  card "**1. Persistence Baseline**\nŷ = current CO\nStrong naive benchmark" as M1 #F1F5F9
+  card "**2. Linear Regression**\nInterpretable linear fit" as M2 #E0F2FE
+  card "**3. Ridge Regression**\nL2 regularized linear" as M3 #E0F2FE
+  card "**4. Random Forest**\nNon-linear tree ensemble" as M4 #BAE6FD
+  card "**5. Tuned HistGradientBoosting**\nTimeSeriesSplit-tuned champion" as M5 #0284C7;text:white
+}
+
+package "Holdout metrics" as METRICS #F8FAFC {
+  card "**RMSE**  ↓ better\nRoot Mean Squared Error" as E1 #FEE2E2
+  card "**MAE**  ↓ better\nMean Absolute Error" as E2 #FFEDD5
+  card "**R²**  ↑ better\nGoodness of fit" as E3 #DCFCE7
+}
+
+card "**Champion result (holdout test)**\nRMSE **0.5378** · MAE **0.3608** · R² **0.8337**\n≈ **30.5%** RMSE gain vs persistence" as WIN #0F172A;text:white
+
+M1 -down-> E1
+M2 -down-> E1
+M3 -down-> E2
+M4 -down-> E2
+M5 -down-> E3
+E1 -down-> WIN
+E2 -down-> WIN
+E3 -down-> WIN
+
+legend bottom
+  |= Color |= Meaning |
+  | Grey/light blue | Candidate models |
+  | <back:#0284C7> </back> Dark sky | Tuned HGB (best) |
+  | Red / amber / green cards | Metric direction |
+  | Dark result card | Final selected model |
+endlegend
+
+@enduml

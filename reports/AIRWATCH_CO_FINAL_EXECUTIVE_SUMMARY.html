@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AirWatch CO — Final Executive Summary | Group 3</title>
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+      color: #1e293b;
+      background: #f8fafc;
+      margin: 0;
+      padding: 32px 16px;
+    }
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 48px 44px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+    }
+    h1 { font-size: 1.75rem; margin: 0 0 0.25rem; color: #0f172a; }
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 1.75rem;
+      color: #0f172a;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.35rem;
+    }
+    h3 { font-size: 1.05rem; margin-top: 1.25rem; color: #1e293b; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+    th, td { border: 1px solid #cbd5e1; padding: 0.45rem 0.6rem; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; }
+    code {
+      font-family: Consolas, monospace;
+      font-size: 0.88em;
+      background: #f1f5f9;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+    }
+    a { color: #0369a1; }
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      border-left: 3px solid #0284c7;
+      background: #f0f9ff;
+      color: #0f172a;
+    }
+    hr { border: none; border-top: 1px solid #e2e8f0; margin: 1.5rem 0; }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .wrap { box-shadow: none; border: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+<h1>AirWatch CO</h1>
+<h2>Final Executive Summary</h2>
+<p><strong>MCA I Statistics Internal Assessment</strong><br />
+<strong>Group 3 — Air Quality and Pollution</strong><br />
+<strong>Project title:</strong> AirWatch CO — Predictive Modelling and Statistical Analysis of Urban Carbon Monoxide Concentrations  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Group members</strong></td>
+<td>Farhan Sayed · Salman Khan · Sahil Tambe · Shruti Pawar · Aayesha Kaliwala · Kashish Maurya</td>
+</tr>
+<tr>
+<td><strong>Dataset</strong></td>
+<td>UCI Machine Learning Repository — Air Quality Data Set (CNR-ISAC, Italy)</td>
+</tr>
+<tr>
+<td><strong>Interactive demonstration</strong></td>
+<td>https://business-stats-air-quality-project.vercel.app</td>
+</tr>
+<tr>
+<td><strong>Prediction API</strong></td>
+<td>https://business-stats-airquality-project.onrender.com</td>
+</tr>
+<tr>
+<td><strong>Full technical report</strong></td>
+<td><code>reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.md</code> / <code>.html</code> / <code>.pdf</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>1. Purpose of the project</h2>
+<p>Urban roadside Carbon Monoxide ((CO)) is a toxic combustion pollutant that varies sharply with traffic and meteorology. Municipal monitoring systems record concentrations hourly, but short-horizon foresight can support traffic management and public-health advisories.</p>
+<p><strong>AirWatch CO</strong> delivers an end-to-end academic statistics project that:</p>
+<ol>
+<li>Cleans and documents the official UCI Air Quality hourly dataset.  </li>
+<li>Explores pollution patterns with classical Business Statistics and exploratory data analysis.  </li>
+<li>Builds and fairly compares predictive models for <strong>next-hour</strong> reference (CO).  </li>
+<li>Reports usefulness and limitations honestly.  </li>
+<li>Demonstrates the complete pipeline through a live FastAPI + React dashboard.</li>
+</ol>
+<p>The official academic analysis is implemented in <strong>Python</strong>. The web dashboard is a presentation layer for demonstration and viva; it does not replace the notebook-based statistical core.</p>
+<hr />
+<h2>2. Research question and prediction target</h2>
+<p><strong>Research question</strong><br />
+<em>Using only weather readings, metal-oxide sensor responses, and pollutant concentrations available up to the current hour, can next-hour true Carbon Monoxide (\mathrm{CO(GT)}) be predicted without temporal data leakage?</em></p>
+<p><strong>Target variable</strong></p>
+<p>[
+\mathrm{CO_next}<em>t = \mathrm{CO(GT)}</em>{t+1}
+]</p>
+<p>Only information known at time (t) (and earlier) enters the feature set. Future values are excluded by design.</p>
+<hr />
+<h2>3. Dataset</h2>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>UCI Air Quality Data Set</td>
+</tr>
+<tr>
+<td>Setting</td>
+<td>Road-level station in an Italian urban area</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>Hourly</td>
+</tr>
+<tr>
+<td>Calendar span</td>
+<td>Approximately March 2004 – April 2005</td>
+</tr>
+<tr>
+<td>Modelling sample after cleaning</td>
+<td><strong>9,353</strong> hourly records</td>
+</tr>
+<tr>
+<td>Predictors (examples)</td>
+<td>Current (\mathrm{CO(GT)}), other pollutants, PT08 sensor responses, temperature ((T)), relative humidity ((RH)), absolute humidity ((AH)), calendar and lag features</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Methodology (how the work was done)</h2>
+<h3>4.1 Data cleaning</h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardware invalid codes stored as <strong>−200</strong></td>
+<td>Replaced with missing values (NaN); never treated as real concentrations</td>
+</tr>
+<tr>
+<td><code>NMHC(GT)</code> ≈ 90% missing</td>
+<td>Column dropped (imputation would fabricate most of the series)</td>
+</tr>
+<tr>
+<td>Short gaps in continuous sensors / weather</td>
+<td>Time-aware linear interpolation</td>
+</tr>
+<tr>
+<td>Modelling target</td>
+<td>Constructed as next-hour (\mathrm{CO(GT)})</td>
+</tr>
+</tbody>
+</table>
+<h3>4.2 Validation design (anti-leakage)</h3>
+<p>Air-quality series are strongly autocorrelated. Therefore the project uses:</p>
+<ul>
+<li>Chronological partition: <strong>70% training / 15% validation / 15% holdout test</strong>  </li>
+<li>Hyperparameter search with <strong><code>TimeSeriesSplit</code></strong></li>
+</ul>
+<p>Random (K)-fold cross-validation was rejected because it mixes future observations into training and produces inflated, invalid performance estimates.</p>
+<h3>4.3 Classical Business Statistics and EDA</h3>
+<p>In addition to modelling, the project documents:</p>
+<ul>
+<li>Summary moments (mean, dispersion, skewness)  </li>
+<li><strong>IQR outlier fences</strong> (lower = (Q_1 - 1.5\times\mathrm{IQR}); upper = (Q_3 + 1.5\times\mathrm{IQR})); left/lower versus right/upper outliers, with the policy that extreme (CO) peaks are often genuine events and are flagged rather than mass-deleted  </li>
+<li>Histogram comparison against a Normal((\mu,\sigma)) reference curve  </li>
+<li>Empirical probabilities / percentiles for analytical concentration tiers  </li>
+<li>Diurnal (rush-hour) and weekly (Sunday lull) patterns  </li>
+<li>Weather coupling and multi-pollutant / sensor correlations  </li>
+</ul>
+<h3>4.4 Predictive models compared</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Role in the study</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Persistence baseline</td>
+<td>(\hat{y}_{t+1} = \mathrm{CO(GT)}_t) — strong naive reference</td>
+</tr>
+<tr>
+<td>Linear Regression</td>
+<td>Interpretable linear benchmark</td>
+</tr>
+<tr>
+<td>Ridge Regression</td>
+<td>L2-regularised linear benchmark</td>
+</tr>
+<tr>
+<td>Random Forest</td>
+<td>Non-linear tree ensemble</td>
+</tr>
+<tr>
+<td><strong>Tuned HistGradientBoosting</strong></td>
+<td>Sequentially boosted trees; <strong>selected champion</strong> after time-series tuning</td>
+</tr>
+</tbody>
+</table>
+<h3>4.5 Performance metrics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RMSE</td>
+<td>Root Mean Squared Error — lower is better</td>
+</tr>
+<tr>
+<td>MAE</td>
+<td>Mean Absolute Error — lower is better</td>
+</tr>
+<tr>
+<td>R²</td>
+<td>Coefficient of determination — higher is better</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5. Principal results</h2>
+<h3>5.1 Holdout test performance</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th style="text-align: right;">Test RMSE (mg/m³)</th>
+<th style="text-align: right;">Test MAE (mg/m³)</th>
+<th style="text-align: right;">Test R²</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Persistence baseline</td>
+<td style="text-align: right;">0.7739</td>
+<td style="text-align: right;">0.4996</td>
+<td style="text-align: right;">0.6556</td>
+</tr>
+<tr>
+<td>Linear Regression</td>
+<td style="text-align: right;">0.7556</td>
+<td style="text-align: right;">0.6035</td>
+<td style="text-align: right;">0.6717</td>
+</tr>
+<tr>
+<td>Ridge Regression</td>
+<td style="text-align: right;">0.7641</td>
+<td style="text-align: right;">0.6156</td>
+<td style="text-align: right;">0.6642</td>
+</tr>
+<tr>
+<td>Random Forest</td>
+<td style="text-align: right;">0.5842</td>
+<td style="text-align: right;">0.4032</td>
+<td style="text-align: right;">0.8037</td>
+</tr>
+<tr>
+<td><strong>Tuned HistGradientBoosting</strong></td>
+<td style="text-align: right;"><strong>0.5378</strong></td>
+<td style="text-align: right;"><strong>0.3608</strong></td>
+<td style="text-align: right;"><strong>0.8337</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The champion model reduces RMSE by approximately <strong>30.5%</strong> relative to the persistence baseline on the chronological holdout set.</p>
+<h3>5.2 Why the selected model outperforms the others (summary)</h3>
+<ul>
+<li><strong>Persistence</strong> is competitive because (CO) is sticky hour-to-hour, but it ignores weather, sensors, and calendar structure.  </li>
+<li><strong>Linear / Ridge</strong> models are transparent but cannot capture strong non-linear rush-hour and interaction effects.  </li>
+<li><strong>Random Forest</strong> improves markedly by allowing non-linear splits, yet sequential gradient boosting with time-aware tuning achieved still lower holdout error.  </li>
+<li><strong>Tuned HistGradientBoosting</strong> therefore provides the best balance of accuracy and validated generalisation under leakage-safe evaluation.</li>
+</ul>
+<h3>5.3 Empirical atmospheric patterns</h3>
+<ul>
+<li><strong>Bimodal diurnal profile:</strong> elevated concentrations around morning and evening commute periods.  </li>
+<li><strong>Weekly structure:</strong> lower activity on Sunday relative to weekdays, consistent with traffic-driven emissions.  </li>
+<li><strong>Co-emission / sensor links:</strong> (CO) associates strongly with related pollutants and key solid-state sensors used as predictors.</li>
+</ul>
+<h3>5.4 Error behaviour</h3>
+<p>Predictive accuracy is strongest in low-to-moderate concentration regimes. Error increases during rare high-pollution spikes, which is expected for tree-based regressors that do not extrapolate far beyond patterns observed in training.</p>
+<hr />
+<h2>6. Deliverables submitted with the project</h2>
+<table>
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python notebooks (<code>01</code>–<code>04</code>)</td>
+<td>Preprocessing, EDA, modelling, tuning and evaluation</td>
+</tr>
+<tr>
+<td>Cleaned dataset</td>
+<td><code>data/cleaned/cleaned_air_quality.csv</code></td>
+</tr>
+<tr>
+<td>Model artefacts</td>
+<td><code>model.joblib</code>, <code>metrics.json</code>, feature schema</td>
+</tr>
+<tr>
+<td>Formal statistics report</td>
+<td>Full written report (Markdown / HTML / PDF)</td>
+</tr>
+<tr>
+<td>Interactive dashboard</td>
+<td>Live demonstration of exploration, classical statistics, insights, prediction, and evaluation</td>
+</tr>
+<tr>
+<td>API service</td>
+<td>Health, statistics, data, and prediction endpoints</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Live demonstration URLs</strong></p>
+<ul>
+<li>Dashboard: https://business-stats-air-quality-project.vercel.app  </li>
+<li>API health: https://business-stats-airquality-project.onrender.com/health  </li>
+</ul>
+<hr />
+<h2>7. Operational usefulness</h2>
+<p>A reliable one-hour-ahead (CO) estimate can support:</p>
+<ol>
+<li>Short-notice traffic signal or routing adjustments before peak accumulation.  </li>
+<li>Precautionary guidance for sensitive populations near busy corridors.  </li>
+<li>Cross-checks between low-cost sensors and expected pollution dynamics.</li>
+</ol>
+<p>These uses are presented as analytical decision-support concepts grounded in the study’s forecast horizon and error profile.</p>
+<hr />
+<h2>8. Limitations</h2>
+<ol>
+<li><strong>Extreme peaks</strong> are under-predicted relative to calmer periods.  </li>
+<li>The model is calibrated to <strong>one Italian roadside station</strong> and should not be transferred to another city without local recalibration.  </li>
+<li>The forecast horizon is <strong>one hour ahead</strong>, not multi-hour or day-ahead.  </li>
+<li>Direct traffic counts and wind direction are <strong>not</strong> available in the feature set.</li>
+</ol>
+<hr />
+<h2>9. Group contributions</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Primary responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Farhan Sayed</td>
+<td>System architecture, data engineering, API and dashboard integration</td>
+</tr>
+<tr>
+<td>Salman Khan</td>
+<td>Predictive modelling path and prediction demonstration alignment</td>
+</tr>
+<tr>
+<td>Sahil Tambe</td>
+<td>Statistical analysis and exploratory data analysis</td>
+</tr>
+<tr>
+<td>Shruti Pawar</td>
+<td>Insights visualisation and figure/dashboard consistency</td>
+</tr>
+<tr>
+<td>Aayesha Kaliwala</td>
+<td>Validation protocol, holdout metrics, and evaluation narrative</td>
+</tr>
+<tr>
+<td>Kashish Maurya</td>
+<td>Documentation, report assembly, and presentation materials</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>10. Conclusion</h2>
+<p>AirWatch CO shows that careful cleaning of sentinel-coded telemetry, time-aware validation, classical statistical exploration, and a tuned non-linear ensemble can forecast next-hour urban Carbon Monoxide with strong holdout performance (<strong>Test R² = 0.8337</strong>, <strong>Test RMSE = 0.5378 mg/m³</strong>) while remaining transparent about failure modes. The accompanying notebooks, cleaned data, formal report, and live dashboard constitute a complete submission package for the MCA I Statistics Internal Assessment.</p>
+<hr />
+<p><strong>Recommended accompanying files for submission</strong></p>
+<ol>
+<li>This executive summary — <code>reports/AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.pdf</code> (preferred for hand-in; also <code>.md</code> / <code>.html</code>)  </li>
+<li>Full report — <code>reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.pdf</code> / <code>.html</code>  </li>
+<li>Cleaned dataset — <code>data/cleaned/cleaned_air_quality.csv</code>  </li>
+<li>Live dashboard URL (above)  </li>
+</ol>
+<p><em>Submitted by Group 3 — AirWatch CO</em></p>
+  </div>
+</body>
+</html>
