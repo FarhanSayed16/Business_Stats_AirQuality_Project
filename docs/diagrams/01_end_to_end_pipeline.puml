@@ -1,0 +1,44 @@
+@startuml AirWatch_CO_End_To_End_Pipeline
+!theme plain
+skinparam backgroundColor #F8FBFE
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam roundCorner 18
+skinparam ArrowColor #0369A1
+skinparam ArrowThickness 1.5
+skinparam Padding 6
+
+skinparam activity {
+  BackgroundColor #E0F2FE
+  BorderColor #0284C7
+  FontColor #0F172A
+  DiamondBackgroundColor #FEF3C7
+  DiamondBorderColor #D97706
+  StartColor #0284C7
+  EndColor #0F172A
+  BarColor #0369A1
+}
+
+title <b>AirWatch CO — End-to-End Project Pipeline</b>\nUCI hourly air quality → next-hour CO prediction → live dashboard
+
+start
+:<<data>> **UCI Air Quality Dataset**\nItalian roadside station · Mar 2004–Apr 2005\nHourly weather + sensors + pollutants;
+:<<process>> **Preprocessing**\nParse European CSV · replace **-200 → NaN**\nDrop NMHC(GT) · time-aware impute · build **CO_next**;
+:<<explore>> **EDA & Business Statistics**\nDiurnal / weekly patterns · IQR outliers\nHistogram + normal overlay · probabilities;
+:<<model>> **Chronological modelling**\n70% / 15% / 15% time split\nBaseline · Linear · Ridge · RF · Tuned HGB;
+:<<eval>> **Holdout evaluation**\nRMSE ↓ · MAE ↓ · R² ↑\nChampion: **Tuned HistGradientBoosting**;
+:<<serve>> **Artifacts + API + Dashboard**\nmodel.joblib · metrics.json\nFastAPI (Render) · React UI (Vercel);
+stop
+
+legend right
+  |= Stage |= Meaning |
+  | Data | Raw UCI telemetry |
+  | Process | Cleaning & target |
+  | Explore | Patterns & stats |
+  | Model | Time-aware ML |
+  | Eval | Honest holdout |
+  | Serve | Live demo system |
+endlegend
+
+@enduml

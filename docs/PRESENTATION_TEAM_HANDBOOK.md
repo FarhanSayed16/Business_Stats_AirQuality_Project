@@ -15,6 +15,8 @@
 | Run commands | [`RUN_LOCALLY.md`](RUN_LOCALLY.md) |
 | Dashboard guide | [`DASHBOARD_WALKTHROUGH.md`](DASHBOARD_WALKTHROUGH.md) |
 | Speaking script | [`PRESENTATION_SCRIPT_6_MEMBERS.md`](PRESENTATION_SCRIPT_6_MEMBERS.md) |
+| Personal notes + diagrams | [`AIRWATCH_PERSONAL_NOTES.md`](AIRWATCH_PERSONAL_NOTES.md) · [`diagrams/`](diagrams/) |
+| **Final executive summary (submit)** | [`../reports/AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.pdf`](../reports/AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.pdf) |
 
 **Wednesday primary demo:** use the **live Vercel dashboard** (API is already live on Render). Keep local stack as backup if the network fails. First Render hit after idle can take ~30–60 seconds (free-tier wake-up).
 

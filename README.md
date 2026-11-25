@@ -15,6 +15,8 @@ Predict **next-hour Carbon Monoxide** (`CO_next`) from the UCI Air Quality datas
 | **One-pager** | [`docs/PROJECT_ONE_PAGER.md`](docs/PROJECT_ONE_PAGER.md) |
 | **System / decisions** | [`docs/SYSTEM_AND_DECISIONS.md`](docs/SYSTEM_AND_DECISIONS.md) |
 | **Biz stats plan** | [`docs/BUSINESS_STATS_ENHANCEMENT_PLAN.md`](docs/BUSINESS_STATS_ENHANCEMENT_PLAN.md) |
+| **Final executive summary (submit)** | [`reports/AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.pdf`](reports/AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.pdf) · [`.html`](reports/AIRWATCH_CO_FINAL_EXECUTIVE_SUMMARY.html) |
+| **Full statistics report** | [`reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.pdf`](reports/AIRWATCH_CO_FINAL_STATISTICS_REPORT.pdf) |
 
 ---
 

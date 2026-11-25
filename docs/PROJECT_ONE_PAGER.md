@@ -43,6 +43,7 @@ Home · Explore · Statistics · Insights · Predict · Evaluation · Team
 1. [PRESENTATION_TEAM_HANDBOOK.md](PRESENTATION_TEAM_HANDBOOK.md)  
 2. [DASHBOARD_WALKTHROUGH.md](DASHBOARD_WALKTHROUGH.md)  
 3. [PRESENTATION_SCRIPT_6_MEMBERS.md](PRESENTATION_SCRIPT_6_MEMBERS.md)  
+4. [AIRWATCH_PERSONAL_NOTES.md](AIRWATCH_PERSONAL_NOTES.md) + [diagrams/](diagrams/)  
 
 ### Local backup
 See [RUN_LOCALLY.md](RUN_LOCALLY.md) · or `start_project.bat` · API `:8000` + UI `:5173`

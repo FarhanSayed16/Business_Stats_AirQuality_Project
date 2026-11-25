@@ -1,0 +1,76 @@
+@startuml AirWatch_CO_Cleaning_Validation
+!theme plain
+skinparam backgroundColor #F8FBFE
+skinparam defaultFontName Segoe UI
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundCorner 16
+skinparam ArrowColor #0369A1
+skinparam ArrowThickness 1.4
+
+skinparam package {
+  BackgroundColor #FFFFFF
+  BorderColor #94A3B8
+  FontColor #0F172A
+  FontStyle bold
+}
+
+skinparam rectangle {
+  BackgroundColor #E0F2FE
+  BorderColor #0284C7
+  FontColor #0F172A
+  RoundCorner 14
+}
+
+skinparam note {
+  BackgroundColor #FEF9C3
+  BorderColor #CA8A04
+  FontColor #422006
+}
+
+title <b>AirWatch CO — Cleaning & Anti-Leakage Validation</b>\nWhy -200 matters · why time-series split beats random K-fold
+
+package "Raw input" as RAW #F1F5F9 {
+  rectangle "**UCI CSV**\n; separator · , decimals\nHourly CO(GT), sensors, T/RH/AH" as RAW1
+}
+
+package "Cleaning decisions" as CLEAN #ECFEFF {
+  rectangle "**Sentinel -200**\nInvalid / missing hardware codes\n→ replace with **NaN**\n(do NOT treat as concentration)" as C1 #FEE2E2
+  rectangle "**NMHC(GT)**\n~90% missing\n→ **DROP** column" as C2 #FFEDD5
+  rectangle "**Imputation**\nTime-aware linear fill\nfor short continuous gaps" as C3 #DCFCE7
+  rectangle "**Target**\nCO_next = CO(GT).shift(-1)\nOnly past/current features in X" as C4 #DBEAFE
+}
+
+package "Validation (correct)" as OK #F0FDF4 {
+  rectangle "**Chronological split**\nTrain 70% → Val 15% → Test 15%\nTime order preserved" as V1 #BBF7D0
+  rectangle "**TimeSeriesSplit tuning**\nHyperparameters without\npeeking into the future" as V2 #86EFAC
+}
+
+package "Validation (avoid)" as BAD #FEF2F2 {
+  rectangle "**Random K-fold**\nMixes future into training\n→ **temporal leakage**\n→ inflated fake scores" as VBAD #FECACA
+}
+
+RAW1 -down-> C1
+C1 -down-> C2
+C2 -down-> C3
+C3 -down-> C4
+C4 -down-> V1
+V1 -down-> V2
+
+C4 -[hidden]right-> VBAD
+V1 ..[#BE123C,dashed]> VBAD : <color:#BE123C><b>Do not use</b></color>
+
+note right of C1
+  -200 denotes invalid /
+  missing telemetry.
+  Replaced with NaN before
+  any modelling.
+end note
+
+note right of V1
+  Chronological validation
+  prevents temporal leakage
+  from random K-fold.
+end note
+
+@enduml
